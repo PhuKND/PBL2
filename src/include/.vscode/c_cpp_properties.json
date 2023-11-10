@@ -1,0 +1,19 @@
+{
+  "configurations": [
+      {
+          "name": "Win32",
+          "includePath": [
+              "${workspaceFolder}/**",
+              "C:/Users/nguye/Downloads/Ky3/PBL2/src"
+              ,
+              "C:/Users/nguye/Downloads/Ky3/PBL2/src/include"  // Thêm đường dẫn đến thư mục chứa Employee.h
+          ],
+          "defines": [],
+          "compilerPath": "C:/MinGW/bin/gcc.exe",
+          "cStandard": "c11",
+          "cppStandard": "c++17",
+          "intelliSenseMode": "msvc-x64"
+      }
+  ],
+  "version": 4
+}
