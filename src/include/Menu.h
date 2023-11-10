@@ -20,8 +20,14 @@ public:
     void displayEmployeeMenu(int) ; 
     void displayCustomerMenu(int) ; 
     void displayManagerMenu()  ;
+<<<<<<< HEAD
     
     void run();
+=======
+
+    void run();
+
+>>>>>>> 99553626ac571b2a976231684da071bd145fbc5f
     // void customerFunction1() ; 
     // void customerFunction2() ;
     
