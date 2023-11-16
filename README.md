@@ -1,4 +1,4 @@
 ﻿# PBL2
-Update 9h39p 10/11/2023
-Cách chạy : g++ -I include -g Person.cpp Employee.cpp Customer.cpp   test.cpp  -o test.exe
+Update 16/11/2023
+Cách chạy : g++ -I include -g Person.cpp Product.cpp  Employee.cpp Customer.cpp ElectricalProduct.cpp Food.cpp Houseware.cpp test.cpp  -o test.exe
 .\test.exe
