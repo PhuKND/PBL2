@@ -1,12 +1,17 @@
+#ifndef FOOD_H
+#define FOOD_H
+
 #include "Product.h"
-#include<iostream>
-enum class FoodType {
+
+enum class FoodType
+{
     Fresh,
     Canned,
     Packaged,
 };
 
-class Food : public Product {
+class Food : public Product
+{
 private:
     FoodType foodType;
     double calories;
@@ -19,7 +24,7 @@ private:
 
 public:
     Food();
-    Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char* LoaiSanPham, char* TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char* NhaSanXuat, char* NgaySanXuat);
+    Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char *LoaiSanPham, char *TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, char *NgaySanXuat);
     ~Food();
 
     FoodType GetFoodType() const;
@@ -47,11 +52,13 @@ public:
     void SetIsExpired(bool expired);
 
     void Display();
-    void Display_01(std::ostream &cout);
+    void Display_01(std::ostream &);
 
-    friend std::ostream& operator<<(std::ostream& , const Food&) ; 
-    friend std::istream& operator>>(std::istream& , Food&) ; 
+    friend std::ostream &operator<<(std::ostream &, const Food &);
+    friend std::istream &operator>>(std::istream &, Food &);
 
     void WriteDataToFile(std::ostream &file) const;
     void ReadDataFromFile(std::istream &file);
 };
+
+#endif

@@ -1,16 +1,21 @@
-#pragma once
+#ifndef HOUSEWARE_H
+#define HOUSEWARE_H
 #include "Product.h"
-
-class Houseware : public Product {
+class Houseware : public Product
+{
 private:
-    std::string material;
+    char *material;
 
 public:
     Houseware();
-    Houseware(const std::string& name, int id, double price, int stock, const std::string& manufacturer, const std::string& description, const std::string& material);
+    Houseware(int, int, char *, int, int, int, char *, char *, char *);
     ~Houseware();
 
-    std::string GetMaterial() const;
-    void SetMaterial(const std::string& material);
+    char *GetMaterial() const;
+    void SetMaterial(char *&material);
     void Display();
+    void Display_01(std::ostream &);
+    void WriteDataToFile(std::ostream &) const;
+    void ReadDataFromFile(std::istream &);
 };
+#endif

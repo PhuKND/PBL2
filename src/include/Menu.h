@@ -1,3 +1,4 @@
+#pragma once
 #include"Customer.h"
 #include"Employee.h"
 #include"DataManager.h"
@@ -5,6 +6,9 @@ class Menu {
 private:
     DataManager<Customer> customerManager ; 
     DataManager<Employee> employeeManager ;
+    DataManager<Food> foodManager ; 
+    DataManager<ElectricalProduct> electricalproductManager ;
+    DataManager<Houseware> housewareManager ;
     const char* key = "admin" ; 
     int customerChoiceCount;
     int managerChoiceCount;
@@ -18,16 +22,12 @@ public:
     // void addEmployeeMenuItem(const char* description);
 
     void displayEmployeeMenu(int) ; 
-    void displayCustomerMenu(int) ; 
+    void displayCustomerMenu(int,Order&) ; 
     void displayManagerMenu()  ;
-<<<<<<< HEAD
     
-    void run();
-=======
 
     void run();
 
->>>>>>> 99553626ac571b2a976231684da071bd145fbc5f
     // void customerFunction1() ; 
     // void customerFunction2() ;
     

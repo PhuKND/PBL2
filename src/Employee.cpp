@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include<limits>
+
 Employee::Employee() : Person(), employeeID(0), position(const_cast<char*>("")), salary(0), startDay(const_cast<char*>("")), endDay(const_cast<char*>("")), isWorking(true)
 {
 
@@ -95,7 +97,7 @@ void Employee::Display()
     std::cout << "Is working : " << (IsWorking() ? "Yes" : "No") << std::endl;
 }
 // Hàm show theo lists
-void Employee::Display_01(ostream& cout){
+void Employee::Display_01(ostream& out){
        cout << std::left << std::setw(15) << GetEmployeeID() << " | ";
     cout << std::left << std::setw(20) << GetFullName() << " | ";
     cout << std::left << std::setw(4) << GetAge() << " | ";
@@ -150,7 +152,7 @@ void Employee::GetInformation() {
 void Employee::WriteDataToFile(std::ostream &file) const
 {
     file << GetEmployeeID() <<"," 
-    << GetFullName()<<","<<GetAge()<<
+    << GetFullName()<<"," <<GetGender()<< "," <<GetAge()<<
     ","<<GetDayOfBirth()<<","<< GetAddress() << "," <<
     GetPhoneNumber() <<"," << GetEmail() <<","<<GetPosition()<<","
     <<GetSalary()<<","<<GetStartDay()<<","<<GetEndDay()<<
@@ -171,4 +173,5 @@ void Employee::ReadDataFromFile(std::istream &file) {
         Menu::readAttributeTillDelimiter(startDay, file);
         Menu::readAttributeTillDelimiter(endDay, file);
         file >> isWorking  ; 
+        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }

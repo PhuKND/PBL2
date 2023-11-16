@@ -1,8 +1,8 @@
 #include <iostream>
-#include <iomanip>
+#include<limits>
 #include "include/Food.h"
-
-Food::Food() {
+Food::Food()
+{
     foodType = FoodType::Fresh;
     calories = 0.0;
     protein = 0.0;
@@ -13,10 +13,10 @@ Food::Food() {
     isExpired = false;
 }
 
-Food::Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char* LoaiSanPham, char* TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char* NhaSanXuat, char* NgaySanXuat)
-    : Product(productID, importID,  TenSanPham, Price, SoLuongDaBan, SoLuongTonKho, NhaSanXuat, NgaySanXuat),
+Food::Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char *LoaiSanPham, char *TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, char *NgaySanXuat)
+    : Product(productID, importID, TenSanPham, Price, SoLuongDaBan, SoLuongTonKho, NhaSanXuat, NgaySanXuat),
       foodType(type),
-      calories(cal),    
+      calories(cal),
       protein(prot),
       carbohydrates(carbs),
       fat(f),
@@ -24,87 +24,106 @@ Food::Food(FoodType type, double cal, double prot, double carbs, double f, doubl
       netWeight(weight),
       isExpired(expired) {}
 
-Food::~Food() {
+Food::~Food()
+{
     // Destructor implementation here, if needed
 }
 
-FoodType Food::GetFoodType() const {
+FoodType Food::GetFoodType() const
+{
     return foodType;
 }
 
-void Food::SetFoodType(FoodType type) {
+void Food::SetFoodType(FoodType type)
+{
     foodType = type;
 }
 
-double Food::GetCalories() const {
+double Food::GetCalories() const
+{
     return calories;
 }
 
-void Food::SetCalories(double cal) {
+void Food::SetCalories(double cal)
+{
     calories = cal;
 }
 
-double Food::GetProtein() const {
+double Food::GetProtein() const
+{
     return protein;
 }
 
-void Food::SetProtein(double prot) {
+void Food::SetProtein(double prot)
+{
     protein = prot;
 }
 
-double Food::GetCarbohydrates() const {
+double Food::GetCarbohydrates() const
+{
     return carbohydrates;
 }
 
-void Food::SetCarbohydrates(double carbs) {
+void Food::SetCarbohydrates(double carbs)
+{
     carbohydrates = carbs;
 }
 
-double Food::GetFat() const {
+double Food::GetFat() const
+{
     return fat;
 }
 
-void Food::SetFat(double f) {
+void Food::SetFat(double f)
+{
     fat = f;
 }
 
-double Food::GetVitamins() const {
+double Food::GetVitamins() const
+{
     return vitamins;
 }
 
-void Food::SetVitamins(double vit) {
+void Food::SetVitamins(double vit)
+{
     vitamins = vit;
 }
 
-double Food::GetNetWeight() const {
+double Food::GetNetWeight() const
+{
     return netWeight;
 }
 
-void Food::SetNetWeight(double weight) {
+void Food::SetNetWeight(double weight)
+{
     netWeight = weight;
 }
 
-bool Food::IsExpired() const {
+bool Food::IsExpired() const
+{
     return isExpired;
 }
 
-void Food::SetIsExpired(bool expired) {
+void Food::SetIsExpired(bool expired)
+{
     isExpired = expired;
 }
 
-void Food::Display() {
+void Food::Display()
+{
     Product::Display();
     std::cout << "Food Type: ";
-    switch (foodType) {
-        case FoodType::Fresh:
-            std::cout << "Fresh" << std::endl;
-            break;
-        case FoodType::Canned:
-            std::cout << "Canned" << std::endl;
-            break;
-        case FoodType::Packaged:
-            std::cout << "Packaged" << std::endl;
-            break;
+    switch (foodType)
+    {
+    case FoodType::Fresh:
+        std::cout << "Fresh" << std::endl;
+        break;
+    case FoodType::Canned:
+        std::cout << "Canned" << std::endl;
+        break;
+    case FoodType::Packaged:
+        std::cout << "Packaged" << std::endl;
+        break;
     }
     std::cout << "Calories: " << calories << std::endl;
     std::cout << "Protein: " << protein << std::endl;
@@ -115,7 +134,8 @@ void Food::Display() {
     std::cout << (isExpired ? "Expired" : "Not Expired") << std::endl;
 }
 
-std::ostream &operator<<(std::ostream &os, const Food &obj) {
+std::ostream &operator<<(std::ostream &os, const Food &obj)
+{
     os << dynamic_cast<const Product &>(obj);
     os << static_cast<int>(obj.GetFoodType()) << ",";
     os << obj.GetCalories() << ",";
@@ -128,7 +148,8 @@ std::ostream &operator<<(std::ostream &os, const Food &obj) {
     return os;
 }
 
-void Food::Display_01(std::ostream &cout) {
+void Food::Display_01(std::ostream &cout)
+{
     Product::Display_01(cout);
     cout << std::left << std::setw(15) << static_cast<int>(foodType) << " | ";
     cout << std::left << std::setw(15) << calories << " | ";
@@ -141,7 +162,8 @@ void Food::Display_01(std::ostream &cout) {
     cout << "\n";
 }
 
-void Food::WriteDataToFile(std::ostream &file) const {
+void Food::WriteDataToFile(std::ostream &file) const
+{
     Product::WriteDataToFile(file);
     file << static_cast<int>(foodType) << ",";
     file << calories << ",";
@@ -153,7 +175,8 @@ void Food::WriteDataToFile(std::ostream &file) const {
     file << isExpired << std::endl;
 }
 
-void Food::ReadDataFromFile(std::istream &file) {
+void Food::ReadDataFromFile(std::istream &file)
+{
     char comma;
     Product::ReadDataFromFile(file);
     int type;
@@ -165,5 +188,5 @@ void Food::ReadDataFromFile(std::istream &file) {
     file >> fat >> comma;
     file >> vitamins >> comma;
     file >> netWeight >> comma;
-    file >> isExpired ;
+    file >> isExpired ; 
 }

@@ -1,8 +1,0 @@
-Customer information
-STT  |ID               |Full Name             |Age   |Day of birth          |Address                    |Phone number     |Email                           |Point              |Customer Type      |
----------------------------------------------------------------------------------------------------------------
-1    | 201             | Olivia Taylor        | 25   | 1997-09-18           | 789 Birch St              | 2223334444      | olivia@example.com             | 120                  | Regular    | 
-2    | 202             | Ethan Martinez       | 31   | 1991-03-12           | 987 Walnut St             | 3334445555      | ethan@example.com              | 180                  | Premium    | 
-3    | 203             | Chloe Thompson       | 40   | 1982-06-28           | 654 Maple St              | 4445556666      | chloe@example.com              | 200                  | VIP        | 
-4    | 204             | Noah Lee             | 29   | 1994-11-03           | 432 Oak St                | 9990001111      | noah@example.com               | 140                  | Regular    | 
-5    | 205             | Ava White            | 36   | 1987-02-22           | 876 Elm St                | 8889990000      | ava@example.com                | 160                  | Premium    | 

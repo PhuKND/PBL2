@@ -1,5 +1,6 @@
-#include "Vector.h"
 #include <iostream>
+#include"include/Vector.h"
+template class Vector_Class<Order>;
 
 template<typename T>
 Vector<T>::Vector() {

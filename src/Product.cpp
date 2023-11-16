@@ -1,4 +1,5 @@
 #include "include/Product.h"
+#include"include/Menu.h"
 #include<iomanip>
 using namespace std;
 Product::Product() {
@@ -43,7 +44,12 @@ int Product::getPrice() const {
 void Product::setPrice(int Gia) {
     Price = Gia;
 }
-
+void Product::setSoLuongDaBan(int sl) { 
+    this -> SoLuongDaBan = sl ; 
+}
+int Product ::getSoLuongDaBan() {
+    return SoLuongDaBan ; 
+}
 int Product::getSoLuongTonKho() const {
     return SoLuongTonKho;
 }
@@ -67,7 +73,14 @@ char* Product::getNgaySanXuat() const {
 void Product::setNgaySanXuat(char* &NgaySanXuat) {
     this->NgaySanXuat = NgaySanXuat;
 }
+void Product::setSoLuongTrongGio(int quantity) {
+    SoLuongTrongGio = quantity;
+}
 
+// Implement getSoLuongTrongGio
+int Product::getSoLuongTrongGio() {
+    return SoLuongTrongGio;
+}
 std::ostream &operator<<(std::ostream &out, const Product &product) {
     out << "Product ID: " << product.productID << "\n";
     out << "Import ID: " << product.importID << "\n";
@@ -84,12 +97,12 @@ void Product::Display() const {
     std::cout << *this;
 }
 void Product::Display_01(std::ostream& f ){
-    cout << std::left << std::setw(15) << getMaSanPham() << " | ";
-    cout << std::left << std::setw(20) << getTenSanPham() << " | ";
-    cout << std::left << std::setw(4) <<  getPrice()<< " | ";
-    cout << std::left << std::setw(20) << getSoLuongTonKho() << " | ";
-    cout << std::left << std::setw(25) << getNhaSanXuat() << " | ";
-    cout << std::left << std::setw(15) << getNgaySanXuat() << " | ";
+    f << std::left << std::setw(15) << getMaSanPham() << " | ";
+    f << std::left << std::setw(20) << getTenSanPham() << " | ";
+    f << std::left << std::setw(4) <<  getPrice()<< " | ";
+    f << std::left << std::setw(20) << getSoLuongTonKho() << " | ";
+    f << std::left << std::setw(25) << getNhaSanXuat() << " | ";
+    f << std::left << std::setw(15) << getNgaySanXuat() << " | ";
 }
 void Product::WriteDataToFile(std::ostream &file) const {
     file << productID << ","
@@ -112,4 +125,12 @@ void Product::ReadDataFromFile(std::istream& file) {
     file >> SoLuongTonKho >> comma ;
     Menu::readAttributeTillDelimiter(NhaSanXuat,file) ; 
     Menu::readAttributeTillDelimiter(NgaySanXuat,file) ; 
+}
+void Product::Display_Order(std::ostream& o) {
+    o << std::left << std::setw(15) << getMaSanPham() << " | ";
+    o << std::left << std::setw(20) << getTenSanPham() << " | ";
+    o << std::left << std::setw(6) <<  getPrice()<< " | ";
+    o << std::left << std::setw(6) << getSoLuongTrongGio() << " | ";
+    o << std::left << std::setw(6) << getPrice()*getSoLuongTrongGio() << " | ";
+    o << endl ;
 }

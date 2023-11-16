@@ -1,7 +1,8 @@
-#pragma once
-#include"Menu.h"
-#include <iostream>
+#ifndef PRODUCT_H
+#define PRODUCT_H
 
+#include <iomanip>
+#include <iostream>
 class Product {
 private:
     int productID;
@@ -12,6 +13,12 @@ private:
     int SoLuongTonKho;
     char* NhaSanXuat;
     char* NgaySanXuat;
+    int SoLuongTrongGio; 
+    enum class ProductType {
+    Houseware,
+    Food,
+    Electrical,
+};
 
 public:
     Product();
@@ -26,6 +33,9 @@ public:
     int getPrice() const;
     void setPrice(int Gia);
 
+    int getSoLuongDaBan() ; 
+    void setSoLuongDaBan(int) ; 
+
     int getSoLuongTonKho() const;
     void setSoLuongTonKho(int SoLuongTonKho);
 
@@ -36,10 +46,16 @@ public:
     void setNgaySanXuat( char* &NgaySanXuat);
 
     friend std::ostream &operator<<(std::ostream &out, const Product &product);
-    void Display() const;
+    virtual void Display() const;
 
     void WriteDataToFile(std::ostream &file) const;
-    void Display_01(std::ostream&) ; 
+    void Display_01(std::ostream&) ;
+    void Display_Order(std::ostream&) ;
+    void setSoLuongTrongGio(int) ; 
+    int getSoLuongTrongGio() ; 
+    // Trong lớp Product hoặc lớp cơ sở chung
+// virtual void DisplayType() const = 0;
 
     void ReadDataFromFile(std::istream&) ; 
 };
+#endif 

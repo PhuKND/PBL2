@@ -1,4 +1,4 @@
-#include"include/Vector.h"
+#include"include/Vector_Class.h"
 
 template <class U>
 Vector_Class<U>::Vector_Class() : data(nullptr), size(0), capacity(0) {}
@@ -20,7 +20,13 @@ template <class U>
 void Vector_Class<U>::clear() {
     size = 0;
 }
-
+template <class U>
+U Vector_Class<U>::getLast()  {
+    if (size == 0) {
+        throw std::out_of_range("Vector is empty");
+    }
+    return data[size - 1];
+}
 template <class U>
 void Vector_Class<U>::pushBack(const U &obj) {
     if (size == capacity) {
@@ -37,7 +43,7 @@ void Vector_Class<U>::popBack() {
 }
 
 template <class U>
-U Vector_Class<U>::at(int index) const {
+U& Vector_Class<U>::at(int index) const {
     if (index < 0 || index >= size) {
         throw std::out_of_range("Index out of bounds");
     }
@@ -75,13 +81,13 @@ U Vector_Class<U>::operator[](int index) const {
     return at(index);
 }
 
-template <class U>
-void Vector_Class<U>::print() const {
-    for (int i = 0; i < size; i++) {
-        std::cout << data[i] << " ";
-    }
-    std::cout << std::endl;
-}
+// template <class U>
+// void Vector_Class<U>::print() const {
+//     for (int i = 0; i < size; i++) {
+//         std::cout << data[i] << " ";
+//     }
+//     std::cout << std::endl;
+// }
 
 template <class U>
 Vector_Class<U>::Vector_Class(const Vector_Class<U> &other) : size(other.size), capacity(other.capacity) {
@@ -105,7 +111,6 @@ Vector_Class<U> &Vector_Class<U>::operator=(const Vector_Class<U> &other) {
     return *this;
 }
 
-// Overloaded << operator for Vector_Class
 template <class V>
 std::ostream &operator<<(std::ostream &os, const Vector_Class<V> &vec) {
     for (int i = 0; i < vec.getSize(); i++) {

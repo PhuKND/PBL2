@@ -1,6 +1,5 @@
 #include "Entity.h"
 #include "Product.h"
-#include <string>
 #include"Vector.h"
 class Delivery : public Entity {
 private:

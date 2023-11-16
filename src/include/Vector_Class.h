@@ -16,12 +16,13 @@ public:
     void clear();
     void pushBack(const U &obj);
     void popBack();
-    U at(int index) const;
+    U& at(int index) const;
     void remove(int index);
     void resize(int newCapacity);
     U operator[](int index) const;
-
-    void print() const;
+    U getLast();
+ 
+    // void print() const;
 
     Vector_Class(const Vector_Class<U> &other);
 

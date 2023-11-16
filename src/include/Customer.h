@@ -1,7 +1,6 @@
 #pragma once
 #include "Person.h"
-// #include "Order.h"
-#include <vector>
+#include "Order.h"
 
 class Customer : public Person
 {
@@ -9,8 +8,10 @@ private:
     int CustomerID;
     int Point;
     char *CustomerType;
+    Vector_Class<Order> orderHistory;
 
 public:
+    
     Customer();
     Customer(int, char *, char *, int, char *, char *, char *, char *, int, char *);
     ~Customer();
@@ -35,6 +36,7 @@ public:
     // void ViewOrderHistory() const;
 
     // void ViewPurchaseHistory() const;
+    template <class T>
 
     friend std::ostream &operator<<(ostream &, const Customer &);
     void Display();
@@ -43,4 +45,11 @@ public:
     friend std::istream &operator>>(istream &, Customer &);
     void WriteDataToFile(std::ostream &file) const override;
     void ReadDataFromFile(std::istream &file) override;
+    void add_to_orders(const Order&); 
+    void BuyProduct(Order& order, Food& obj, int sl);
+    void BuyProduct(Order& order,  ElectricalProduct& obj, int sl);
+    void BuyProduct(Order& order, Houseware& obj, int sl);
+    Order Last_Order() ; 
+    int getOrd_Size() ; 
 };
+ 

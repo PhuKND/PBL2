@@ -1,9 +1,12 @@
 #include <iomanip>
+#include <limits>
 #include "Menu.h"
 #include "include/Customer.h"
-#define MAX_LENGTH 256 
+#define MAX_LENGTH 256
 
-Customer::Customer(){};
+Customer::Customer(){
+
+};
 Customer::Customer(int CustomerID, char *fullName, char *Gender, int age, char *DayOfBirth, char *address, char *phoneNumber, char *email, int point, char *type) : Person(CustomerID, fullName, Gender, age, DayOfBirth, address, phoneNumber, email), Point(Point), CustomerType(type){};
 void Customer::SetPoint(int Point)
 {
@@ -38,7 +41,7 @@ void Customer::Display()
     std::cout << "Customer ID : " << GetCustomerID() << std::endl;
     std::cout << "Full name : " << GetFullName() << std::endl;
     std::cout << "Age : " << GetAge() << std::endl;
-    std::cout << "Gender :" << GetGender() << std::endl ; 
+    std::cout << "Gender :" << GetGender() << std::endl;
     std::cout << "Day of birth: " << GetDayOfBirth() << std::endl;
     std::cout << "Address : " << GetAddress() << std::endl;
     std::cout << "Phone number : " << GetPhoneNumber() << std::endl;
@@ -51,7 +54,7 @@ Customer::~Customer()
 }
 ostream &operator<<(ostream &os, const Customer &obj)
 {
-    os << obj.GetCustomerID() << "," << obj.GetFullName() << "," << obj.GetAge() << "," << obj.GetDayOfBirth() << "," << obj.GetAddress() << "," << obj.GetPhoneNumber() << "," << obj.GetEmail() << "," << obj.Point << "," << obj.getCustomerType() << endl;
+    os << obj.GetCustomerID() << "," << obj.GetFullName() << "," << obj.GetAge() << "," << obj.GetDayOfBirth() << "," << obj.GetAddress() << "," << obj.GetPhoneNumber() << "," << obj.GetEmail() << "," << obj.GetPoint() << "," << obj.getCustomerType() << endl;
     return os;
 }
 void Customer::Display_01(ostream &cout)
@@ -70,9 +73,11 @@ void Customer::Display_01(ostream &cout)
 // void Customer::DataFile(const Customer obj , const char* filename) {
 //     cout << obj.GetCustomerID() << "," << obj.GetFullName() << "," << obj.GetAge() << "," << obj.GetDayOfBirth() << "," << obj.GetAddress() << "," << obj.GetPhoneNumber() << "," << obj.GetEmail() << "," << obj.getCustomerType() << "," << obj.getCustomerType()  << endl ;
 // }
-void Customer::WriteDataToFile(std::ostream &file) const {
+void Customer::WriteDataToFile(std::ostream &file) const
+{
     file << GetCustomerID() << ","
          << GetFullName() << ","
+         << GetGender() << ","
          << GetAge() << ","
          << GetDayOfBirth() << ","
          << GetAddress() << ","
@@ -81,16 +86,52 @@ void Customer::WriteDataToFile(std::ostream &file) const {
          << GetPoint() << ","
          << getCustomerType() << std::endl;
 }
-void Customer::ReadDataFromFile(std::istream &file) {
+void Customer::ReadDataFromFile(std::istream &file)
+{
     char comma;
-        file >> CustomerID >> comma ;
-        Menu::readAttributeTillDelimiter(fullName, file);
-        Menu::readAttributeTillDelimiter(Gender, file);
-        file >> age >> comma ;
-        Menu::readAttributeTillDelimiter(DayOfBirth, file);
-        Menu::readAttributeTillDelimiter(address, file);
-        Menu::readAttributeTillDelimiter(phoneNumber, file);
-        Menu::readAttributeTillDelimiter(email, file);
-        file >> Point >> comma ; 
-        Menu::readAttributeTillDelimiter(CustomerType, file);
+    file >> CustomerID >> comma;
+    Menu::readAttributeTillDelimiter(fullName, file);
+    Menu::readAttributeTillDelimiter(Gender, file);
+    file >> age >> comma;
+    Menu::readAttributeTillDelimiter(DayOfBirth, file);
+    Menu::readAttributeTillDelimiter(address, file);
+    Menu::readAttributeTillDelimiter(phoneNumber, file);
+    Menu::readAttributeTillDelimiter(email, file);
+    file >> Point >> comma;
+    Menu::readAttributeTillDelimiter(CustomerType, file);
+    file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+void Customer::BuyProduct( Order& order, Food& obj, int sl)
+{
+    obj.setSoLuongTonKho(obj.getSoLuongTonKho() - sl);
+    obj.setSoLuongDaBan(obj.getSoLuongDaBan() + sl);
+    obj.setSoLuongTrongGio(sl);
+    order.Order_Food(obj) ; 
+    cout << "Buy " << obj.getTenSanPham() << " Successfully"  << endl;
+}
+void Customer::BuyProduct( Order& order, ElectricalProduct& obj, int sl)
+{
+    obj.setSoLuongTonKho(obj.getSoLuongTonKho() - sl);
+    obj.setSoLuongDaBan(obj.getSoLuongDaBan() + sl);
+    obj.setSoLuongTrongGio(sl);
+    order.Order_ElectricalProduct(obj); 
+    cout << "Buy " << obj.getTenSanPham() << " Successfully"  << endl;
+}
+
+void Customer::BuyProduct( Order& order, Houseware& obj, int sl)
+{
+    obj.setSoLuongTonKho(obj.getSoLuongTonKho() - sl);
+    obj.setSoLuongDaBan(obj.getSoLuongDaBan() + sl);
+    obj.setSoLuongTrongGio(sl);
+    order.Order_Houseware(obj) ; 
+    cout << "Buy " << obj.getTenSanPham() << " Successfully"  << endl;
+}
+void Customer::add_to_orders(const Order& ord) {
+    orderHistory.pushBack(ord) ; 
+}
+Order Customer::Last_Order() {
+    return orderHistory.getLast(); 
+}
+int Customer::getOrd_Size(){
+    return orderHistory.getSize() ; 
 }

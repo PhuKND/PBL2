@@ -2,6 +2,9 @@
 #include <fstream>
 #include "Employee.h"
 #include "Customer.h"
+#include"Food.h"
+#include"ElectricalProduct.h"
+#include"Houseware.h"
 #include "Vector.h"
 #include "Vector_Class.h"
 
