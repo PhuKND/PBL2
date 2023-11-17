@@ -15,6 +15,7 @@ private:
     DataManager<Food> foodManager ; 
     DataManager<ElectricalProduct> electricalproductManager ;
     DataManager<Houseware> housewareManager ;
+    DataManager<Order> orderManager ; 
     const char* key = "admin" ; 
     int customerChoiceCount;
     int managerChoiceCount;
@@ -23,9 +24,7 @@ private:
 public:
     Menu();
     ~Menu() ; 
-    // void addCustomerMenuItem(const char* description);
-    // void addManagerMenuItem(const char* description);
-    // void addEmployeeMenuItem(const char* description);
+
 
     void displayEmployeeMenu(int) ; 
     void displayCustomerMenu(int,Order&) ; 
@@ -34,11 +33,6 @@ public:
 
     void run();
 
-    // void customerFunction1() ; 
-    // void customerFunction2() ;
-    
-    // void customerFunction2() ;
-    // void managerFunctio\n1() ;
     static bool areEqual(const char *, const char *) ;
     static void getInput(char*& , istream&,int = 100) ;
     static void readAttributeTillDelimiter(char* &attribute, std::istream& file);

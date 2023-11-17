@@ -49,5 +49,7 @@ void setCustomerID(int);
     void Display(std::ostream &o);
     int CalculateTotalAmount();
     void Display_List(std::ostream&  ) ; 
+    void WriteDataToFile(std::ostream& file) ; 
+    void ReadDataFromFile(std::istream& file ) ; 
 };
 #endif

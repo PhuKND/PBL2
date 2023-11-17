@@ -188,3 +188,16 @@ void Order::Display_List(std::ostream& o) {
       << std::setw(12) << HoanThanh << "|"
       << std::endl;
 }
+void Order::ReadDataFromFile(std::istream& file) {
+    char comma ; 
+    file >> OrderID >> comma ;
+    file >> CustomerID >> comma ; 
+    file >> totalAmount >> comma  ;
+    file >> HoanThanh  ;
+}
+void Order::WriteDataToFile(std::ostream& file) {
+    file << GetOrderID() << ","
+         << getCustomerID() << ","
+         << GetTotalAmount() << "," 
+         << HoanThanh << std::endl ;
+}

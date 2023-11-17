@@ -72,6 +72,18 @@ Menu::Menu()
     housewareManager.GetData(housewareManager.lists, "data/input_output/houseware.txt");
     foodManager.GetData(foodManager.lists, "data/input_output/food.txt");
     electricalproductManager.GetData(electricalproductManager.lists, "data/input_output/electricalproduct.txt");
+    orderManager.GetData(orderManager.lists,"data/input_output/order.txt");
+    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+    {
+        for (size_t j = 0; j < orderManager.lists.getSize(); j++)
+        {
+            if(customerManager.lists.at(i).GetCustomerID() == orderManager.lists.at(j).getCustomerID()){
+                customerManager.lists.at(i).getOrderHistory().pushBack(orderManager.lists.at(j));
+            }
+        }
+        
+    }
+     
 }
 Menu::~Menu()
 {

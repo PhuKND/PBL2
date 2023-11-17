@@ -139,7 +139,6 @@ int Customer::getOrd_Size(){
     return orderHistory.getSize() ; 
 }
 void Customer::Show_Orders_History(std::ostream& o) {
-    orderHistory.popBack() ; 
     o << "                     ORDERS HISTORY" << std::endl;
     o << "Customer : " << GetFullName()  << endl ;
     o << "ID: " << GetCustomerID() << endl ; 
