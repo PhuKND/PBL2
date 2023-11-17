@@ -122,7 +122,7 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
         Order::setNumberOrder();
         Order newOrder(Order::getNumberOrder(), customerid);
         cus.add_to_orders(newOrder);
-        displayCustomerMenu(customerid,newOrder) ;
+        displayCustomerMenu(customerid,cus.Last_Order()) ;
         return;
 
     }
