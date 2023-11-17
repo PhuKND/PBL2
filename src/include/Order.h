@@ -17,10 +17,13 @@ private:
     char *PaymentMethod;
     char *ShippingAddress;
     bool delivery;
+    static int numberofOrder ; 
      Vector_Class<Food> OrderedFood;
     Vector_Class<ElectricalProduct> OrderedElectricalProduct;
     Vector_Class<Houseware> OrderedHouseware;
 public:
+    static int getNumberOrder() ; 
+    static void setNumberOrder() ; 
     bool HoanThanh = false ; 
     void Order_Food(Food& ) ;
     void Order_ElectricalProduct(ElectricalProduct&); 
@@ -29,8 +32,8 @@ public:
     ~Order();
     int GetOrderID() const;
     void SetOrderID(int OrderID);
-    char *GetCustomer() const;
-    void SetCustomer(char *Customer);
+    int getCustomerID() ;
+void setCustomerID(int);
     void SetOrderProduct(Vector_Class<Product> OrderProduct);
     int GetTotalAmount() const;
     void SetTotalAmount(int totalAmount);

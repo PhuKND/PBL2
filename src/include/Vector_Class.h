@@ -20,7 +20,7 @@ public:
     void remove(int index);
     void resize(int newCapacity);
     U operator[](int index) const;
-    U getLast();
+    U& getLast();
  
     // void print() const;
 

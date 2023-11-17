@@ -1,4 +1,4 @@
-#include "Order.h"
+#include "include/Order.h"
 
 Order::Order(int OrderID, int CustomerID, int totalAmount, char *orderDate, char *orderStatus, bool HoanThanh, char *PaymentMethod, char *ShippingAddress, bool delivery)
 {
@@ -12,17 +12,28 @@ Order::Order(int OrderID, int CustomerID, int totalAmount, char *orderDate, char
     this->ShippingAddress = ShippingAddress;
     this->delivery = delivery;
 }
+int Order::numberofOrder = 0;
 
 Order::~Order()
 {
     // Destructor implementation
 }
-
+ int Order::getNumberOrder() {
+    return numberofOrder ; 
+}
+void Order::setNumberOrder(){
+  numberofOrder++ ; 
+}
 int Order::GetOrderID() const
 {
     return OrderID;
 }
-
+int Order::getCustomerID() {
+    return CustomerID; 
+}
+void Order::setCustomerID(int id){
+    this -> CustomerID = id ; 
+}
 void Order::SetOrderID(int OrderID)
 {
     this->OrderID = OrderID;
@@ -98,16 +109,18 @@ void Order::Display(std::ostream &o)
 {
     int total;
     int stt = 1;
+    o << "===========================" ; 
     o << "INVOICE" << std::endl;
+    o << "===========================" ;
     o << "Order id : ";
     o << GetOrderID() << std::endl;
     o << "----------------------" << std::endl;
     o << " ----------------------" << std::endl;
 
     o << "Invoice to : " << std::endl;
-    // Khach hang
-    o << "Make payment to " << std::endl;
-    // Thong tin sieu thi
+    o << "Customer ID " << getCustomerID() ; 
+    o << "Make payment to : " << std::endl;
+    // Class Supermaket tính sau
     o << "STT" << std::right << std::setw(2) << "|";
     o << "Product ID" << std::right << std::setw(7) << "|";
     o << "Product name" << std::right << std::setw(10) << "|";
@@ -137,11 +150,11 @@ void Order::Display(std::ostream &o)
 
     o << std::endl;
     o << std::endl;
-    o << "----------------------------------------" << endl;
-    o << "========================================" << endl;
+    o << "----------------------------------------" << std::endl;
+    o << "========================================" << std::endl;
     o << "Total Amount  : " << CalculateTotalAmount() << std::endl;
-    o << "----------------------------------------" << endl;
-    o << "========================================" << endl;
+    o << "----------------------------------------" << std::endl;
+    o << "========================================" <<std:: endl;
     o << "Thank you!" << std::endl;
 }
 int Order::CalculateTotalAmount()

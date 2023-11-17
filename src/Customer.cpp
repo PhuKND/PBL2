@@ -35,6 +35,9 @@ void Customer::setCustomerType(char *type)
 // void Customer::AddToPurchaseHistory(const Order& order){
 
 // }
+Vector_Class<Order>& Customer::getOrderHistory() {
+    return orderHistory ;
+} 
 void Customer::Display()
 {
     std::cout << "Customer Information : " << std::endl;
@@ -129,7 +132,7 @@ void Customer::BuyProduct( Order& order, Houseware& obj, int sl)
 void Customer::add_to_orders(const Order& ord) {
     orderHistory.pushBack(ord) ; 
 }
-Order Customer::Last_Order() {
+Order& Customer::Last_Order()  {
     return orderHistory.getLast(); 
 }
 int Customer::getOrd_Size(){

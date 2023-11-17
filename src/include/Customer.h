@@ -15,7 +15,7 @@ public:
     Customer();
     Customer(int, char *, char *, int, char *, char *, char *, char *, int, char *);
     ~Customer();
-
+    Vector_Class<Order>& getOrderHistory() ; 
     int GetCustomerID() const;
     void SetCustomerID(int);
 
@@ -49,7 +49,7 @@ public:
     void BuyProduct(Order& order, Food& obj, int sl);
     void BuyProduct(Order& order,  ElectricalProduct& obj, int sl);
     void BuyProduct(Order& order, Houseware& obj, int sl);
-    Order Last_Order() ; 
+    Order& Last_Order()  ; 
     int getOrd_Size() ; 
 };
  

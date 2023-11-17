@@ -21,7 +21,7 @@ void Vector_Class<U>::clear() {
     size = 0;
 }
 template <class U>
-U Vector_Class<U>::getLast()  {
+U& Vector_Class<U>::getLast()  {
     if (size == 0) {
         throw std::out_of_range("Vector is empty");
     }

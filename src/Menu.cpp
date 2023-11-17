@@ -78,16 +78,19 @@ Menu::~Menu()
     // customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
     // employeeManager.SaveData(employeeManager.lists, "data/input_output/employee.txt");
 }
-void Menu::displayCustomerMenu(int customerid, Order& order)
+void Menu::displayCustomerMenu(int customerid, Order &order)
 {
-    std::cout << "Customer Menu " << endl;
-    std::cout << "1. View Personal Information " << endl;
-    std::cout << "2. Account Management" << endl;
-    std::cout << "3. Browse Products" << endl;
-    std::cout << "4. Purchase Orders" << endl;
-    std::cout << "5. Statistics" << endl;
-    std::cout << "6. View Order History" << endl;
-    std::cout << "7. Exit" << endl;
+    std::cout << BLUE << "==============================\n";
+    std::cout << "   " << YELLOW << "Customer Menu" << BLUE << "      \n";
+    std::cout << "==============================\n";
+    std::cout << "1. " << YELLOW << "View Personal Information\n";
+    std::cout << "2. " << YELLOW << "Account Management\n";
+    std::cout << "3. " << YELLOW << "Browse Products\n";
+    std::cout << "4. " << YELLOW << "Purchase Orders\n";
+    std::cout << "5. " << BLUE << "Statistics\n";
+    std::cout << "6. " << BLUE << "View Order History\n";
+    std::cout << "7. " << RESET << "Exit\n";
+    std::cout << "==============================\n";
     int choice;
     int vitri;
     std::cin >> choice;
@@ -100,7 +103,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
             break;
         }
     }
-    
+
     Customer &cus = customerManager.lists.at(vitri);
     switch (choice)
     {
@@ -109,17 +112,21 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
         break;
     case 2:
     {
-        std::cout << "Account Management" << endl;
-        std::cout << "Account ID" << customerid << endl;
-        std::cout << "Please select the information you need to change" << endl;
-        std::cout << "1. Full Name." << endl;
-        std::cout << "2. Gender." << endl;
-        std::cout << "3. Age." << endl;
-        std::cout << "4. Day of birth." << endl;
-        std::cout << "5. Address." << endl;
-        std::cout << "6. Phone number." << endl;
-        std::cout << "7. Email." << endl;
-        std::cout << "8. Go back" << endl;
+        std::cout << BLUE << "==============================\n";
+        std::cout << " " << YELLOW << "Account Management" << BLUE << "   \n";
+        std::cout << "==============================\n";
+        std::cout << "Account ID: " << customerid << "\n";
+        std::cout << "Please select the information you need to change:\n";
+        std::cout << "1. " << YELLOW << "Full Name\n";
+        std::cout << "2. " << YELLOW << "Gender\n";
+        std::cout << "3. " << YELLOW << "Age\n";
+        std::cout << "4. " << YELLOW << "Day of Birth\n";
+        std::cout << "5. " << YELLOW << "Address\n";
+        std::cout << "6. " << YELLOW << "Phone Number\n";
+        std::cout << "7. " << YELLOW << "Email\n";
+        std::cout << "8. " << BLUE << "Go back\n";
+        std::cout << "==============================\n"
+                  << RESET;
         int selection;
         std::cin >> selection;
         system("CLS");
@@ -191,11 +198,15 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
     }
     case 3:
     {
-        std::cout << "Browse Products" << endl;
-        std::cout << "1. View all products" << endl;
-        std::cout << "2. Search for a product" << endl;
-        std::cout << "3. Add a product to the cart" << endl;
-        std::cout << "4. Go back" << endl;
+        std::cout << BLUE << "==============================\n";
+        std::cout << "   " << YELLOW << "Browse Products" << BLUE << "    \n";
+        std::cout << "==============================\n";
+        std::cout << "1. " << YELLOW << "View all products\n";
+        std::cout << "2. " << YELLOW << "Search for a product\n";
+        std::cout << "3. " << YELLOW << "Add a product to the cart\n";
+        std::cout << "4. " << BLUE << "Go back\n";
+        std::cout << "==============================\n"
+                  << RESET;
 
         int browseChoice;
         std::cin >> browseChoice;
@@ -204,10 +215,15 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
         {
         case 1:
         {
-            std::cout << "1. View Houseware Products" << endl;
-            std::cout << "2. View Food Products" << endl;
-            std::cout << "3. View Electrical Products" << endl;
-            std::cout << "4. Go back" << endl;
+            std::cout << BLUE << "==============================\n";
+            std::cout << "  " << YELLOW << "Product Categories" << BLUE << "   \n";
+            std::cout << "==============================\n";
+            std::cout << "1. " << YELLOW << "View Houseware Products\n";
+            std::cout << "2. " << YELLOW << "View Food Products\n";
+            std::cout << "3. " << YELLOW << "View Electrical Products\n";
+            std::cout << "4. " << BLUE << "Go back\n";
+            std::cout << "==============================\n"
+                      << RESET;
 
             int viewChoice;
             std::cin >> viewChoice;
@@ -224,7 +240,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                 electricalproductManager.Display(electricalproductManager.lists);
                 break;
             case 4:
-                displayCustomerMenu(customerid,order);
+                displayCustomerMenu(customerid, order);
                 break;
             default:
                 std::cout << "Invalid selection!" << endl;
@@ -233,7 +249,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                 int is;
                 cin >> is;
                 if (is == 0)
-                    return displayCustomerMenu(customerid,order);
+                    return displayCustomerMenu(customerid, order);
             }
             break;
         }
@@ -316,7 +332,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
             int is;
             cin >> is;
             if (is == 0)
-                return displayCustomerMenu(customerid,order);
+                return displayCustomerMenu(customerid, order);
 
             break;
         }
@@ -351,7 +367,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                             int is;
                             cin >> is;
                             if (is == 0)
-                                return displayCustomerMenu(customerid,order);
+                                return displayCustomerMenu(customerid, order);
                         }
                         productFound = true;
                         break;
@@ -373,7 +389,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                             int is;
                             cin >> is;
                             if (is == 0)
-                                return displayCustomerMenu(customerid,order);
+                                return displayCustomerMenu(customerid, order);
                         }
                         productFound = true;
                         break;
@@ -395,7 +411,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                             int is;
                             cin >> is;
                             if (is == 0)
-                                return displayCustomerMenu(customerid,order);
+                                return displayCustomerMenu(customerid, order);
                         }
                         productFound = true;
                         break;
@@ -424,7 +440,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                             int is;
                             cin >> is;
                             if (is == 0)
-                                return displayCustomerMenu(customerid,order);
+                                return displayCustomerMenu(customerid, order);
                         }
                         productFound = true;
                         break;
@@ -447,7 +463,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                         int is;
                         cin >> is;
                         if (is == 0)
-                            return displayCustomerMenu(customerid,order);
+                            return displayCustomerMenu(customerid, order);
                         productFound = true;
                         break;
                     }
@@ -469,7 +485,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
                         int is;
                         cin >> is;
                         if (is == 0)
-                            return displayCustomerMenu(customerid,order);
+                            return displayCustomerMenu(customerid, order);
                         productFound = true;
                         break;
                     }
@@ -479,7 +495,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
             int is;
             cin >> is;
             if (is == 0)
-                return displayCustomerMenu(customerid,order);
+                return displayCustomerMenu(customerid, order);
             if (productFound == false)
             {
                 std::cout << "Can not found!";
@@ -488,7 +504,7 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
         }
 
         case 4:
-            displayCustomerMenu(customerid,order);
+            displayCustomerMenu(customerid, order);
             break;
         default:
             std::cout << "Invalid selection!" << endl;
@@ -499,14 +515,14 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
     }
     case 4:
     {
-        order.Display(std::cout) ;
+        order.Display(std::cout);
         order.HoanThanh = true;
         cus.add_to_orders(order);
         cout << "Enter 0 to return " << endl;
         int is;
         cin >> is;
         if (is == 0)
-            return displayCustomerMenu(customerid,order);
+            return displayCustomerMenu(customerid, order);
         break;
     }
 
@@ -525,14 +541,18 @@ void Menu::displayCustomerMenu(int customerid, Order& order)
 }
 void Menu::displayEmployeeMenu(int employeeid)
 {
-    std::cout << "Employee Menu" << endl;
-    std::cout << "1. View Personal Information" << endl;
-    std::cout << "2. Account Management" << endl;
-    std::cout << "3. Manage Inventory" << endl;
-    std::cout << "4. View Orders" << endl;
-    std::cout << "5. Confirm Orders" << endl;
-    std::cout << "6. Statistics" << endl;
-    std::cout << "7. Exit" << endl;
+    std::cout << BLUE << "==============================\n";
+    std::cout << "    " << GREEN << "Employee Menu" << BLUE << "       \n";
+    std::cout << "==============================\n";
+    std::cout << "1. " << YELLOW << "View Personal Information\n";
+    std::cout << "2. " << YELLOW << "Account Management\n";
+    std::cout << "3. " << YELLOW << "Manage Inventory\n";
+    std::cout << "4. " << RED << "View Orders\n";
+    std::cout << "5. " << BLUE << "Confirm Orders\n";
+    std::cout << "6. " << BLUE << "Statistics\n";
+    std::cout << "7. " << RED << "Exit\n";
+    std::cout << "==============================\n"
+              << RESET;
     int choice;
     std::cin >> choice;
     system("CLS");
@@ -560,15 +580,19 @@ void Menu::displayEmployeeMenu(int employeeid)
 //!
 void Menu::displayManagerMenu()
 {
-    std::cout << "Manager Menu" << endl;
-    std::cout << "1. View lists" << endl;
-    std::cout << "2. Edit Information" << endl;
-    std::cout << "3. Add object " << endl;
-    std::cout << "4. Delete object" << endl;
-    std::cout << " 5. Statistics" << endl;
-    std::cout << " 6. Save data" << endl;
-    std::cout << " 7. View Activity Log" << endl;
-    std::cout << " 8. Exit" << endl;
+    std::cout << BLUE << "==============================\n";
+    std::cout << "     " << GREEN << "Manager Menu" << BLUE << "       \n";
+    std::cout << "==============================\n";
+    std::cout << "1. " << YELLOW << "View lists\n";
+    std::cout << "2. " << YELLOW << "Edit Information\n";
+    std::cout << "3. " << YELLOW << "Add object\n";
+    std::cout << "4. " << RED << "Delete object\n";
+    std::cout << "5. " << BLUE << "Statistics\n";
+    std::cout << "6. " << BLUE << "Save data\n";
+    std::cout << "7. " << GREEN << "View Activity Log\n";
+    std::cout << "8. " << RED << "Exit\n";
+    std::cout << "==============================\n"
+              << RESET;
 
     int choice;
     std::cin >> choice;
@@ -577,11 +601,16 @@ void Menu::displayManagerMenu()
     {
     case 1:
     {
-        std::cout << "1. View employee list" << endl;
-        std::cout << "2. View customer list" << endl;
-        std::cout << "3. View product list" << endl;
-        std::cout << "4. View order list" << endl;
-        std::cout << "5. Turn back" << endl;
+        std::cout << BLUE << "==============================\n";
+        std::cout << "    " << GREEN << "MENU OPTIONS" << BLUE << "        \n";
+        std::cout << "==============================\n";
+        std::cout << "1. " << YELLOW << "View employee list\n";
+        std::cout << "2. " << YELLOW << "View customer list\n";
+        std::cout << "3. " << YELLOW << "View product list\n";
+        std::cout << "4. " << RED << "View order list\n";
+        std::cout << "5. " << BLUE << "Turn back\n";
+        std::cout << "==============================\n"
+                  << RESET;
         std::cin >> choice;
         switch (choice)
         {
@@ -696,11 +725,15 @@ void Menu::run()
 {
     bool exit = false;
     int userType;
-    std::cout << "Select the user type : " << std::endl;
-    std::cout << "1. Customer" << std::endl;
-    std::cout << "2. Manager" << std::endl;
-    std::cout << "3. Employee" << std::endl;
-    std::cout << "4. Turn back" << std::endl;
+    std::cout << BLUE << "=============================\n";
+    std::cout << "   Select the user type:    \n";
+    std::cout << "=============================\n";
+    std::cout << YELLOW << "1. Customer\n";
+    std::cout << GREEN << "2. Manager\n";
+    std::cout << RED << "3. Employee\n";
+    std::cout << BLUE << "4. Turn back\n";
+    std::cout << "=============================\n"
+              << RESET;
     std::cin >> userType;
     system("CLS");
     switch (userType)
@@ -717,9 +750,24 @@ void Menu::run()
             {
                 if (customerid == customerManager.lists.at(i).GetCustomerID())
                 {
-                    validID = true;
-                    Order order ;
-                    displayCustomerMenu(customerid,order);
+                    validID = true; 
+                    Customer &cus = customerManager.lists.at(i) ;
+                    if(cus.getOrderHistory().isEmpty()){
+                        Order order(Order::getNumberOrder() , cus.GetCustomerID()) ; 
+                        cus.getOrderHistory().pushBack(order) ; 
+                    }
+                    Order& order = cus.Last_Order();
+                    if (cus.Last_Order().HoanThanh)
+                    {
+                        Order::setNumberOrder() ; 
+                         Order newOrder(Order::getNumberOrder() , cus.GetCustomerID()) ; 
+                         cus.getOrderHistory().pushBack(newOrder) ; 
+                        order = newOrder ; 
+                    }
+                    cout << cus.getOrd_Size() ; 
+                    
+                   Order order ;
+                    displayCustomerMenu(customerid, order);
                     int choice;
                     std::cout << "Choose a number to continue or 0 to exit: ";
                     std::cin >> choice;
