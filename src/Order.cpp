@@ -193,7 +193,7 @@ void Order::ReadDataFromFile(std::istream& file) {
     file >> OrderID >> comma ;
     file >> CustomerID >> comma ; 
     file >> totalAmount >> comma  ;
-    file >> HoanThanh  ;
+    file >> HoanThanh;
 }
 void Order::WriteDataToFile(std::ostream& file) {
     file << GetOrderID() << ","

@@ -100,7 +100,10 @@ Vector_Class<U>::Vector_Class(const Vector_Class<U> &other) : size(other.size), 
 template <class U>
 Vector_Class<U> &Vector_Class<U>::operator=(const Vector_Class<U> &other) {
     if (this != &other) {
-        delete[] data;
+        if (data != nullptr) {
+    delete[] data;
+}
+      
         size = other.size;
         capacity = other.capacity;
         data = new U[capacity];

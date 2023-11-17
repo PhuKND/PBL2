@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <cstdlib>
 using namespace std;
+// 410
 bool Menu::areEqual(const char *str1, const char *str2)
 {
     while (*str1 && *str2)
@@ -72,18 +73,17 @@ Menu::Menu()
     housewareManager.GetData(housewareManager.lists, "data/input_output/houseware.txt");
     foodManager.GetData(foodManager.lists, "data/input_output/food.txt");
     electricalproductManager.GetData(electricalproductManager.lists, "data/input_output/electricalproduct.txt");
-    orderManager.GetData(orderManager.lists,"data/input_output/order.txt");
+    orderManager.GetData(orderManager.lists, "data/input_output/order.txt");
     for (size_t i = 0; i < customerManager.lists.getSize(); i++)
     {
         for (size_t j = 0; j < orderManager.lists.getSize(); j++)
         {
-            if(customerManager.lists.at(i).GetCustomerID() == orderManager.lists.at(j).getCustomerID()){
+            if (customerManager.lists.at(i).GetCustomerID() == orderManager.lists.at(j).getCustomerID())
+            {
                 customerManager.lists.at(i).getOrderHistory().pushBack(orderManager.lists.at(j));
             }
         }
-        
     }
-     
 }
 Menu::~Menu()
 {
@@ -117,6 +117,15 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
     }
 
     Customer &cus = customerManager.lists.at(vitri);
+    if (cus.Last_Order().HoanThanh)
+    {
+        Order::setNumberOrder();
+        Order newOrder(Order::getNumberOrder(), customerid);
+        cus.add_to_orders(newOrder);
+        displayCustomerMenu(customerid,newOrder) ;
+        return;
+
+    }
     switch (choice)
     {
     case 1:
@@ -534,10 +543,11 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
         if (is == 0)
         {
             order.HoanThanh = true;
-            Order::setNumberOrder() ; 
-            Order newOrder(Order::getNumberOrder(),customerid);
-            cus.add_to_orders(newOrder) ; 
-            return displayCustomerMenu(customerid, cus.getOrderHistory().getLast());
+            Order::setNumberOrder();
+            Order newOrder(Order::getNumberOrder(), customerid);
+            cus.add_to_orders(newOrder);
+            return displayCustomerMenu(customerid, cus.Last_Order());
+            return; 
         }
         break;
     }
@@ -546,7 +556,8 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
         break;
     case 6:
     {
-        cus.Show_Orders_History(std::cout) ; 
+        cus.getOrderHistory().popBack();
+        cus.Show_Orders_History(std::cout);
         break;
     }
     default:
@@ -741,6 +752,7 @@ void Menu::run()
 {
     bool exit = false;
     int userType;
+
     std::cout << BLUE << "=============================\n";
     std::cout << "   Select the user type:    \n";
     std::cout << "=============================\n";
@@ -750,8 +762,10 @@ void Menu::run()
     std::cout << BLUE << "4. Turn back\n";
     std::cout << "=============================\n"
               << RESET;
+
     std::cin >> userType;
     system("CLS");
+
     switch (userType)
     {
     case 1:
@@ -766,33 +780,36 @@ void Menu::run()
             {
                 if (customerid == customerManager.lists.at(i).GetCustomerID())
                 {
-                    validID = true; 
-                    Customer &cus = customerManager.lists.at(i) ;
-                    if(cus.getOrderHistory().isEmpty()){
-                        Order order(Order::getNumberOrder() , cus.GetCustomerID()) ; 
-                        cus.getOrderHistory().pushBack(order) ; 
-                    }
-                    Order& order = cus.Last_Order();
-                    if (cus.Last_Order().HoanThanh)
-                    {
-                        Order::setNumberOrder() ; 
-                         Order newOrder(Order::getNumberOrder() , cus.GetCustomerID()) ; 
-                         cus.getOrderHistory().pushBack(newOrder) ; 
-                        order = newOrder ; 
-                    }
+                    validID = true;
+                    Customer &cus = customerManager.lists.at(i);
+
+                    Order &order = cus.Last_Order();
+                    // if (order.HoanThanh)
+                    // {
+                    //     Order::setNumberOrder();
+                    //     Order newOrder(Order::getNumberOrder(), customerid);
+                    //     order = newOrder;
+                    //     cus.add_to_orders(order);
+                    // }
+
                     displayCustomerMenu(customerid, order);
+
                     int choice;
                     std::cout << "Choose a number to continue or 0 to exit: ";
                     std::cin >> choice;
+
                     if (choice == 0)
                     {
-                        break; // Exit the function if 0 is entered
+                        break; // Exit the loop if 0 is entered
                     }
-                    else {
-                        return run() ; 
+                    else
+                    {
+                        // Use 'return' to restart the function
+                        return run();
                     }
                 }
             }
+
             if (validID)
             {
                 break; // Break the loop if the ID is valid
@@ -802,6 +819,7 @@ void Menu::run()
                 std::cout << "Invalid ID! Do you want to try again? (Y/N): ";
                 char tryAgain;
                 std::cin >> tryAgain;
+
                 if (tryAgain != 'Y' && tryAgain != 'y')
                 {
                     return;
@@ -817,6 +835,7 @@ void Menu::run()
         char *password; // assuming a maximum password length
         std::cout << "Enter Manager Password: ";
         getInput(password, std::cin);
+
         if (areEqual(password, key))
         {
             system("CLS");
@@ -829,17 +848,18 @@ void Menu::run()
             {
                 break;
             }
-            else {
-                return run() ; 
+            else
+            {
+                // Use 'return' to restart the function
+                return run();
             }
         }
         else
         {
-            std::cout << "Invalid password!" << endl;
+            std::cout << "Invalid password!" << std::endl;
         }
         break;
     }
-
     case 3:
     {
         while (true)
@@ -847,6 +867,7 @@ void Menu::run()
             int employeeid;
             std::cout << "Enter your Employee ID: ";
             std::cin >> employeeid;
+
             for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
             {
                 if (employeeid == employeeManager.lists.at(i).GetEmployeeID())
@@ -861,14 +882,18 @@ void Menu::run()
                     {
                         break;
                     }
-                    else {
-                        return run() ; 
+                    else
+                    {
+                        // Use 'return' to restart the function
+                        return run();
                     }
                 }
             }
+
             std::cout << "Invalid Employee ID! Do you want to try again? (Y/N): ";
             char tryAgain;
             std::cin >> tryAgain;
+
             if (tryAgain != 'Y' && tryAgain != 'y')
             {
                 return;
@@ -880,7 +905,7 @@ void Menu::run()
         exit = true;
         break;
     default:
-        std::cout << "Invalid user type!" << endl;
+        std::cout << "Invalid user type!" << std::endl;
         break;
     }
 }
