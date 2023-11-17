@@ -181,3 +181,10 @@ int Order::CalculateTotalAmount()
 
     return totalAmount;
 }
+void Order::Display_List(std::ostream& o) {
+    o << std::setw(8) << GetOrderID() << "|"
+      << std::setw(13) << GetTotalAmount() << "|"
+      << std::setw(15) << GetOrderDate() << "|"
+      << std::setw(12) << HoanThanh << "|"
+      << std::endl;
+}

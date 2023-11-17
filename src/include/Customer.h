@@ -51,5 +51,6 @@ public:
     void BuyProduct(Order& order, Houseware& obj, int sl);
     Order& Last_Order()  ; 
     int getOrd_Size() ; 
+    void Show_Orders_History(std::ostream&) ;
 };
  

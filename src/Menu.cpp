@@ -452,7 +452,7 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
                     {
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
-                        std::cout << "Do you want to buy " << foodManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
+                        std::cout << "Do you want to buy " << electricalproductManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
                         char ch = getch();
                         if (ch == 'Y' || ch == 'y')
                         {
@@ -516,13 +516,17 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
     case 4:
     {
         order.Display(std::cout);
-        order.HoanThanh = true;
-        cus.add_to_orders(order);
-        cout << "Enter 0 to return " << endl;
+        cout << "Enter 0 to confirm " << endl;
         int is;
         cin >> is;
         if (is == 0)
-            return displayCustomerMenu(customerid, order);
+        {
+            order.HoanThanh = true;
+            Order::setNumberOrder() ; 
+            Order newOrder(Order::getNumberOrder(),customerid);
+            cus.add_to_orders(newOrder) ; 
+            return displayCustomerMenu(customerid, cus.getOrderHistory().getLast());
+        }
         break;
     }
 
@@ -530,7 +534,7 @@ void Menu::displayCustomerMenu(int customerid, Order &order)
         break;
     case 6:
     {
-        cus.Last_Order().Display(std::cout);
+        cus.Show_Orders_History(std::cout) ; 
         break;
     }
     default:
@@ -764,9 +768,6 @@ void Menu::run()
                          cus.getOrderHistory().pushBack(newOrder) ; 
                         order = newOrder ; 
                     }
-                    cout << cus.getOrd_Size() ; 
-                    
-                   Order order ;
                     displayCustomerMenu(customerid, order);
                     int choice;
                     std::cout << "Choose a number to continue or 0 to exit: ";
@@ -774,6 +775,9 @@ void Menu::run()
                     if (choice == 0)
                     {
                         break; // Exit the function if 0 is entered
+                    }
+                    else {
+                        return run() ; 
                     }
                 }
             }
@@ -813,7 +817,9 @@ void Menu::run()
             {
                 break;
             }
-            break;
+            else {
+                return run() ; 
+            }
         }
         else
         {
@@ -842,6 +848,9 @@ void Menu::run()
                     if (choice == 0)
                     {
                         break;
+                    }
+                    else {
+                        return run() ; 
                     }
                 }
             }

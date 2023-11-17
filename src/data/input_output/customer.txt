@@ -1,4 +1,4 @@
-201,Olivia Taylor,Male,9,18,789 Birch St,2223334444,olivia@example.com,120,Regular
+201,Nguyen Ba Xuan An,Male,19,19/09/2004,Dak Lak,0818563466,an@gmail.com,11001,VIP
 202,Ethan Martinez,Female ,3,12,987 Walnut St,3334445555,ethan@example.com,180,Premium
 203,Chloe Thompson,Female ,6,28,654 Maple St,4445556666,chloe@example.com,200,VIP
 204,Emma Johnson,Male,7,22,123 Oak St,5556667777,emma@example.com,150,Regular

@@ -48,5 +48,6 @@ void setCustomerID(int);
     bool useDelivery();
     void Display(std::ostream &o);
     int CalculateTotalAmount();
+    void Display_List(std::ostream&  ) ; 
 };
 #endif
