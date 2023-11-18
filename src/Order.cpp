@@ -37,6 +37,7 @@ void Order::setCustomerID(int id){
 void Order::SetOrderID(int OrderID)
 {
     this->OrderID = OrderID;
+    setNumberOrder();
 }
 
 int Order::GetTotalAmount() const
@@ -194,6 +195,7 @@ void Order::ReadDataFromFile(std::istream& file) {
     file >> CustomerID >> comma ; 
     file >> totalAmount >> comma  ;
     file >> HoanThanh;
+    SetOrderID(OrderID) ; 
 }
 void Order::WriteDataToFile(std::ostream& file) {
     file << GetOrderID() << ","

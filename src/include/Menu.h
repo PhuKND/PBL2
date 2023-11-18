@@ -27,7 +27,7 @@ public:
 
 
     void displayEmployeeMenu(int) ; 
-    void displayCustomerMenu(int,Order&) ; 
+    void displayCustomerMenu(Customer&,Order&) ; 
     void displayManagerMenu()  ;
     
 
