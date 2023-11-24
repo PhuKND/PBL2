@@ -130,14 +130,14 @@ void DataManager<T>::Display(const Vector_Class<T> &data)
     else if (typeid(T) == typeid(Food) || typeid(T) == typeid(ElectricalProduct) || typeid(T) == typeid(Houseware))
     {
         cout << "STT" << std::right << std::setw(3) << "|";
-        cout << "Product ID" << std::right << std::setw(10) << "|";
-        cout << "Import ID" << std::right << std::setw(8) << "|";
-        cout << "Product Name" << std::right << std::setw(4) << "|";
-        cout << "Price" << std::right << std::setw(6) << "|";
-        cout << "Quantity Sold" << std::right << std::setw(1) << "|";
-        cout << "Quanity in Stock" << std::right << std::setw(1) << "|";
-        cout << "Manufacturer" << std::right << std::setw(1) << "|";
-        cout << "Production Date" << std::right << std::setw(1) << "|";
+        cout << "Product ID" << std::right << std::setw(0) << "|";
+        cout << "Import ID" << std::right << std::setw(0) << "|";
+        cout << "Product Name" << std::right << std::setw(6) << "|";
+        cout << "Price" << std::right << std::setw(0) << "|";
+        cout << "Quantity Sold" << std::right << std::setw(0) << "|";
+        cout << "Quanity in Stock" << std::right << std::setw(0) << "|";
+        cout << "Manufacturer" << std::right << std::setw(5) << "|";
+        cout << "Production Date" << std::right << std::setw(0) << "|";
         if (typeid(T) == typeid(Food))
         {
             cout << "Food Type" << std::right << std::setw(1) << "|";

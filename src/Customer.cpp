@@ -139,18 +139,25 @@ int Customer::getOrd_Size(){
     return orderHistory.getSize() ; 
 }
 void Customer::Show_Orders_History(std::ostream& o) {
-    o << "                     ORDERS HISTORY" << std::endl;
-    o << "Customer : " << GetFullName()  << endl ;
-    o << "ID: " << GetCustomerID() << endl ; 
-    o << "=======================" << std::endl;
-    o << std::setw(8) << "Order ID" << "|"
-      << std::setw(13) << "Total Amount" << "|"
-      << std::setw(15) << "Date" << "|"
-      << std::setw(12) << "Is Complete" << "|"
-      << std::endl 
-      << "------------------------------" << endl ;
+     o << "===========================================" << std::endl ;
+     o << "                ORDERS HISTORY   " << std::endl;
+     o << "===========================================" << std::endl;
+     o << "Customer : " << GetFullName() << endl;
+     o << "ID: " << GetCustomerID() << endl;
+     o << "===========================================" << std::endl;
+     o << std::setw(8) << "Order ID"
+       << "|"
+       << std::setw(13) << "Total Amount"
+       << "|"
+       << std::setw(15) << "Date"
+       << "|"
+       << std::setw(12) << "Is Complete"
+       << "|"
+       << std::endl
+       << "------------------------------------------" << endl;
 
-    for (int i = 0; i < orderHistory.getSize(); i++) {
-        orderHistory.at(i).Display_List(o);
+     for (int i = 0; i < orderHistory.getSize(); i++)
+     {
+         orderHistory.at(i).Display_List(o);
     }
 }

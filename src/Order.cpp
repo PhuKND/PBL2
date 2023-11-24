@@ -110,24 +110,20 @@ void Order::Display(std::ostream &o)
 {
     int total;
     int stt = 1;
-    o << "===========================" ; 
-    o << "INVOICE" << std::endl;
-    o << "===========================" ;
+    o << "=============================================================" << std::endl ;
+    o << "                       INVOICE" << std::endl;
+    o << "=============================================================" << std::endl ; 
     o << "Order id : ";
     o << GetOrderID() << std::endl;
-    o << "----------------------" << std::endl;
-    o << " ----------------------" << std::endl;
-
-    o << "Invoice to : " << std::endl;
-    o << "Customer ID " << getCustomerID() ; 
-    o << "Make payment to : " << std::endl;
-    // Class Supermaket tính sau
+    o << "-------------------------------------------------------------" << std::endl;
+    o << "Customer ID " << getCustomerID() << std::endl ;
+    o << "-------------------------------------------------------------" << std::endl ;
     o << "STT" << std::right << std::setw(2) << "|";
-    o << "Product ID" << std::right << std::setw(7) << "|";
-    o << "Product name" << std::right << std::setw(10) << "|";
-    o << "Unit price" << std::right << std::setw(0) << "|";
-    o << "Quantity" << std::right << std::setw(0) << "|";
-    o << "Total" << std::right << std::setw(0) << "|";
+    o << "Product ID" << std::right << std::setw(4) << "|";
+    o << "Product name" << std::right << std::setw(16) << "|";
+    o << "Unit price" << std::right << std::setw(2) << "|";
+    o << "Quantity" << std::right << std::setw(1) << "|";
+    o << "Total" << std::right << std::setw(5) << "|";
     o << std::endl;
     o << "------------------------------------------------------------" << std::endl;
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
@@ -152,11 +148,9 @@ void Order::Display(std::ostream &o)
     o << std::endl;
     o << std::endl;
     o << "----------------------------------------" << std::endl;
-    o << "========================================" << std::endl;
-    o << "Total Amount  : " << CalculateTotalAmount() << std::endl;
+    o << "  Total : " << "$" <<  CalculateTotalAmount() << std::endl;
     o << "----------------------------------------" << std::endl;
-    o << "========================================" <<std:: endl;
-    o << "Thank you!" << std::endl;
+    o << "          Thank you!" << std::endl;
 }
 int Order::CalculateTotalAmount()
 {
@@ -184,7 +178,7 @@ int Order::CalculateTotalAmount()
 }
 void Order::Display_List(std::ostream& o) {
     o << std::setw(8) << GetOrderID() << "|"
-      << std::setw(13) << GetTotalAmount() << "|"
+      << std::setw(13) << "$" << GetTotalAmount() << "|"
       << std::setw(15) << GetOrderDate() << "|"
       << std::setw(12) << HoanThanh << "|"
       << std::endl;
@@ -202,4 +196,51 @@ void Order::WriteDataToFile(std::ostream& file) {
          << getCustomerID() << ","
          << GetTotalAmount() << "," 
          << HoanThanh << std::endl ;
+}
+void Order::Display_file( const char* filename) 
+{
+    std::ofstream file(filename);
+    int total;
+    int stt = 1;
+    file << "=============================================================" << std::endl ;
+    file << "                       INVOICE" << std::endl;
+    file << "=============================================================" << std::endl ; 
+    file << "Order id : ";
+    file  << GetOrderID() << std::endl;
+    file  << "-------------------------------------------------------------" << std::endl;
+    file  << "Customer ID " << getCustomerID() << std::endl ;
+    file << "-------------------------------------------------------------" << std::endl ;
+    file << "STT" << std::right << std::setw(2) << "|";
+    file << "Product ID" << std::right << std::setw(4) << "|";
+    file << "Product name" << std::right << std::setw(16) << "|";
+    file << "Unit price" << std::right << std::setw(2) << "|";
+    file << "Quantity" << std::right << std::setw(1) << "|";
+    file << "Total" << std::right << std::setw(5) << "|";
+    file << std::endl;
+    file << "------------------------------------------------------------" << std::endl;
+    for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
+    {
+        file << stt << "   | ";
+        OrderedElectricalProduct.at(i).Display_Order(file);
+        stt++;
+    }
+    for (size_t i = 0; i < OrderedFood.getSize(); i++)
+    {
+        file << stt << "   | ";
+        OrderedFood.at(i).Display_Order(file);
+        stt++;
+    }
+    for (size_t i = 0; i < OrderedHouseware.getSize(); i++)
+    {
+        file << stt << "   | ";
+        OrderedHouseware.at(i).Display_Order(file);
+        stt++;
+    }
+
+    file << std::endl;
+    file << std::endl;
+    file << "----------------------------------------" << std::endl;
+    file << "  Total : " << "$" <<  CalculateTotalAmount() << std::endl;
+    file << "----------------------------------------" << std::endl;
+    file << "          Thank you!" << std::endl;
 }

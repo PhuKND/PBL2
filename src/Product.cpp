@@ -97,12 +97,13 @@ void Product::Display() const {
     std::cout << *this;
 }
 void Product::Display_01(std::ostream& f ){
-    f << std::left << std::setw(15) << getMaSanPham() << " | ";
-    f << std::left << std::setw(20) << getTenSanPham() << " | ";
+    f << std::left << std::setw(8) << getMaSanPham() << " | ";
+    f << std::left << std::setw(8) << importID << " | " ; 
+    f << std::left << std::setw(25) << getTenSanPham() << " | ";
     f << std::left << std::setw(4) <<  getPrice()<< " | ";
-    f << std::left << std::setw(20) << getSoLuongTonKho() << " | ";
-    f << std::left << std::setw(25) << getNhaSanXuat() << " | ";
-    f << std::left << std::setw(15) << getNgaySanXuat() << " | ";
+    f << std::left << std::setw(5) << getSoLuongTonKho() << " | ";
+    f << std::left << std::setw(10) << getNhaSanXuat() << " | ";
+    f << std::left << std::setw(0) << getNgaySanXuat() << " | ";
 }
 void Product::WriteDataToFile(std::ostream &file) const {
     file << productID << ","
@@ -127,10 +128,10 @@ void Product::ReadDataFromFile(std::istream& file) {
     Menu::readAttributeTillDelimiter(NgaySanXuat,file) ; 
 }
 void Product::Display_Order(std::ostream& o) {
-    o << std::left << std::setw(15) << getMaSanPham() << " | ";
-    o << std::left << std::setw(20) << getTenSanPham() << " | ";
-    o << std::left << std::setw(6) <<  getPrice()<< " | ";
+    o << std::left << std::setw(11) << getMaSanPham() << " | ";
+    o << std::left << std::setw(25) << getTenSanPham() << " | ";
+    o << std::left << "$" << std::setw(8) << getPrice()<< " | ";
     o << std::left << std::setw(6) << getSoLuongTrongGio() << " | ";
-    o << std::left << std::setw(6) << getPrice()*getSoLuongTrongGio() << " | ";
+    o << std::left << "$"<<  std::setw(6) << getPrice()*getSoLuongTrongGio() << " | ";
     o << endl ;
 }

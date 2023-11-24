@@ -24,7 +24,7 @@ void Houseware::Display()
 void Houseware::Display_01(std::ostream &f)
 {
     Product::Display_01(f);
-    f << std::left << std::setw(15) << material << " | ";
+    f << std::left << std::setw(15) << material << " | " << endl ;
 }
 void Houseware::WriteDataToFile(std::ostream &file) const
 {

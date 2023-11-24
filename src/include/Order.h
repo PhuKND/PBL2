@@ -4,16 +4,15 @@
 #include "ElectricalProduct.h"
 #include "Houseware.h"
 #include "Vector_Class.h"
+#include <fstream>
 class Order
 {
 private:
     int OrderID;
     int CustomerID;
-
     int totalAmount;
     char *orderDate;
-    char *orderStatus;
-    
+    char *orderStatus;    
     char *PaymentMethod;
     char *ShippingAddress;
     bool delivery;
@@ -49,6 +48,7 @@ void setCustomerID(int);
     void Display(std::ostream &o);
     int CalculateTotalAmount();
     void Display_List(std::ostream&  ) ; 
+    void Display_file(const char*) ; 
     void WriteDataToFile(std::ostream& file) ; 
     void ReadDataFromFile(std::istream& file ) ; 
 };

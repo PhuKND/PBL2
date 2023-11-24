@@ -6,8 +6,10 @@
 #define RESET   "\033[0m"
 #define RED     "\033[1;31m"
 #define GREEN   "\033[1;32m"
+#define CYAN    "\033[1;36m"
 #define YELLOW  "\033[1;33m"
 #define BLUE    "\033[1;34m"
+#define BRIGHT_MAGENTA "\033[1;95m"
 class Menu {
 private:
     DataManager<Customer> customerManager ; 
@@ -20,19 +22,13 @@ private:
     int customerChoiceCount;
     int managerChoiceCount;
     int employeeChoiceCount;
-
 public:
     Menu();
     ~Menu() ; 
-
-
     void displayEmployeeMenu(int) ; 
     void displayCustomerMenu(Customer&,Order&) ; 
     void displayManagerMenu()  ;
-    
-
     void run();
-
     static bool areEqual(const char *, const char *) ;
     static void getInput(char*& , istream&,int = 100) ;
     static void readAttributeTillDelimiter(char* &attribute, std::istream& file);
