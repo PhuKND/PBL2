@@ -538,11 +538,11 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             char ch = getch();
             if (ch == 'Y' || ch == 'y')
             {
-                int length = snprintf(nullptr, 0, "%d_%d_order.txt", order.GetOrderID(),order.getCustomerID());
-                char *filename = new char[length + 1];
-                snprintf(filename, length + 1, "%d_%d_order.txt", order.GetOrderID(), order.getCustomerID());
-                order.Display_file(filename);
-                delete[] filename;
+                int length = snprintf(nullptr, 0, "data/Order_list/Cus%d/%d_order.txt", order.getCustomerID(), order.GetOrderID());
+        char *filename = new char[length + 1];
+        snprintf(filename, length + 1, "data/Order_list/Cus%d/%d_order.txt", order.getCustomerID(), order.GetOrderID());
+        cout << "File path " << filename  << endl ;  
+        order.Display_file(filename);
             }
             Order::setNumberOrder();
             Order newOrder(Order::getNumberOrder(), cus.GetCustomerID());

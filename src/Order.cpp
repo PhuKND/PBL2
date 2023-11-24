@@ -200,6 +200,7 @@ void Order::WriteDataToFile(std::ostream& file) {
 void Order::Display_file( const char* filename) 
 {
     std::ofstream file(filename);
+    if(file.is_open()) {  
     int total;
     int stt = 1;
     file << "=============================================================" << std::endl ;
@@ -243,4 +244,8 @@ void Order::Display_file( const char* filename)
     file << "  Total : " << "$" <<  CalculateTotalAmount() << std::endl;
     file << "----------------------------------------" << std::endl;
     file << "          Thank you!" << std::endl;
+    }
+    else {
+        std::cerr << "Can't open file " << std::endl ; 
+    }
 }
