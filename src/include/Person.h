@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+// #include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Date.h"
 using namespace std;
 class Person
 {
@@ -8,13 +10,13 @@ protected:
     char* fullName;
     char* Gender;
     int age;
-    char* DayOfBirth;
+    Date DayOfBirth;
     char* address;
     char* phoneNumber;
     char* email;
 public:
     Person(int = 0, char* =  const_cast<char*> (""), char* =  const_cast<char*> (""), int = 0,
-         char* =  const_cast<char*> (""), char* =  const_cast<char*> (""), char* =  const_cast<char*> (""), char* =  const_cast<char*> (""));
+         const Date& birthDate = Date(), char* =  const_cast<char*> (""), char* =  const_cast<char*> (""), char* =  const_cast<char*> (""));
     ~Person();
     char* GetFullName() const;
     void SetFullName(char* fullName) ;
@@ -22,8 +24,8 @@ public:
     void SetAge(int age) ;
     char* GetGender()const;
     void SetGender(char* Gender);
-    char* GetDayOfBirth()const;
-    void SetDayOfBirth(char* DayOfBirth);
+    const   Date& GetDayOfBirth() const; 
+    void SetDayOfBirth(const Date& dayOfBirth) ; 
     int GetID()const;
     void SetID(int ID);
     char* GetAddress()const;

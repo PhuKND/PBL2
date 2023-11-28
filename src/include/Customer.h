@@ -1,6 +1,7 @@
+#include "Order.h"
 #pragma once
 #include "Person.h"
-#include "Order.h"
+
 
 class Customer : public Person
 {
@@ -13,7 +14,7 @@ private:
 public:
     
     Customer();
-    Customer(int, char *, char *, int, char *, char *, char *, char *, int, char *);
+    Customer(int, char *, char *, int, Date, char *, char *, char *, int, char *);
     ~Customer();
     Vector_Class<Order>& getOrderHistory() ; 
     int GetCustomerID() const;

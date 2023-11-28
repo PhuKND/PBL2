@@ -4,6 +4,7 @@
 #include "ElectricalProduct.h"
 #include "Houseware.h"
 #include "Vector_Class.h"
+#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
 #include <fstream>
 class Order
 {
@@ -11,7 +12,7 @@ private:
     int OrderID;
     int CustomerID;
     int totalAmount;
-    char *orderDate;
+    Time orderTime;
     char *orderStatus;    
     char *PaymentMethod;
     char *ShippingAddress;
@@ -26,8 +27,8 @@ public:
     bool HoanThanh = false ; 
     void Order_Food(Food& ) ;
     void Order_ElectricalProduct(ElectricalProduct&); 
-    void Order_Houseware(Houseware& ); 
-    Order(int = 0, int = 0, int = 0, char * = "", char * = "", bool = false, char * = " ", char * = "", bool = false);
+void Order_Houseware(Houseware& ); 
+    Order(int = 0, int = 0,int = 0,Time = Time(), char * = "", bool = false, char * = " ", char * = "", bool = false);
     ~Order();
     int GetOrderID() const;
     void SetOrderID(int OrderID);
@@ -36,8 +37,8 @@ void setCustomerID(int);
     void SetOrderProduct(Vector_Class<Product> OrderProduct);
     int GetTotalAmount() const;
     void SetTotalAmount(int totalAmount);
-    char *GetOrderDate() const;
-    void SetOrderDate(char *orderDate);
+    Time GetOrderTime() const;
+    void SetOrderTime(Time&);
     char *GetOrderStatus() const;
     void SetOrderStatus(char *orderStatus);
     char *GetPaymentMethod() const;

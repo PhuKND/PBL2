@@ -6,12 +6,12 @@
 #include <iomanip>
 #include<limits>
 
-Employee::Employee() : Person(), employeeID(0), position(const_cast<char*>("")), salary(0), startDay(const_cast<char*>("")), endDay(const_cast<char*>("")), isWorking(true)
-{
-
+Employee::Employee() : Person(), employeeID(0), position(const_cast<char*>("")), salary(0), isWorking(true) {
 }
 
-Employee::Employee(int ID, char* fullName, char* Gender, int age, char* dayofbirth, char* address, char* phoneNumber, char* email, char* position, int salary, char* startDay, char* endDay, bool isWorking)
+  
+
+Employee::Employee(int ID, char* fullName, char* Gender, int age,  Date& dayofbirth, char* address, char* phoneNumber, char* email, char* position, int salary, Date& startDay,  Date& endDay, bool isWorking)
     : Person(ID, fullName, Gender, age, dayofbirth, address, phoneNumber, email), position(position), salary(salary), startDay(startDay), endDay(endDay), isWorking(isWorking)
 {
 }
@@ -50,22 +50,22 @@ void Employee::SetSalary(int sal)
     salary = sal;
 }
 
-char* Employee::GetStartDay() const
+const Date& Employee::GetStartDay() const
 {
     return startDay;
 }
 
-void Employee::SetStartDay(char* &start)
+void Employee::SetStartDay(const Date&start)
 {
     startDay = start;
 }
 
-char* Employee::GetEndDay() const
+const Date& Employee::GetEndDay() const
 {
     return endDay;
 }
 
-void Employee::SetEndDay(char* &end)
+void Employee::SetEndDay(const Date& end)
 {
     endDay = end;
 }
@@ -129,7 +129,7 @@ void Employee::GetInformation() {
     std::cin >> age;
     std::cout << "Day of birth: ";
     std::cin.ignore();
-    Menu::getInput(DayOfBirth,cin) ;
+    std::cin >> DayOfBirth ; 
     std::cout << "Address : ";
     std::cin.ignore();
     Menu::getInput(address,cin);
@@ -142,9 +142,9 @@ void Employee::GetInformation() {
     std::cout << "Salary : ";
     std::cin >> salary; 
     std::cout << "Start day : ";
-    Menu::getInput(startDay,cin) ;
+    std::cin >> startDay ; 
     std::cout << "End day : ";
-    Menu::getInput(endDay,cin) ;
+    std::cin >> endDay ; 
     std::cout << "Is working (1 for Yes, 0 for No): ";
     std::cin >> isWorking;
 }
@@ -164,14 +164,14 @@ void Employee::ReadDataFromFile(std::istream &file) {
         Menu::readAttributeTillDelimiter(fullName, file);
         Menu::readAttributeTillDelimiter(Gender, file);
         file >> age >> comma;
-        Menu::readAttributeTillDelimiter(DayOfBirth, file);
+        file >> DayOfBirth >> comma;
         Menu::readAttributeTillDelimiter(address, file);
         Menu::readAttributeTillDelimiter(phoneNumber, file);
         Menu::readAttributeTillDelimiter(email, file);
         Menu::readAttributeTillDelimiter(position, file);
         file >> salary >> comma;
-        Menu::readAttributeTillDelimiter(startDay, file);
-        Menu::readAttributeTillDelimiter(endDay, file);
+        file >> startDay >> comma;
+        file >> endDay >> comma;
         file >> isWorking  ; 
         file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }

@@ -3,7 +3,7 @@
 #include"include/Menu.h"
 Houseware::Houseware() : Product(), material("") {}
 Houseware::Houseware(int productID, int importID, char *TenSanPham,
-                     int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, char *NgaySanXuat, char *mat)
+                     int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, Date NgaySanXuat, char *mat)
 {
 }
 Houseware::~Houseware() {}

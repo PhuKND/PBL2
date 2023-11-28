@@ -8,7 +8,7 @@ private:
 
 public:
     Houseware();
-    Houseware(int, int, char *, int, int, int, char *, char *, char *);
+    Houseware(int, int, char *, int, int, int, char *, Date, char *);
     ~Houseware();
 
     char *GetMaterial() const;

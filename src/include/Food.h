@@ -24,7 +24,7 @@ private:
 
 public:
     Food();
-    Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char *LoaiSanPham, char *TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, char *NgaySanXuat);
+    Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char *LoaiSanPham, char *TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, Date NgaySanXuat);
     ~Food();
 
     FoodType GetFoodType() const;

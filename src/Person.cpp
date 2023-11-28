@@ -1,7 +1,7 @@
 #include "include/Person.h"
 #include <fstream>
 
-Person::Person(int ID ,char* fullName, char* Gender, int age, char* DayOfBirth,char* address, char* phoneNumber, char* email)
+Person::Person(int ID ,char* fullName, char* Gender, int age, const Date& DayOfBirth,char* address, char* phoneNumber, char* email)
     : ID(ID) ,fullName(fullName), Gender(Gender), age(age), DayOfBirth(DayOfBirth),  address(address), phoneNumber(phoneNumber), email(email) {
 }
 
@@ -32,12 +32,13 @@ void Person::SetGender(char* Gender) {
     this->Gender = Gender;
 }
 
-char* Person::GetDayOfBirth()const {
+const Date& Person::GetDayOfBirth() const {
     return DayOfBirth;
 }
 
-void Person::SetDayOfBirth(char* DayOfBirth) {
-    this->DayOfBirth = DayOfBirth;
+void Person::SetDayOfBirth(const Date& dayOfBirth) {
+    // Set the day of birth directly
+    DayOfBirth = dayOfBirth;
 }
 
 int Person::GetID()const {

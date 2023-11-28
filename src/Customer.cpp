@@ -7,7 +7,7 @@
 Customer::Customer(){
 
 };
-Customer::Customer(int CustomerID, char *fullName, char *Gender, int age, char *DayOfBirth, char *address, char *phoneNumber, char *email, int point, char *type) : Person(CustomerID, fullName, Gender, age, DayOfBirth, address, phoneNumber, email), Point(Point), CustomerType(type){};
+Customer::Customer(int CustomerID, char *fullName, char *Gender, int age, Date DayOfBirth, char *address, char *phoneNumber, char *email, int point, char *type) : Person(CustomerID, fullName, Gender, age, DayOfBirth, address, phoneNumber, email), Point(Point), CustomerType(type){};
 void Customer::SetPoint(int Point)
 {
     this->Point = Point;
@@ -96,7 +96,7 @@ void Customer::ReadDataFromFile(std::istream &file)
     Menu::readAttributeTillDelimiter(fullName, file);
     Menu::readAttributeTillDelimiter(Gender, file);
     file >> age >> comma;
-    Menu::readAttributeTillDelimiter(DayOfBirth, file);
+    file >> DayOfBirth >> comma ;
     Menu::readAttributeTillDelimiter(address, file);
     Menu::readAttributeTillDelimiter(phoneNumber, file);
     Menu::readAttributeTillDelimiter(email, file);

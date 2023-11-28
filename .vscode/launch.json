@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/nguye/Downloads/Ky3/PBL2/phuong",
-      "program": "c:/Users/nguye/Downloads/Ky3/PBL2/phuong/build/Debug/outDebug",
+      "cwd": "c:/Users/nguye/Downloads/Ky3/PBL2/src",
+      "program": "c:/Users/nguye/Downloads/Ky3/PBL2/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

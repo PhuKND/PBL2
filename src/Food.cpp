@@ -13,7 +13,7 @@ Food::Food()
     isExpired = false;
 }
 
-Food::Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char *LoaiSanPham, char *TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, char *NgaySanXuat)
+Food::Food(FoodType type, double cal, double prot, double carbs, double f, double vit, double weight, bool expired, int productID, int importID, char *LoaiSanPham, char *TenSanPham, int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, Date NgaySanXuat)
     : Product(productID, importID, TenSanPham, Price, SoLuongDaBan, SoLuongTonKho, NhaSanXuat, NgaySanXuat),
       foodType(type),
       calories(cal),

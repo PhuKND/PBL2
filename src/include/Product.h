@@ -1,6 +1,6 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
-
+#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Date.h"
 #include <iomanip>
 #include <iostream>
 class Product {
@@ -12,7 +12,7 @@ private:
     int SoLuongDaBan;
     int SoLuongTonKho;
     char* NhaSanXuat;
-    char* NgaySanXuat;
+    Date NgaySanXuat;
     int SoLuongTrongGio; 
     enum class ProductType {
     Houseware,
@@ -23,7 +23,7 @@ private:
 public:
     Product();
     ~Product();
-    Product(int , int , char* , int , int , int , char* , char* ) ; 
+    Product(int , int , char* , int , int , int , char* , Date ) ; 
     char* getTenSanPham() const;
     void setTenSanPham( char* &TenSanPham);
 
@@ -42,8 +42,8 @@ public:
     char* getNhaSanXuat() const;
     void setNhaSanXuat( char* &NhaSanXuat);
 
-    char* getNgaySanXuat() const;
-    void setNgaySanXuat( char* &NgaySanXuat);
+    Date getNgaySanXuat() const;
+    void setNgaySanXuat( Date&);
 
     friend std::ostream &operator<<(std::ostream &out, const Product &product);
     virtual void Display() const;

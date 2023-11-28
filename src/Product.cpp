@@ -10,10 +10,10 @@ Product::Product() {
     SoLuongDaBan = 0;
     SoLuongTonKho = 0;
     NhaSanXuat = "";
-    NgaySanXuat = "";
+    NgaySanXuat = Date(0,0,0);
 }
 Product::Product(int productID, int importID,  char* TenSanPham,
-                 int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat,  char*NgaySanXuat)
+                 int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat,  Date NgaySanXuat)
     : productID(productID), importID(importID),  TenSanPham(TenSanPham),
       Price(Price), SoLuongDaBan(SoLuongDaBan), SoLuongTonKho(SoLuongTonKho), NhaSanXuat(NhaSanXuat), NgaySanXuat(NgaySanXuat) {
 }
@@ -66,11 +66,11 @@ void Product::setNhaSanXuat( char* &NhaSanXuat) {
     this->NhaSanXuat = NhaSanXuat;
 }
 
-char* Product::getNgaySanXuat() const {
+Date Product::getNgaySanXuat() const {
     return NgaySanXuat;
 }
 
-void Product::setNgaySanXuat(char* &NgaySanXuat) {
+void Product::setNgaySanXuat(Date& date) {
     this->NgaySanXuat = NgaySanXuat;
 }
 void Product::setSoLuongTrongGio(int quantity) {
@@ -125,8 +125,8 @@ void Product::ReadDataFromFile(std::istream& file) {
     file >> SoLuongDaBan >> comma ;
     file >> SoLuongTonKho >> comma ;
     Menu::readAttributeTillDelimiter(NhaSanXuat,file) ; 
-    Menu::readAttributeTillDelimiter(NgaySanXuat,file) ; 
-}
+    file >> NgaySanXuat >> comma ; 
+    }
 void Product::Display_Order(std::ostream& o) {
     o << std::left << std::setw(11) << getMaSanPham() << " | ";
     o << std::left << std::setw(25) << getTenSanPham() << " | ";

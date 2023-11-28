@@ -1,11 +1,12 @@
 #include "include/Order.h"
-
-Order::Order(int OrderID, int CustomerID, int totalAmount, char *orderDate, char *orderStatus, bool HoanThanh, char *PaymentMethod, char *ShippingAddress, bool delivery)
+#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+Order::Order(int OrderID, int CustomerID, int totalAmount, Time orderTime, char *orderStatus, bool HoanThanh, char *PaymentMethod, char *ShippingAddress, bool delivery)
 {
     this->OrderID = OrderID;
     this->CustomerID = CustomerID;
+    this->orderTime = Time();
     this->totalAmount = totalAmount;
-    this->orderDate = orderDate;
+    this->orderTime = orderTime;
     this->orderStatus = orderStatus;
     this->HoanThanh = HoanThanh;
     this->PaymentMethod = PaymentMethod;
@@ -18,21 +19,25 @@ Order::~Order()
 {
     // Destructor implementation
 }
- int Order::getNumberOrder() {
-    return numberofOrder ; 
+int Order::getNumberOrder()
+{
+    return numberofOrder;
 }
-void Order::setNumberOrder(){
-  numberofOrder++ ; 
+void Order::setNumberOrder()
+{
+    numberofOrder++;
 }
 int Order::GetOrderID() const
 {
     return OrderID;
 }
-int Order::getCustomerID() {
-    return CustomerID; 
+int Order::getCustomerID()
+{
+    return CustomerID;
 }
-void Order::setCustomerID(int id){
-    this -> CustomerID = id ; 
+void Order::setCustomerID(int id)
+{
+    this->CustomerID = id;
 }
 void Order::SetOrderID(int OrderID)
 {
@@ -50,14 +55,14 @@ void Order::SetTotalAmount(int totalAmount)
     this->totalAmount = totalAmount;
 }
 
-char *Order::GetOrderDate() const
+Time Order::GetOrderTime() const
 {
-    return orderDate;
+    return orderTime;
 }
 
-void Order::SetOrderDate(char *orderDate)
+void Order::SetOrderTime(Time &orderTime)
 {
-    this->orderDate = orderDate;
+    this->orderTime = orderTime;
 }
 
 char *Order::GetOrderStatus() const
@@ -110,14 +115,17 @@ void Order::Display(std::ostream &o)
 {
     int total;
     int stt = 1;
-    o << "=============================================================" << std::endl ;
+    o << "=============================================================" << std::endl;
     o << "                       INVOICE" << std::endl;
-    o << "=============================================================" << std::endl ; 
+    o << "=============================================================" << std::endl;
     o << "Order id : ";
     o << GetOrderID() << std::endl;
+    o << "Order time : ";
+    orderTime.updateRealTime(); 
+    o << orderTime.getRealTime() << std::endl;
     o << "-------------------------------------------------------------" << std::endl;
-    o << "Customer ID " << getCustomerID() << std::endl ;
-    o << "-------------------------------------------------------------" << std::endl ;
+    o << "Customer ID " << getCustomerID() << std::endl;
+    o << "-------------------------------------------------------------" << std::endl;
     o << "STT" << std::right << std::setw(2) << "|";
     o << "Product ID" << std::right << std::setw(4) << "|";
     o << "Product name" << std::right << std::setw(16) << "|";
@@ -148,7 +156,8 @@ void Order::Display(std::ostream &o)
     o << std::endl;
     o << std::endl;
     o << "----------------------------------------" << std::endl;
-    o << "  Total : " << "$" <<  CalculateTotalAmount() << std::endl;
+    o << "  Total : "
+      << "$" << CalculateTotalAmount() << std::endl;
     o << "----------------------------------------" << std::endl;
     o << "          Thank you!" << std::endl;
 }
@@ -176,76 +185,85 @@ int Order::CalculateTotalAmount()
 
     return totalAmount;
 }
-void Order::Display_List(std::ostream& o) {
+void Order::Display_List(std::ostream &o)
+{
     o << std::setw(8) << GetOrderID() << "|"
       << std::setw(13) << "$" << GetTotalAmount() << "|"
-      << std::setw(15) << GetOrderDate() << "|"
+      << std::setw(15) << GetOrderTime() << "|"
       << std::setw(12) << HoanThanh << "|"
       << std::endl;
 }
-void Order::ReadDataFromFile(std::istream& file) {
-    char comma ; 
-    file >> OrderID >> comma ;
-    file >> CustomerID >> comma ; 
-    file >> totalAmount >> comma  ;
+void Order::ReadDataFromFile(std::istream &file)
+{
+    char comma;
+    file >> OrderID >> comma;
+    file >> CustomerID >> comma;
+    file >> totalAmount >> comma;
     file >> HoanThanh;
-    SetOrderID(OrderID) ; 
+    SetOrderID(OrderID);
 }
-void Order::WriteDataToFile(std::ostream& file) {
+void Order::WriteDataToFile(std::ostream &file)
+{
     file << GetOrderID() << ","
          << getCustomerID() << ","
-         << GetTotalAmount() << "," 
-         << HoanThanh << std::endl ;
+         << GetTotalAmount() << ","
+         << HoanThanh << std::endl;
 }
-void Order::Display_file( const char* filename) 
+void Order::Display_file(const char *filename)
 {
     std::ofstream file(filename);
-    if(file.is_open()) {  
-    int total;
-    int stt = 1;
-    file << "=============================================================" << std::endl ;
-    file << "                       INVOICE" << std::endl;
-    file << "=============================================================" << std::endl ; 
-    file << "Order id : ";
-    file  << GetOrderID() << std::endl;
-    file  << "-------------------------------------------------------------" << std::endl;
-    file  << "Customer ID " << getCustomerID() << std::endl ;
-    file << "-------------------------------------------------------------" << std::endl ;
-    file << "STT" << std::right << std::setw(2) << "|";
-    file << "Product ID" << std::right << std::setw(4) << "|";
-    file << "Product name" << std::right << std::setw(16) << "|";
-    file << "Unit price" << std::right << std::setw(2) << "|";
-    file << "Quantity" << std::right << std::setw(1) << "|";
-    file << "Total" << std::right << std::setw(5) << "|";
-    file << std::endl;
-    file << "------------------------------------------------------------" << std::endl;
-    for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
+    if (file.is_open())
     {
-        file << stt << "   | ";
-        OrderedElectricalProduct.at(i).Display_Order(file);
-        stt++;
-    }
-    for (size_t i = 0; i < OrderedFood.getSize(); i++)
-    {
-        file << stt << "   | ";
-        OrderedFood.at(i).Display_Order(file);
-        stt++;
-    }
-    for (size_t i = 0; i < OrderedHouseware.getSize(); i++)
-    {
-        file << stt << "   | ";
-        OrderedHouseware.at(i).Display_Order(file);
-        stt++;
-    }
+        int total;
+        int stt = 1;
+        file << "=============================================================" << std::endl;
+        file << "                       INVOICE" << std::endl;
+        file << "=============================================================" << std::endl;
+        file << "Order id : ";
+        file << GetOrderID() << std::endl;
+        file << "Order time : ";
+        orderTime.updateRealTime() ; 
+        file << orderTime.getRealTime() << std::endl;
+        file << "-------------------------------------------------------------" << std::endl;
+        file << "Customer ID " << getCustomerID() << std::endl;
+        file << "-------------------------------------------------------------" << std::endl;
+        file << "STT" << std::right << std::setw(2) << "|";
+        file << "Product ID" << std::right << std::setw(4) << "|";
+        file << "Product name" << std::right << std::setw(16) << "|";
+        file << "Unit price" << std::right << std::setw(2) << "|";
+        file << "Quantity" << std::right << std::setw(1) << "|";
+        file << "Total" << std::right << std::setw(5) << "|";
+        file << std::endl;
+        file << "------------------------------------------------------------" << std::endl;
+        for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
+        {
+            file << stt << "   | ";
+            OrderedElectricalProduct.at(i).Display_Order(file);
+            stt++;
+        }
+        for (size_t i = 0; i < OrderedFood.getSize(); i++)
+        {
+            file << stt << "   | ";
+            OrderedFood.at(i).Display_Order(file);
+            stt++;
+        }
+        for (size_t i = 0; i < OrderedHouseware.getSize(); i++)
+        {
+            file << stt << "   | ";
+            OrderedHouseware.at(i).Display_Order(file);
+            stt++;
+        }
 
-    file << std::endl;
-    file << std::endl;
-    file << "----------------------------------------" << std::endl;
-    file << "  Total : " << "$" <<  CalculateTotalAmount() << std::endl;
-    file << "----------------------------------------" << std::endl;
-    file << "          Thank you!" << std::endl;
+        file << std::endl;
+        file << std::endl;
+        file << "----------------------------------------" << std::endl;
+        file << "  Total : "
+             << "$" << CalculateTotalAmount() << std::endl;
+        file << "----------------------------------------" << std::endl;
+        file << "          Thank you!" << std::endl;
     }
-    else {
-        std::cerr << "Can't open file " << std::endl ; 
+    else
+    {
+        std::cerr << "Can't open file " << std::endl;
     }
 }

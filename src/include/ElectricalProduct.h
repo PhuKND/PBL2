@@ -24,7 +24,7 @@ private:
 
 public:
     ElectricalProduct();
-    ElectricalProduct(int , int , char* , int , int , int , char* , char*
+    ElectricalProduct(int , int , char* , int , int , int , char* , Date
                       ,const TechnicalSpecification& tech);
     ~ElectricalProduct();
 

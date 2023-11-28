@@ -10,10 +10,12 @@ struct Point
 {
     int x, y;
 };
+
 int mod(int a, int b)
 {
     return (a % b + b) % b;
 }
+
 Point add(Point P, Point Q, int a, int p)
 {
     Point R;
@@ -26,13 +28,9 @@ Point add(Point P, Point Q, int a, int p)
 
     if (P.x != Q.x || P.y != Q.y)
     {
-        // Calculate m = (Q.y - P.y) / (Q.x - P.x) mod p
         int dx = mod(Q.x - P.x, p);
         int dy = mod(Q.y - P.y, p);
-
-        int dx_inv = -1; // initialize to an invalid value
-
-        // Find the modular inverse of dx
+        int dx_inv = -1; 
         for (int i = 1; i < p; ++i)
         {
             if ((dx * i) % p == 1)
@@ -41,30 +39,19 @@ Point add(Point P, Point Q, int a, int p)
                 break;
             }
         }
-
-        // If modular inverse exists
         if (dx_inv != -1)
         {
             m = (dy * dx_inv) % p;
         }
         else
         {
-            // Handle the case where modular inverse doesn't exist
-            // You may want to add error handling or use a different approach
-            // based on your requirements.
-            cerr << "Error: Modular inverse does not exist." << endl;
-            // You can return an error value or handle it in some appropriate way.
-            // For now, I'm returning the point at infinity.
             return {-1, -1};
         }
     }
     else
     {
-        // Calculate m = (3 * P.x^2 + a) / (2 * P.y) mod p
         m = (3 * P.x * P.x + a) % p;
-        int dy_inv = -1; // initialize to an invalid value
-
-        // Find the modular inverse of 2 * P.y
+        int dy_inv = -1;
         for (int i = 1; i < p; ++i)
         {
             if ((2 * P.y * i) % p == 1)
@@ -73,15 +60,12 @@ Point add(Point P, Point Q, int a, int p)
                 break;
             }
         }
-
-        // If modular inverse exists
         if (dy_inv != -1)
         {
             m = (m * dy_inv) % p;
         }
         else
         {
-            // Handle the case where modular inverse doesn't exist
             cerr << "Error: Modular inverse does not exist." << endl;
             return {-1, -1};
         }
@@ -96,7 +80,8 @@ Point add(Point P, Point Q, int a, int p)
 
 Point multiply(Point P, int k, int a, int p)
 {
-    Point R = {0, 1}; // Initialize R to the point at infinity
+    if(k == 0 ) return P ;
+    Point R = {0, 1};
 
     for (int i = 0; i < k; i++)
     {
@@ -117,6 +102,7 @@ string decimalToBase3(int decimal)
 
     return base3;
 }
+
 string decimalToBase3(int decimal, int m)
 {
     string base3 = "";
@@ -131,6 +117,7 @@ string decimalToBase3(int decimal, int m)
     }
     return base3;
 }
+
 string coordinateToBase3(Point P)
 {
     string base3x = decimalToBase3(P.x);
@@ -138,23 +125,6 @@ string coordinateToBase3(Point P)
     return base3x + " " + base3y;
 }
 
-Point base3ToCoordinate(string base3)
-{
-    int decimal = 0;
-    int power = 0;
-
-    for (char digit : base3)
-    {
-        decimal = decimal * 3 + (digit - '0');
-        power++;
-    }
-
-    Point P;
-    P.y = decimal % 139;
-    P.x = (decimal - P.y) / 139;
-
-    return P;
-}
 vector<string> Buoc2_tt1(Point basepoint, int n)
 {
     int m = decimalToBase3(n).size();
@@ -166,9 +136,11 @@ vector<string> Buoc2_tt1(Point basepoint, int n)
     }
     return matrix_coso3;
 }
-// Hàm ánh xạ giữa điểm và ký tự ASCII
+
 char pointToChar(int index)
 {
+     if (index == 26)  
+        return ' ';
     char a = '!';
     return a + index;
 }
@@ -188,6 +160,41 @@ void shift_right(std::string &str)
     }
     str[0] = lastChar;
 }
+std::string shift_right(std::string s, int m) {
+    std::string result;
+    std::istringstream iss(s);
+    std::string group;
+    while (std::getline(iss, group, ' ')) {
+        if (group.size() > 1) {
+            char temp = group.back();
+            for (int j = group.size() - 1; j > 0; --j) {
+                group[j] = group[j - 1];
+            }
+            group[0] = temp;
+        }
+        if (!result.empty()) {
+            result += ' ';
+        }
+        result += group;
+    }
+    return result;
+}
+
+
+std::string shift_left(std::string s, int m) {
+    for (int i = 0; i < s.size(); i += m) {
+        int end = std::min(i + m, (int)s.size());
+        if (end - i > 1) {
+            char temp = s[i];
+            for (int j = i; j < end - 1; ++j) {
+                s[j] = s[j + 1];
+            }
+            s[end - 1] = temp;
+        }
+    }
+    return s;
+}
+
 void CreateSets_allPoints(int n, Point basepoint, int a, int p)
 {
     Point currentPoint = basepoint;
@@ -198,13 +205,13 @@ void CreateSets_allPoints(int n, Point basepoint, int a, int p)
     }
     cout << endl;
 }
+
 int EncodeFunction(Point basepoint, int key, int n, int pos)
 {
     // E(P) = [(Pi + K) mod (n)]P
     int c;
 
-    // Find the modular inverse of basepoint.x
-    int inv = -1; // initialize to an invalid value
+    int inv = -1; 
     for (int i = 1; i < n; ++i)
     {
         if ((basepoint.x * i) % n == 1)
@@ -213,26 +220,25 @@ int EncodeFunction(Point basepoint, int key, int n, int pos)
             break;
         }
     }
-
-    // If modular inverse exists
     if (inv != -1)
     {
         c = mod((pos + key) * inv, n);
     }
     else
     {
-        // Handle the case where modular inverse doesn't exist
-        cerr << "Error: Modular inverse does not exist." << endl;
-        return -1; // You can return an error value or handle it in some appropriate way
+        return -1; 
     }
 
     return c;
 }
-void Encode(string plaintext, Point basepoint, int n, int a, int p, int k)
+
+void Encode(string plaintext, Point basepoint, int n, int a, int p, int k,int m)
 {
     const size_t size = plaintext.size();
     int arr[size];
     Point encodedPoint[size];
+    cout << endl;
+      std::string mahoa_truocshift = "";  // Initialize an empty string to store the encoded points before the shift
 
     cout << "Ma hoa: " << endl;
     for (size_t i = 0; i < size; i++)
@@ -251,180 +257,259 @@ void Encode(string plaintext, Point basepoint, int n, int a, int p, int k)
         {
             arr[i] = EncodeFunction(basepoint, k, n, index);
             encodedPoint[i] = multiply(basepoint, arr[i], a, p);
+
+            if (!mahoa_truocshift.empty())
+            {
+                mahoa_truocshift += " ";
+            }
+
+            mahoa_truocshift += decimalToBase3(encodedPoint[i].x, decimalToBase3(n).size()) + " " + decimalToBase3(encodedPoint[i].y, decimalToBase3(n).size());
+
             cout << " (" << encodedPoint[i].x << "," << encodedPoint[i].y << ")";
         }
     }
     cout << endl;
 
-    cout << "Ma hoa (base 3): " << endl;
-    for (size_t i = 0; i < size; i++)
+    cout << "Trinh tu ma hoa : " << endl ;
+     cout << shift_right(mahoa_truocshift,m)  << endl ; 
+    
+}
+int base3ToDecimal(string base3)
+{
+    int decimal = 0;
+    int power = 0;
+
+    for (auto it = base3.rbegin(); it != base3.rend(); ++it)
     {
-        if (i > 0)
-        {
-            cout << " ";
-        }
-        cout << decimalToBase3(encodedPoint[i].x,decimalToBase3(n).size()) << " " << decimalToBase3(encodedPoint[i].y,decimalToBase3(n).size());
+        decimal += ((*it) - '0') * pow(3, power);
+        power++;
     }
-    cout << endl;
+
+    return decimal;
 }
 
-int DecodeFunction(Point basepoint, int key, int n, int pos)
-{
-    // D(C) = [(Ci - K) mod (n)]P
-    int m;
+int convertToDecimal(std::string s) {
+    int result = 0;
+    for (int i = 0; i < s.size(); ++i) {
+        result += (s[i] - '0') * pow(3, s.size() - 1 - i);
+    }
+    return result;
+}
 
-    // Find the modular inverse of basepoint.x
-    int inv = -1; // initialize to an invalid value
-    for (int i = 1; i < n; ++i)
-    {
-        if ((basepoint.x * i) % n == 1)
-        {
-            inv = i;
-            break;
+void convertToBase10(std::string s, int m) {
+    for (int i = 0; i < s.size(); i += 2 * m) {
+        std::string x = s.substr(i, m);
+        std::cout << "(" << convertToDecimal(x);
+
+        if (i + m < s.size()) {
+            std::string y = s.substr(i + m, m);
+            std::cout << ", " << convertToDecimal(y);
         }
+        std::cout << ")" << std::endl;
+    }
+}
+vector<Point> convertToPoints(const string &s, int m)
+{
+    vector<Point> points;
+
+    for (int i = 0; i < s.size(); i += 2 * m)
+    {
+        string x = s.substr(i, m);
+        int xDecimal = convertToDecimal(x);
+
+        if (i + m < s.size())
+        {
+            string y = s.substr(i + m, m);
+            int yDecimal = convertToDecimal(y);
+
+            points.push_back({xDecimal, yDecimal});
+        }
+        else
+        {
+            points.push_back({xDecimal, -1});}
     }
 
-    // If modular inverse exists
+    return points;
+}
+
+int modInverse(int a, int m) {
+    a = a % m;
+    for (int x = 1; x < m; x++)
+        if ((a * x) % m == 1)
+            return x;
+    return -1; 
+}
+
+
+int DecodeFunction(Point basepoint, int key, int n, int c)
+{
+    // D(C) = [(C - K) mod (n)]P
+
+    int inv = modInverse(basepoint.x, n);
+
     if (inv != -1)
     {
-        m = mod((pos - key) * inv, n);
+        int decodedPos = mod((c - key) * inv, n);
+        return decodedPos;
     }
     else
     {
-        // Handle the case where modular inverse doesn't exist
-        cerr << "Error: Modular inverse does not exist." << endl;
-        return -1; // You can return an error value or handle it in some appropriate way
+        return -1; 
     }
-
-    return m;
 }
 
-
-int modInverse(int a, int m)
-{
-    for (int x = 1; x < m; x++)
-    {
-        if ((a * x) % m == 1)
-        {
-            return x;
-        }
-    }
-
-    cerr << "Error: Modular inverse does not exist." << endl;
-    return -1; // You can return an error value or handle it in some appropriate way
-}
-
-void Decode(string ciphertext, Point basepoint, int n, int a, int p, int k)
-{
-    cout << "Giai ma: ";
-    for (size_t i = 0; i < ciphertext.size(); i += 2)
-    {
-        string base3x_str = ciphertext.substr(i, 1);
-        string base3y_str = ciphertext.substr(i + 1, 1);
-
-        int base3x = stoi(base3x_str);
-        int base3y = stoi(base3y_str);
-
-        Point encodedPoint = {base3x, base3y};
-        int inv_k = modInverse(k, n);
-        if (inv_k != -1)
-        {
-            Point decodedPoint = multiply(encodedPoint, inv_k, a, p);
-
-            // Chuyển điểm đã giải mã thành ký tự ASCII và in ra
-            int index = mod(decodedPoint.x + n * decodedPoint.y, n);
-            cout << pointToChar(index);
-        }
-    }
-
-    cout << endl;
-}
 
 int main()
 {
-    int n = 86;
+    int n = 89;
     int a = 17;
     int p = 139;
+    int m = decimalToBase3(n).size();
     Point basepoint = {1, 7};
-    vector<char> pointToCharTable(n + 1, ' '); // Khởi tạo vector với khoảng trắng
-
-    // Bước 2,3 trong thuật toán tạo tiến trình
+    vector<char> pointToCharTable(n + 1, ' '); 
     vector<string> matrix_coso3 = Buoc2_tt1(basepoint, n);
-    for (size_t i = 0; i <= n; i++)
-    {
-        cout << matrix_coso3[i] << endl;
-    }
+    cout << "TAO TIEN TRINH : " << endl ; 
 
-    // Bước 4 chuyển dịch sang phải
+    // for (size_t i = 0; i <= n; i++)
+    // {
+    //     cout << matrix_coso3[i] << endl;
+    // }
+
     for (size_t i = 0; i <= n; i++)
     {
         shift_right(matrix_coso3[i]);
     }
 
-    cout << "Sau khi dich chuyen sang phai  : " << endl;
-    for (size_t i = 0; i <= n; i++)
-    {
-        cout << matrix_coso3[i] << endl;
-    }
-
     // cout << "Bang cac diem tren duong cong E : " << endl;
     // CreateSets_allPoints(n, basepoint, a, p);
-    Point P_anhxa[n];
-    cout << "Anh' xa. " << endl;
-    for (size_t i = 1; i <= n; i++)
-    {
-        P_anhxa[i] = multiply(basepoint, i, a, p);
-        cout << "(" << P_anhxa[i].x << ", " << P_anhxa[i].y << ") - " << pointToChar(static_cast<int>(i - 1)) << endl;
-    }
+Point P_anhxa[n];
+cout << "Cac toa do cua cac diem tuong ung voi cac ky tu  " << endl;
+for (size_t i = 0; i <= n; i++)
+{
+    P_anhxa[i] = multiply(basepoint, i, a, p);
+    cout << "| (" << setw(5) << P_anhxa[i].x << ", " << setw(5) << P_anhxa[i].y << ") - " << pointToChar(static_cast<int>(i)) << " |";
 
+    if ((i + 1) % 5 == 0)
+    {
+        cout << endl;
+    }
+}
+cout << "-------------------------------------------------------" << endl;
+cout << "Dang trinh tu la    : " << endl;
+for (size_t i = 0; i <= n; i++)
+{
+    cout << "|" << setw(3) << matrix_coso3[i] << " |";
+
+    // Xuống dòng sau mỗi 5 lần in
+    if ((i + 1) % 5 == 0)
+    {
+        cout << endl;
+    }
+}
+
+    cout << "-------------------------------------------------------"  << endl ;
     // Bước 1
-    cout << "Nhap gia tri cua khoa' bat ky` : ";
+    cout << "---------------------- Ma hoa ky tu --------------------" << endl ;
+    cout << "Nhap gia tri cua key : ";
     int k;
     cin >> k;
     cin.ignore();
 
-    // Bước 2 : C = E( P) = [(Pi + K) mod (n)]P
-    // string plaintext;
-    // cout << "Nhap chuoi can ma hoa: ";
-    // getline(cin, plaintext);
+    //   Bước 2 : C = E( P) = [(Pi + K) mod (n)]P
+    string plaintext;
+    cout << "Nhap chuoi can ma hoa: ";
+    getline(cin, plaintext);
 
-    // int arr[plaintext.size()];
-    // Point encodedPoint[plaintext.size()];
+    int arr[plaintext.size()];
+    Point encodedPoint[plaintext.size()];
+    cout << "Truoc khi ma hoa " << endl;
+    for (size_t j = 0; j < plaintext.size(); j++)
+    {
+        int index = -1;
+        for (size_t i = 0; i <= n; i++)
+        {
+            if (plaintext[j] == pointToChar(i))
+            {
+                index = i;
+                break;
+            }
+        }
 
-    // for (size_t i = 0; i < plaintext.size(); i++)
-    // {
-    //     int index = -1;
-    //     for (size_t j = 0; j < n; j++)
-    //     {
-    //         if (plaintext[i] == pointToChar(j))
-    //         {
-    //             index = j;
-    //             break;
-    //         }
-    //     }
+        if (index != -1)
+        {
+            P_anhxa[index + 1] = multiply(basepoint, index + 1, a, p);
+            cout << "(" << P_anhxa[index + 1].x << ", " << P_anhxa[index + 1].y << ") - " << pointToChar(index) << endl;
+        }
+        else
+        {
+            cerr << "Khong tim thay ky tu trong bang anh xa." << endl;
+        }
+    }
 
-    //     if (index != -1)
-    //     {
-    //         arr[i] = EncodeFunction(basepoint, k, n, index);
-    //         encodedPoint[i] = multiply(basepoint, arr[i], a, p);
-    //         cout << " (" << encodedPoint[i].x << "," << encodedPoint[i].y << ")" << endl;
-    //     }
-    //     cout << endl;
-    // }
-    // Encode(plaintext,basepoint,n,a,p,k) ;
-    // -------------------------------KẾT THÚC MÃ HÓA ---------------------------------------------
+    Encode(plaintext, basepoint, n, a, p, k,m );
+    //  -------------------------------KẾT THÚC MÃ HÓA ---------------------------------------------
 
     // -------------------------------GIẢI MÃ -----------------------------------------------------
-    cout << "Nhap khoa giai ma : " ; 
-    int k2 ;
-    cin >> k2 ; 
-    // Bước 2: C = E(P) = [(Pi + K) mod (n)]P
+    // Bước 1 : Chuyển dãy mã cơ số 3 sang trái 1 bit
     string ciphertext;
-    cout << "Nhap chuoi can giai ma: ";
-    cin.ignore();
+    cout << "Nhap ban ma hoa" << endl;
     getline(cin, ciphertext);
+    // ciphertext = shift_left(ciphertext, m);
+    // cout << "Shift left" << endl;
+    // cout << ciphertext << endl;
+    //Bước 2 
+    // Chuyển mã cơ số 3 về điểm
+    ciphertext = shift_left(ciphertext,m) ; 
+    convertToBase10(ciphertext,m) ; 
+    // Bước 3 Dùng DecodeFunction
+    // decode(basepoint,k,n,ciphertext,m) ;
+     // Vi tri sau khi decode
+     
+    //  DecodeFunction(basepoint,k,n,c); 
+    Point P_base[n];
+    vector<Point> Points ;
+    Points =  convertToPoints(ciphertext,m) ; 
+    int Index[Points.size()]  ;
+    cout << "Ky tu khi chua giai ma " << endl;
+    basepoint = {1,7} ;
+    for (size_t i = 1; i <= n; i++)
+    {
+        P_base[i] = multiply(basepoint, i, a, p);
+            for (size_t j = 0; j < Points.size(); j++)
+            {
+                if (P_base[i].x == Points[j].x && P_base[i].y == Points[j].y)
+                {
+                   cout << pointToChar(static_cast<int>(i)); 
+                   Index[j] = i ;
+                }
+            }
+                    
+    }
+    cout << endl ; 
+cout << "Nhap key de giai ma " ; 
+cin >> k ; 
+cout << "Sau khi giai ma " << endl;
+int newIndex[Points.size()];
+for (size_t i = 0; i < Points.size(); i++)
+{
+    newIndex[i] = DecodeFunction(basepoint, k, n, Index[i]);
+}
 
-    Decode(ciphertext, basepoint, n, a, p, k2);
-    cout << "STOP!";
-    return 0;
+std::string decryptedSequence = "";
+for (size_t j = 0; j < Points.size(); j++)
+{
+    for (size_t i = 1; i <= n; i++)
+    {
+        P_base[i] = multiply(basepoint, i, a, p);
+        if (newIndex[j] == i)
+        {
+            cout << "( " << P_base[i].x << " ; " << P_base[i].y << ")";
+            char decryptedChar = pointToChar(static_cast<int>(i));
+            cout << decryptedChar << endl;
+            decryptedSequence += decryptedChar;
+        }
+    }
+}
+cout << "Decrypted sequence: " << decryptedSequence << endl;
+
 }

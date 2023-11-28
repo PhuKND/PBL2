@@ -7,6 +7,9 @@
 #include "include/Houseware.h"
 #include "include/Order.h"
 #include "Menu.cpp"
+#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Date.h"
+#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+
 int main()
 {
     // Order order ;
@@ -22,5 +25,13 @@ int main()
     Menu menu;
     menu.run();
 
+//     Time myTime;
+// std::cout << "Real Time: " << myTime.getRealTime() << std::endl;
 
+
+    // Date t ; 
+    // t.getRealTime() ; 
+    // cout << t ;
+    // cin >> t ;
+    // cout << t ; 
 }
