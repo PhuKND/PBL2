@@ -28,4 +28,7 @@ public:
     void PerformDelivery();
 
     bool IsDeliveryComplete() const;
+    
+    void WriteDataToFile(std::ostream& file) const ; 
+    void ReadDataFromFile(std::istream& file)  ; 
 };
