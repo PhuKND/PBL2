@@ -1,4 +1,5 @@
-#pragma once 
+#ifndef EMPLOYEE_H
+#define EMPLOYEE_H
 #include"Person.h"
 class Employee : public Person {
 private:
@@ -27,9 +28,10 @@ Employee(int ID ,char* fullName , char* Gender , int age ,  Date& dayofbirth , c
     void SetEndDay(const Date&);
     void SetIsWorking(bool working);
     void Display() ; 
-    void Display_01(ostream&) ;
+    void Display_01(std::ostream&) ;
     void GetInformation();
-    friend ostream& operator<<(ostream&,const Employee&); 
-    void WriteDataToFile(std::ostream& file) const override ; 
-     void ReadDataFromFile(std::istream& file) override ; 
+    friend std::ostream& operator<<(ostream& o,const Employee& employee ); 
+    void WriteDataToFile(std::ostream& file) const ; 
+     void ReadDataFromFile(std::istream& file)  ; 
 };
+#endif

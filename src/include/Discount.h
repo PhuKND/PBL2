@@ -1,48 +1,61 @@
-#include <iostream>
-#include <string>
+#ifndef DISCOUNT_H
+#define DISCOUNT_H
 
-class Discount {
+#include "C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+#include <iostream>
+// #include"Menu.h"
+#include "Vector_Class.h"
+enum DiscountType
+{
+    DATE_BASED,
+    POINT_BASED,
+    COUPON_CODE_BASED
+};
+
+class Discount
+{
 private:
+    static int numberofDiscount;
+    DiscountType type;
     int discountID;
-    int discountAmount;
-    char* startDate;
-    char* endDate;
-    char* discountType;
-    bool isExpired;
-    char* description;
+    Time date;
+    int pointThreshold;
+    char *couponCode;
+    int percentage;
+    int quantity;
+    bool available;
 
 public:
+    // Constructors
+    Discount(int discountid, const char *couponCode, int percentage, int quanity, bool available);
+    Discount(int discountid, const Time &date, int percentage, int quanity, bool available);
+    Discount(int discountid, int pointThreshold, int percentage, int quanity, bool available);
+    
+    ~Discount();
     Discount();
 
-    Discount(int id, int amount, const char*& start, const char*& end, const char*& type, bool expired, const char*& desc);
-
-    ~Discount();
-
-    void DisplayDiscountInfo() const;
-
-    bool IsExpired() const;
-
-    int GetDiscountID() const;
-
-    void SetDiscountID(int id);
-    
-    int GetDiscountAmount() const;
-
-    void SetDiscountAmount(int amount);
-
-    char* GetStartDate() const;
-
-    void SetStartDate(const char*& start);
-
-    char* GetEndDate() const;
-
-    void SetEndDate(const char*& end);
-
-    char* GetDiscountType() const;
-
-    void SetDiscountType(const char*& type);
-
-    char* GetDescription() const;
-
-    void SetDescription(const char*& desc);
+    int getPercentage() const;
+    static int getNumberOfDiscount();
+    static void setNumberOfDiscount(int value);
+    DiscountType getType() const;
+    void setType(DiscountType newType);
+    int getDiscountID() const;
+    void setDiscountID(int newDiscountID);
+    Time getDate() const;
+    void setDate(const Time &newDate);
+    int getPointThreshold() const;
+    void setPointThreshold(int newPointThreshold);
+    const char *getCouponCode() const;
+    void setCouponCode(char *newCouponCode);
+    void setPercentage(int newPercentage);
+    int getQuantity() const;
+    void setQuantity(int newQuantity);
+    bool isAvailable() const;
+    void setAvailable(bool newAvailable);
+    friend std::istream &operator>>(std::istream &is, Discount &discount);
+    friend std::ostream &operator<<(std::ostream &os, const Discount &discount);
+    void WriteDataToFile(std::ostream &file) const;
+    void ReadDataFromFile(std::istream &file);
 };
+
+#endif

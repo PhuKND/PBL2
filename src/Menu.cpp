@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <cstring>
 using namespace std;
-// 410
 bool Menu::areEqual(const char *str1, const char *str2)
 {
     while (*str1 && *str2)
@@ -85,11 +84,17 @@ Menu::Menu()
             }
         }
     }
+    discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
 }
+
 Menu::~Menu()
 {
-    // customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
-    // employeeManager.SaveData(employeeManager.lists, "data/input_output/employee.txt");
+    customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
+    employeeManager.SaveData(employeeManager.lists, "data/input_output/employee.txt");
+    orderManager.SaveData(orderManager.lists, "data/input_output/order.txt");
+    foodManager.SaveData(foodManager.lists, "data/input_output/food.txt");
+    electricalproductManager.SaveData(electricalproductManager.lists, "data/input_output/electricalproduct.txt");
+    housewareManager.SaveData(housewareManager.lists, "data/input_output/houseware.txt");
 }
 void Menu::displayCustomerMenu(Customer &cus, Order &order)
 {
@@ -102,7 +107,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     std::cout << "4. " << YELLOW << "Purchase Orders\n";
     std::cout << "5. " << BLUE << "Statistics\n";
     std::cout << "6. " << BLUE << "View Order History\n";
-    std::cout << "7. " << RESET << "Exit\n";
+    std::cout << "7. " << BLUE << "View Available Discount \n";
+    std::cout << "8. " << RESET << "Exit\n";
     std::cout << "==============================\n";
     int choice;
     int vitri;
@@ -365,11 +371,11 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 {
                     if (name == foodManager.lists.at(i).getTenSanPham())
                     {
-                        cout << "Product name : " << name << endl ;
-                        cout << "Quantity of product remaining : " << foodManager.lists.at(i).getSoLuongTonKho() << endl ; 
+                        cout << "Product name : " << name << endl;
+                        cout << "Quantity of product remaining : " << foodManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
-                        std::cout << "Do you want to buy "<< sl << " " << name << "(Y/N)" << endl;
+                        std::cout << "Do you want to buy " << sl << " " << name << "(Y/N)" << endl;
                         char ch = getch();
                         if (ch == 'Y' || ch == 'y')
                         {
@@ -389,11 +395,11 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 {
                     if (name == electricalproductManager.lists.at(i).getTenSanPham())
                     {
-                        cout << "Product name : " << name << endl ;
-                        cout << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << endl ; 
+                        cout << "Product name : " << name << endl;
+                        cout << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
-                        std::cout << "Do you want to buy " << sl << " " << name <<  "(Y/N)" << endl;
+                        std::cout << "Do you want to buy " << sl << " " << name << "(Y/N)" << endl;
                         char ch = getch();
                         if (ch == 'Y' || ch == 'y')
                         {
@@ -414,14 +420,14 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                     if (name == housewareManager.lists.at(i).getTenSanPham())
                     {
                         cout << "Product name : " << name << endl;
-                        cout << "Quantity of product remaining : " << housewareManager.lists.at(i).getSoLuongTonKho() << endl ; 
+                        cout << "Quantity of product remaining : " << housewareManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
-                        std::cout << "Do you want to buy " << sl  <<  " "  << name << "(Y/N)" << endl;
+                        std::cout << "Do you want to buy " << sl << " " << name << "(Y/N)" << endl;
                         char ch = getch();
                         if (ch == 'Y' || ch == 'y')
                         {
-                           
+
                             cus.BuyProduct(order, housewareManager.lists.at(i), sl);
                             cout << "Enter 0 to return " << endl;
                             int is;
@@ -443,8 +449,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 {
                     if (proid == foodManager.lists.at(i).getMaSanPham())
                     {
-                        cout << "Product name : " << foodManager.lists.at(i).getMaSanPham() << endl ;
-                        cout << "Quantity of product remaining : " << foodManager.lists.at(i).getSoLuongTonKho() << endl ; 
+                        cout << "Product name : " << foodManager.lists.at(i).getMaSanPham() << endl;
+                        cout << "Quantity of product remaining : " << foodManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
                         std::cout << "Do you want to buy " << sl << " " << foodManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
@@ -468,15 +474,14 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 {
                     if (proid == electricalproductManager.lists.at(i).getMaSanPham())
                     {
-                        cout << "Product name : " << electricalproductManager.lists.at(i).getTenSanPham() << endl ;
-                        cout << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << endl ; 
+                        cout << "Product name : " << electricalproductManager.lists.at(i).getTenSanPham() << endl;
+                        cout << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
-                        std::cout << "Do you want to buy " << sl << " " <<electricalproductManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
+                        std::cout << "Do you want to buy " << sl << " " << electricalproductManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
                         char ch = getch();
                         if (ch == 'Y' || ch == 'y')
                         {
-                            // Mua ;
                             cus.BuyProduct(order, electricalproductManager.lists.at(i), sl);
                         }
                         cout << "Enter 0 to return " << endl;
@@ -493,8 +498,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 {
                     if (proid == housewareManager.lists.at(i).getMaSanPham())
                     {
-                         cout << "Product name : " << housewareManager.lists.at(i).getTenSanPham() << endl ;
-                        cout << "Quantity of product remaining : " << housewareManager.lists.at(i).getSoLuongTonKho() << endl ; 
+                        cout << "Product name : " << housewareManager.lists.at(i).getTenSanPham() << endl;
+                        cout << "Quantity of product remaining : " << housewareManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << "Enter quanity =  ";
                         cin >> sl;
                         std::cout << "Do you want to buy " << sl << " " << housewareManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
@@ -539,7 +544,33 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     }
     case 4:
     {
-        order.Display(std::cout);
+        order.Display(std::cout, cus.GetFullName());
+        std::cout << "Do you want to apply discount (Y/N)" << std::endl;
+        char ch1 = getch();
+        if (ch1 == 'Y' || ch1 == 'y')
+        {
+            // Display available discounts
+            std::cout << "Available Discounts:" << std::endl;
+            for (size_t j = 0; j < cus.GetDiscounts().getSize(); j++)
+            {
+                std::cout << j + 1 << ". "
+                          << "Discount ID : " << cus.GetDiscounts().at(j).getDiscountID() << "|";
+                std::cout << "Discount percentage :  " << cus.GetDiscounts().at(j).getPercentage() << std::endl;
+            }
+
+            int discountChoice;
+            std::cout << "Enter the number of the discount you want to apply: ";
+            std::cin >> discountChoice;
+
+            if (discountChoice > 0 && discountChoice <= static_cast<int>(cus.GetDiscounts().getSize()))
+            {
+                order.ApplyDiscount(cus.GetDiscounts().at(discountChoice - 1));
+            }
+            else
+            {
+                std::cout << "Invalid discount choice." << std::endl;
+            }
+        }
         cout << "Enter 0 to confirm " << endl;
         int is;
         cin >> is;
@@ -551,15 +582,14 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             if (ch == 'Y' || ch == 'y')
             {
                 int length = snprintf(nullptr, 0, "data/Order_list/Cus%d/%d_order.txt", order.getCustomerID(), order.GetOrderID());
-        char *filename = new char[length + 1];
-        snprintf(filename, length + 1, "data/Order_list/Cus%d/%d_order.txt", order.getCustomerID(), order.GetOrderID());
-        cout << "File path " << filename  << endl ;  
-        order.Display_file(filename);
+                char *filename = new char[length + 1];
+                snprintf(filename, length + 1, "data/Order_list/Cus%d/%d_order.txt", order.getCustomerID(), order.GetOrderID());
+                cout << "File path " << filename << endl;
+                order.Display_file(filename, cus.GetFullName());
             }
             Order::setNumberOrder();
             Order newOrder(Order::getNumberOrder(), cus.GetCustomerID());
             cus.add_to_orders(newOrder);
-            
 
             return displayCustomerMenu(cus, cus.Last_Order());
             return;
@@ -576,6 +606,31 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         int is;
         cin >> is;
         system("CLS");
+        if (is == 0)
+            return displayCustomerMenu(cus, order);
+        break;
+    }
+    case 7:
+    {
+        std::cout << cus.GetDiscounts();
+        std::cout << "Do you want to add new discount(Y/N)" << std::endl;
+        char ch = getch();
+        if (ch == 'Y' || ch == 'y')
+        {
+            std::cout << "Enter your code : ";
+            char *code;
+            std::cin >> code;
+            for (size_t i = 0; i < discountManager.lists.getSize(); i++)
+            {
+                if (areEqual(code, discountManager.lists.at(i).getCouponCode()))
+                {
+                    cus.AddDiscount(discountManager.lists.at(i));
+                }
+            }
+        }
+        cout << "Enter 0 to return " << endl;
+        int is;
+        cin >> is;
         if (is == 0)
             return displayCustomerMenu(cus, order);
         break;
@@ -759,7 +814,7 @@ void Menu::displayManagerMenu()
         // Xử lý Save data
         break;
     case 7:
-        // Thoát
+        Menu::~Menu();
         break;
     default:
         std::cout << "Invalid value. Please try again" << endl;

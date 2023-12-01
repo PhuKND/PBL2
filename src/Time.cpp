@@ -55,8 +55,11 @@ std::ostream& operator<<(std::ostream& os, const Time& timeObj) {
 }
 
 std::istream& operator>>(std::istream& is, Time& timeObj) {
-    char colon;  // To read the colon separator
+    char colon;  
     is >> timeObj.hour >> colon >> timeObj.minute;
     timeObj.updateRealTime();
     return is;
+}
+bool Time::operator==(const Time& other) const {
+    return (hour == other.hour) && (minute == other.minute);
 }

@@ -25,6 +25,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Time& timeObj);
     friend std::istream& operator>>(std::istream& is, Time& timeObj);
+    bool operator==(const Time&)const; 
 };
 
 #endif // TIME_H

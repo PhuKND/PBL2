@@ -121,3 +121,4 @@ std::ostream &operator<<(std::ostream &os, const Vector_Class<V> &vec) {
     }
     return os;
 }
+template class Vector_Class<Discount>;

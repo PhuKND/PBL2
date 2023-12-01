@@ -2,6 +2,7 @@
 #include <limits>
 #include "include/Menu.h"
 #include "include/Customer.h"
+
 #define MAX_LENGTH 256
 
 Customer::Customer(){
@@ -35,9 +36,10 @@ void Customer::setCustomerType(char *type)
 // void Customer::AddToPurchaseHistory(const Order& order){
 
 // }
-Vector_Class<Order>& Customer::getOrderHistory() {
-    return orderHistory ;
-} 
+Vector_Class<Order> &Customer::getOrderHistory()
+{
+    return orderHistory;
+}
 void Customer::Display()
 {
     std::cout << "Customer Information : " << std::endl;
@@ -96,7 +98,7 @@ void Customer::ReadDataFromFile(std::istream &file)
     Menu::readAttributeTillDelimiter(fullName, file);
     Menu::readAttributeTillDelimiter(Gender, file);
     file >> age >> comma;
-    file >> DayOfBirth >> comma ;
+    file >> DayOfBirth >> comma;
     Menu::readAttributeTillDelimiter(address, file);
     Menu::readAttributeTillDelimiter(phoneNumber, file);
     Menu::readAttributeTillDelimiter(email, file);
@@ -104,60 +106,78 @@ void Customer::ReadDataFromFile(std::istream &file)
     Menu::readAttributeTillDelimiter(CustomerType, file);
     file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-void Customer::BuyProduct( Order& order, Food& obj, int sl)
+void Customer::BuyProduct(Order &order, Food &obj, int sl)
 {
     obj.setSoLuongTonKho(obj.getSoLuongTonKho() - sl);
     obj.setSoLuongDaBan(obj.getSoLuongDaBan() + sl);
     obj.setSoLuongTrongGio(sl);
-    order.Order_Food(obj) ; 
-    cout << "Buy " << obj.getTenSanPham() << " Successfully"  << endl;
+    order.Order_Food(obj);
+    cout << "Buy " << obj.getTenSanPham() << " Successfully" << endl;
 }
-void Customer::BuyProduct( Order& order, ElectricalProduct& obj, int sl)
+void Customer::BuyProduct(Order &order, ElectricalProduct &obj, int sl)
 {
     obj.setSoLuongTonKho(obj.getSoLuongTonKho() - sl);
     obj.setSoLuongDaBan(obj.getSoLuongDaBan() + sl);
     obj.setSoLuongTrongGio(sl);
-    order.Order_ElectricalProduct(obj); 
-    cout << "Buy " << obj.getTenSanPham() << " Successfully"  << endl;
+    order.Order_ElectricalProduct(obj);
+    cout << "Buy " << obj.getTenSanPham() << " Successfully" << endl;
 }
 
-void Customer::BuyProduct( Order& order, Houseware& obj, int sl)
+void Customer::BuyProduct(Order &order, Houseware &obj, int sl)
 {
     obj.setSoLuongTonKho(obj.getSoLuongTonKho() - sl);
     obj.setSoLuongDaBan(obj.getSoLuongDaBan() + sl);
     obj.setSoLuongTrongGio(sl);
-    order.Order_Houseware(obj) ; 
-    cout << "Buy " << obj.getTenSanPham() << " Successfully"  << endl;
+    order.Order_Houseware(obj);
+    cout << "Buy " << obj.getTenSanPham() << " Successfully" << endl;
 }
-void Customer::add_to_orders(const Order& ord) {
-    orderHistory.pushBack(ord) ; 
+void Customer::add_to_orders(const Order &ord)
+{
+    orderHistory.pushBack(ord);
 }
-Order& Customer::Last_Order()  {
-    return orderHistory.getLast(); 
+Order &Customer::Last_Order()
+{
+    return orderHistory.getLast();
 }
-int Customer::getOrd_Size(){
-    return orderHistory.getSize() ; 
+int Customer::getOrd_Size()
+{
+    return orderHistory.getSize();
 }
-void Customer::Show_Orders_History(std::ostream& o) {
-     o << "===========================================" << std::endl ;
-     o << "                ORDERS HISTORY   " << std::endl;
-     o << "===========================================" << std::endl;
-     o << "Customer : " << GetFullName() << endl;
-     o << "ID: " << GetCustomerID() << endl;
-     o << "===========================================" << std::endl;
-     o << std::setw(8) << "Order ID"
-       << "|"
-       << std::setw(13) << "Total Amount"
-       << "|"
-       << std::setw(15) << "Date"
-       << "|"
-       << std::setw(12) << "Is Complete"
-       << "|"
-       << std::endl
-       << "------------------------------------------" << endl;
+void Customer::Show_Orders_History(std::ostream &o)
+{
+    o << "===========================================" << std::endl;
+    o << "                ORDERS HISTORY   " << std::endl;
+    o << "===========================================" << std::endl;
+    o << "Customer : " << GetFullName() << endl;
+    o << "ID: " << GetCustomerID() << endl;
+    o << "===========================================" << std::endl;
+    o << std::setw(8) << "Order ID"
+      << "|"
+      << std::setw(13) << "Total Amount"
+      << "|"
+      << std::setw(15) << "Date"
+      << "|"
+      << std::setw(12) << "Is Complete"
+      << "|"
+      << std::endl
+      << "------------------------------------------" << endl;
 
-     for (int i = 0; i < orderHistory.getSize(); i++)
-     {
-         orderHistory.at(i).Display_List(o);
+    for (int i = 0; i < orderHistory.getSize(); i++)
+    {
+        orderHistory.at(i).Display_List(o);
     }
+}
+void Customer::AddDiscount( Discount &discount)
+{
+    discounts.pushBack(discount);
+    cout << "Add discount"<< discount.getDiscountID() << " " << discount.getPercentage() <<  "succcessfully" << endl ;
+
+}
+
+Vector_Class<Discount> &Customer::GetDiscounts()
+{
+    return discounts;
+}
+void Customer::ApplyDiscounts(Order &order)
+{
 }

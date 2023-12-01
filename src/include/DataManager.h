@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include <fstream>
 #include "Employee.h"
 #include "Customer.h"
@@ -7,6 +7,13 @@
 #include"Houseware.h"
 #include "Vector.h"
 #include "Vector_Class.h"
+class Customer;
+class Employee;
+class Food;
+class ElectricalProduct;
+class Houseware;
+class Order;
+class Discount;
 
 template <class T>
 class DataManager

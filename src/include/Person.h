@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 // #include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+// #include"Discount.h"
 #include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Date.h"
 using namespace std;
 class Person

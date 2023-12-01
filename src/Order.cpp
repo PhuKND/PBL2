@@ -111,21 +111,22 @@ void Order::Order_Food(Food &obj)
 {
     OrderedFood.pushBack(obj);
 }
-void Order::Display(std::ostream &o)
+void Order::Display(std::ostream &o, char* name)
 {
     int total;
     int stt = 1;
-    o << "=============================================================" << std::endl;
-    o << "                       INVOICE" << std::endl;
-    o << "=============================================================" << std::endl;
+    o << "============================================================================" << std::endl;
+    o << "                                INVOICE" << std::endl;
+    o << "============================================================================" << std::endl;
     o << "Order id : ";
     o << GetOrderID() << std::endl;
     o << "Order time : ";
     orderTime.updateRealTime(); 
     o << orderTime.getRealTime() << std::endl;
-    o << "-------------------------------------------------------------" << std::endl;
-    o << "Customer ID " << getCustomerID() << std::endl;
-    o << "-------------------------------------------------------------" << std::endl;
+    o << "------------------------------------------------------------------------------" << std::endl;
+    o << "Customer ID :" << getCustomerID() << std::endl;
+    o << "Customer name : " << name << std::endl ;
+    o << "------------------------------------------------------------------------------" << std::endl;
     o << "STT" << std::right << std::setw(2) << "|";
     o << "Product ID" << std::right << std::setw(4) << "|";
     o << "Product name" << std::right << std::setw(16) << "|";
@@ -133,7 +134,7 @@ void Order::Display(std::ostream &o)
     o << "Quantity" << std::right << std::setw(1) << "|";
     o << "Total" << std::right << std::setw(5) << "|";
     o << std::endl;
-    o << "------------------------------------------------------------" << std::endl;
+    o << "------------------------------------------------------------------------------" << std::endl;
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
     {
         o << stt << "   | ";
@@ -155,11 +156,11 @@ void Order::Display(std::ostream &o)
 
     o << std::endl;
     o << std::endl;
-    o << "----------------------------------------" << std::endl;
-    o << "  Total : "
+     o << "------------------------------------------------------------------------------" << std::endl;
+    o << "                              Total : "
       << "$" << CalculateTotalAmount() << std::endl;
-    o << "----------------------------------------" << std::endl;
-    o << "          Thank you!" << std::endl;
+     o << "------------------------------------------------------------------------------" << std::endl;
+    o << "                              Thank you!" << std::endl;
 }
 int Order::CalculateTotalAmount()
 {
@@ -209,7 +210,7 @@ void Order::WriteDataToFile(std::ostream &file)
          << GetTotalAmount() << ","
          << HoanThanh << std::endl;
 }
-void Order::Display_file(const char *filename)
+void Order::Display_file(const char *filename, char* name)
 {
     std::ofstream file(filename);
     if (file.is_open())
@@ -219,13 +220,13 @@ void Order::Display_file(const char *filename)
         file << "=============================================================" << std::endl;
         file << "                       INVOICE" << std::endl;
         file << "=============================================================" << std::endl;
-        file << "Order id : ";
+        file << "Order ID : ";
         file << GetOrderID() << std::endl;
         file << "Order time : ";
-        orderTime.updateRealTime() ; 
         file << orderTime.getRealTime() << std::endl;
         file << "-------------------------------------------------------------" << std::endl;
-        file << "Customer ID " << getCustomerID() << std::endl;
+        file << "Customer ID : " << getCustomerID() << std::endl;
+        file << "Customer name : " << name << std::endl ; 
         file << "-------------------------------------------------------------" << std::endl;
         file << "STT" << std::right << std::setw(2) << "|";
         file << "Product ID" << std::right << std::setw(4) << "|";
@@ -265,5 +266,16 @@ void Order::Display_file(const char *filename)
     else
     {
         std::cerr << "Can't open file " << std::endl;
+    }
+}
+
+void Order::ApplyDiscount( Discount& discount) {
+    if (discount.isAvailable()) {
+        totalAmount = totalAmount - discount.getPercentage()*totalAmount/100 ; 
+        discount.setQuantity(discount.getQuantity() - 1)  ; 
+        std::cout << "Apply Discount Successfully" << std::endl ; 
+    }
+    else {
+        std::cout << "Invalid Discount" << std::endl ;  
     }
 }

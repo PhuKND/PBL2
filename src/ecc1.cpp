@@ -361,8 +361,8 @@ int DecodeFunction(Point basepoint, int key, int n, int c)
 
 int main()
 {
-    int n = 89;
-    int a = 17;
+    int n = 120;
+    int a = -3;
     int p = 139;
     int m = decimalToBase3(n).size();
     Point basepoint = {1, 7};
@@ -382,7 +382,7 @@ int main()
 
     // cout << "Bang cac diem tren duong cong E : " << endl;
     // CreateSets_allPoints(n, basepoint, a, p);
-Point P_anhxa[n];
+std::vector<Point> P_anhxa(n + 1);
 cout << "Cac toa do cua cac diem tuong ung voi cac ky tu  " << endl;
 for (size_t i = 0; i <= n; i++)
 {
@@ -479,7 +479,7 @@ for (size_t i = 0; i <= n; i++)
             {
                 if (P_base[i].x == Points[j].x && P_base[i].y == Points[j].y)
                 {
-                   cout << pointToChar(static_cast<int>(i)); 
+                   cout << pointToChar(static_cast<int>(i-1)); 
                    Index[j] = i ;
                 }
             }

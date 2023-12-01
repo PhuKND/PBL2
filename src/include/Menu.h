@@ -1,8 +1,9 @@
 #pragma once
 #include"Customer.h"
 #include"Employee.h"
+#include"Discount.h"
 #include"DataManager.h"
-// Define text color escape codes
+#include<fstream>
 #define RESET   "\033[0m"
 #define RED     "\033[1;31m"
 #define GREEN   "\033[1;32m"
@@ -10,6 +11,13 @@
 #define YELLOW  "\033[1;33m"
 #define BLUE    "\033[1;34m"
 #define BRIGHT_MAGENTA "\033[1;95m"
+class Customer;
+class Employee;
+class Food;
+class ElectricalProduct;
+class Houseware;
+class Order;
+class Discount;
 class Menu {
 private:
     DataManager<Customer> customerManager ; 
@@ -18,11 +26,13 @@ private:
     DataManager<ElectricalProduct> electricalproductManager ;
     DataManager<Houseware> housewareManager ;
     DataManager<Order> orderManager ; 
+    
     const char* key = "admin" ; 
     int customerChoiceCount;
     int managerChoiceCount;
     int employeeChoiceCount;
 public:
+DataManager<Discount> discountManager ;
     Menu();
     ~Menu() ; 
     void displayEmployeeMenu(int) ; 
@@ -30,7 +40,7 @@ public:
     void displayManagerMenu()  ;
     void run();
     static bool areEqual(const char *, const char *) ;
-    static void getInput(char*& , istream&,int = 100) ;
+    static void getInput(char*& , std::istream&,int = 100) ;
     static void readAttributeTillDelimiter(char* &attribute, std::istream& file);
 };
 
