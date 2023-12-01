@@ -1,7 +1,8 @@
 #include "Entity.h"
 #include "Product.h"
 #include"Vector.h"
-class Delivery : public Entity {
+class Delivery : public Entity 
+{
 private:
     int deliveryID;
     char* deliveryMethod;
@@ -28,7 +29,5 @@ public:
     void PerformDelivery();
 
     bool IsDeliveryComplete() const;
-    
-    void WriteDataToFile(std::ostream& file) const ; 
-    void ReadDataFromFile(std::istream& file)  ; 
+
 };
