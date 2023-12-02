@@ -20,7 +20,6 @@ class DataManager
 {
 public:
     DataManager();
-    
     Vector_Class<T> lists;
     void AddToLists(const T &);
     void Display(const Vector_Class<T>&);

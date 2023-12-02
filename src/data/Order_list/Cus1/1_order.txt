@@ -2,17 +2,20 @@
                        INVOICE
 =============================================================
 Order ID : 1
-Order time : 2023-11-28 19:36:58
+Order time : 2023-12-02 12:52:30
 -------------------------------------------------------------
 Customer ID : 1
 Customer name : Nguyen Ba Xuan An
 -------------------------------------------------------------
 STT |Product ID   |Product name               |Unit price |Quantity|Total    |
 ------------------------------------------------------------
-1   | 12          | MixingBowlsSet            | $60       | 1      | $60     | 
+1   | 310         | Acer_Aspire_Laptop        | $1600     | 1      | $1600   | 
+2   | 304         | Lenovo_ThinkPad_Laptop    | $1000     | 1      | $1000   | 
+3   | 1           | PlatesSet                 | $15       | 1      | $15     | 
 
 
 ----------------------------------------
-  Total : $60
+  Total : $2615
+Total after apply discount : $2092
 ----------------------------------------
           Thank you!

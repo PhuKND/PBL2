@@ -180,4 +180,5 @@ Vector_Class<Discount> &Customer::GetDiscounts()
 }
 void Customer::ApplyDiscounts(Order &order)
 {
+    
 }

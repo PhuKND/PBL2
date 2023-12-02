@@ -204,36 +204,18 @@ void DataManager<T>::GetData(Vector_Class<T> &data, const char *filename)
     std::ifstream file(filename);
     if (file.is_open())
     {
-        if (typeid(T) != typeid(Discount))
+        T temp;
+        while (!file.eof())
         {
-            T temp;
-
-            while (!file.eof())
+            temp.ReadDataFromFile(file);
+            if (file.eof())
             {
-                temp.ReadDataFromFile(file);
-                if (file.eof())
-                {
-                    break;
-                }
-                data.pushBack(temp);
+                break;
             }
+            data.pushBack(temp);
         }
-            else if(typeid(T) == typeid(Discount))
-            {
-                T temp;
-                while (!file.eof())
-                {
-                    temp.ReadDataFromFile(file);
-                    if (file.eof())
-                    {
-                        break;
-                    }
-                    data.pushBack(temp);
-                }
-            }
-            file.close();
-        }
-        
+        file.close();
+    }
     else
     {
         std::cerr << "Can't open " << filename << "for reading" << std::endl;

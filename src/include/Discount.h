@@ -27,7 +27,7 @@ private:
 
 public:
     // Constructors
-    Discount(int discountid, const char *couponCode, int percentage, int quanity, bool available);
+    Discount(int discountid, char *couponCode, int percentage, int quanity, bool available);
     Discount(int discountid, const Time &date, int percentage, int quanity, bool available);
     Discount(int discountid, int pointThreshold, int percentage, int quanity, bool available);
     
@@ -45,7 +45,7 @@ public:
     void setDate(const Time &newDate);
     int getPointThreshold() const;
     void setPointThreshold(int newPointThreshold);
-    const char *getCouponCode() const;
+    char *getCouponCode() ;
     void setCouponCode(char *newCouponCode);
     void setPercentage(int newPercentage);
     int getQuantity() const;

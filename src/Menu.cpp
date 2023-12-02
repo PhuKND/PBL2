@@ -84,7 +84,7 @@ Menu::Menu()
             }
         }
     }
-    discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
+    // discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
 }
 
 Menu::~Menu()
@@ -457,8 +457,6 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                         char ch = getch();
                         if (ch == 'Y' || ch == 'y')
                         {
-                            // Mua ;
-
                             cus.BuyProduct(order, foodManager.lists.at(i), sl);
                             cout << "Enter 0 to return " << endl;
                             int is;
@@ -544,12 +542,12 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     }
     case 4:
     {
+        order.setTotalAfterDiscount(order.CalculateTotalAmount());
         order.Display(std::cout, cus.GetFullName());
         std::cout << "Do you want to apply discount (Y/N)" << std::endl;
         char ch1 = getch();
         if (ch1 == 'Y' || ch1 == 'y')
         {
-            // Display available discounts
             std::cout << "Available Discounts:" << std::endl;
             for (size_t j = 0; j < cus.GetDiscounts().getSize(); j++)
             {
@@ -557,7 +555,6 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                           << "Discount ID : " << cus.GetDiscounts().at(j).getDiscountID() << "|";
                 std::cout << "Discount percentage :  " << cus.GetDiscounts().at(j).getPercentage() << std::endl;
             }
-
             int discountChoice;
             std::cout << "Enter the number of the discount you want to apply: ";
             std::cin >> discountChoice;
@@ -565,6 +562,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             if (discountChoice > 0 && discountChoice <= static_cast<int>(cus.GetDiscounts().getSize()))
             {
                 order.ApplyDiscount(cus.GetDiscounts().at(discountChoice - 1));
+                order.Display(std::cout,cus.GetFullName()) ; 
             }
             else
             {
@@ -614,20 +612,28 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     {
         std::cout << cus.GetDiscounts();
         std::cout << "Do you want to add new discount(Y/N)" << std::endl;
-        char ch = getch();
+        char ch ; 
+        cin >> ch ; 
         if (ch == 'Y' || ch == 'y')
         {
             std::cout << "Enter your code : ";
             char *code;
-            std::cin >> code;
+            cin >> code; 
+            bool found = false ; 
             for (size_t i = 0; i < discountManager.lists.getSize(); i++)
             {
-                if (areEqual(code, discountManager.lists.at(i).getCouponCode()))
+                if (areEqual(code,discountManager.lists.at(i).getCouponCode()))
                 {
+                    found = true; 
                     cus.AddDiscount(discountManager.lists.at(i));
+                    break; 
                 }
             }
+            if(!found) {
+                std::cout << "Can't found" << std::endl ; 
+            }
         }
+        
         cout << "Enter 0 to return " << endl;
         int is;
         cin >> is;
@@ -641,7 +647,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         break;
     }
 }
-void Menu::displayEmployeeMenu(int employeeid)
+void Menu::displayEmployeeMenu(Employee& employee)
 {
     std::cout << BLUE << "==============================\n";
     std::cout << "    " << BRIGHT_MAGENTA << "Employee Menu" << BLUE << "       \n";
@@ -649,10 +655,8 @@ void Menu::displayEmployeeMenu(int employeeid)
     std::cout << "1. " << YELLOW << "View Personal Information\n";
     std::cout << "2. " << YELLOW << "Account Management\n";
     std::cout << "3. " << YELLOW << "Manage Inventory\n";
-    std::cout << "4. " << RED << "View Orders\n";
-    std::cout << "5. " << BLUE << "Confirm Orders\n";
-    std::cout << "6. " << BLUE << "Statistics\n";
-    std::cout << "7. " << RED << "Exit\n";
+    std::cout << "4. " << BLUE << "Statistics\n";
+    std::cout << "5. " << RED << "Exit\n";
     std::cout << "==============================\n"
               << RESET;
     int choice;
@@ -661,9 +665,94 @@ void Menu::displayEmployeeMenu(int employeeid)
     switch (choice)
     {
     case 1:
+        employee.Display() ; 
         break;
-    case 2:
+   case 2:
+    {
+        std::cout << BLUE << "==============================\n";
+        std::cout << " " << BRIGHT_MAGENTA << "Account Management" << BLUE << "   \n";
+        std::cout << "==============================\n";
+        std::cout << "Account ID: " << employee.GetEmployeeID() << "\n";
+        std::cout << "Please select the information you need to change:\n";
+        std::cout << "1. " << YELLOW << "Full Name\n";
+        std::cout << "2. " << YELLOW << "Gender\n";
+        std::cout << "3. " << YELLOW << "Age\n";
+        std::cout << "4. " << YELLOW << "Day of Birth\n";
+        std::cout << "5. " << YELLOW << "Address\n";
+        std::cout << "6. " << YELLOW << "Phone Number\n";
+        std::cout << "7. " << YELLOW << "Email\n";
+        std::cout << "8. " << BLUE << "Go back\n";
+        std::cout << "==============================\n"
+                  << RESET;
+        int selection;
+        std::cin >> selection;
+        system("CLS");
+        switch (selection)
+        {
+        case 1:
+        {
+            std::cout << "Enter your new full name : ";
+            char *fullName;
+            getInput(fullName, std::cin);
+            employee.SetFullName(fullName);
+            break;
+        }
+        case 2:
+        {
+            std::cout << "Enter your new gender :";
+            char *gender;
+            getInput(gender, std::cin);
+            employee.SetGender(gender);
+            break;
+        }
+        case 3:
+        {
+            int age;
+            std::cout << "Enter your new age : ";
+            std::cin >> age;
+            employee.SetAge(age);
+            break;
+        }
+        // ... (other cases)
+        case 5:
+        {
+            std::cout << "Enter your new address";
+            char *address;
+            getInput(address, std::cin);
+            employee.SetAddress(address);
+            break;
+        }
+        case 6:
+        {
+            std::cout << "Enter your new phone number : ";
+            char *phonenumber;
+            getInput(phonenumber, std::cin);
+            employee.SetPhoneNumber(phonenumber);
+            break;
+        }
+        case 7:
+        {
+            std::cout << "Enter your new email : ";
+            char *email;
+            getInput(email, std::cin);
+            employee.SetEmail(email);
+            break;
+        }
+        case 8:
+        {
+            return;
+            break;
+        }
+
+        default:
+        {
+            std::cout << "Invalid selection!";
+            break;
+        }
+        }
+
         break;
+    }
     case 3:
         break;
     case 4:
@@ -742,7 +831,7 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            // Show product
+            //show product
             break;
         }
         case 4:
@@ -880,11 +969,10 @@ void Menu::run()
                     system("CLS");
                     if (choice == 0)
                     {
-                        break; // Exit the loop if 0 is entered
+                        break; 
                     }
                     else
                     {
-                        // Use 'return' to restart the function
                         return run();
                     }
                 }
@@ -892,7 +980,7 @@ void Menu::run()
 
             if (validID)
             {
-                break; // Break the loop if the ID is valid
+                break; 
             }
             else
             {
@@ -912,7 +1000,7 @@ void Menu::run()
     {
         int maxChar = 100;
         char temp[maxChar];
-        char *password; // assuming a maximum password length
+        char *password; 
         std::cout << "Enter Manager Password: ";
         getInput(password, std::cin);
 
@@ -930,7 +1018,6 @@ void Menu::run()
             }
             else
             {
-                // Use 'return' to restart the function
                 return run();
             }
         }
@@ -953,7 +1040,8 @@ void Menu::run()
                 if (employeeid == employeeManager.lists.at(i).GetEmployeeID())
                 {
                     system("CLS");
-                    displayEmployeeMenu(employeeid);
+                    Employee &employee = employeeManager.lists.at(i) ;
+                    displayEmployeeMenu(employee);
                     int choice;
                     std::cout << "Choose a number to continue or 0 to exit: ";
                     std::cin >> choice;
@@ -964,7 +1052,7 @@ void Menu::run()
                     }
                     else
                     {
-                        // Use 'return' to restart the function
+                        
                         return run();
                     }
                 }

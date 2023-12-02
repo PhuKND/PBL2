@@ -35,7 +35,7 @@ public:
 DataManager<Discount> discountManager ;
     Menu();
     ~Menu() ; 
-    void displayEmployeeMenu(int) ; 
+    void displayEmployeeMenu(Employee& employee) ; 
     void displayCustomerMenu(Customer&,Order&) ; 
     void displayManagerMenu()  ;
     void run();

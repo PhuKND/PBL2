@@ -20,11 +20,36 @@ int main()
     // cus.BuyProduct(order,data.at(2) , 2) ;
     // order.Display(cout) ;
     // data.at(1).Display() ;
-    Menu menu;
-    // menu.run();
-    cout << menu.discountManager.lists.at(0) ;
-    cout << menu.discountManager.lists.at(1) ;
-    cout << menu.discountManager.lists.at(2) ;
+    
+    Menu menu ;
+    Discount dis1(1,"DUT",20,20,1) ; 
+  dis1.setCouponCode("DUT") ; 
+    Discount dis2(2,"ITF",19,1,1) ;
+    Discount dis3(3,"HCMUS",30,1,1) ;
+    Discount dis4(4,"UIT",22,1,1) ; 
+
+    dis2.setCouponCode("ITF") ; 
+    dis3.setCouponCode("HCMUS") ; 
+    dis4.setCouponCode("UIT") ; 
+   
+    menu.discountManager.AddToLists(dis1);
+    // menu.discountManager.AddToLists(dis2);
+    // menu.discountManager.AddToLists(dis4);
+    // menu.discountManager.AddToLists(dis3);
+
+
+    menu.run();
+    // DataManager<Discount> discountManager ;
+    // discountManager.GetData(discountManager.lists,"data/input_output/discount.txt") ; 
+    // for (size_t i = 0; i < discountManager.lists.getSize(); i++)
+    // {
+    //     cout << discountManager.lists.at(i) ;
+    // }
+    
+
+    // cout << menu.discountManager.lists.at(0) ;
+    // cout << menu.discountManager.lists.at(1) ;
+    // cout << menu.discountManager.lists.at(2) ;
 //     Time myTime;
 // std::cout << "Real Time: " << myTime.getRealTime() << std::endl;
     // Time mytime ; 

@@ -19,7 +19,7 @@ public:
     void setMonth(int month);
     int getYear() const;
     void setYear(int year);
- friend std::ostream& operator<<(std::ostream& os, const Date& dayObj);
+    friend std::ostream& operator<<(std::ostream& os, const Date& dayObj);
     // Function to display the date in a formatted way
     char* getFormattedDate() const;
 friend std::istream& operator>>(std::istream& is, Date& dayObj);

@@ -19,6 +19,7 @@ private:
     char *PaymentMethod;
     char *ShippingAddress;
     bool delivery;
+    double totalAfterDiscount ; 
     static int numberofOrder;
     Vector_Class<Food> OrderedFood;
     Vector_Class<ElectricalProduct> OrderedElectricalProduct;
@@ -56,6 +57,8 @@ public:
     void WriteDataToFile(std::ostream &file);
     void ReadDataFromFile(std::istream &file);
     void ApplyDiscount(Discount &discount);
+    void setTotalAfterDiscount(double) ;
+    double getTotalAfterDiscount() ; 
 };
 
 #endif
