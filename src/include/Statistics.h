@@ -1,6 +1,7 @@
-#pragma once
-#include "Vector_Class.h"
-
+#ifndef STATISTICS_CLASS_H
+#define STATISTICS_CLASS_H
+#include"Employee.h"
+#include"Vector_Class.h"
 class Statistics
 {
 private:
@@ -13,7 +14,7 @@ private:
     double totalProfit;
     double totalAmountIn;
     double totalAmountOut;
-    Vector_Class<double> employeeSalaries;
+    Vector_Class<Employee> employeeSalaries;
 
     // Khách hàng
     int customerID;
@@ -28,20 +29,27 @@ private:
     int employeeID;
     int numExecutedOrders;
 
+    // Customer-related metrics
+    int totalOrders;
+    double totalAmountSpent;
+    double repeatPurchaseRate;
+    double customerLifetimeValue;
+    double avgDiscountRate;
+
 public:
     // Constructors
     Statistics(); // Constructor mặc định
 
     // Constructor cho Siêu thị
-    Statistics(const char* rType, const char* tPeriod, const char* rData,
-           double tRevenue, double tExpenses, double tProfit,
-           double tAmountIn, double tAmountOut,
-           const Vector_Class<double>& empSalaries);
+    Statistics(char* rType, char* tPeriod, char* rData,
+               double tRevenue, double tExpenses, double tProfit,
+               double tAmountIn, double tAmountOut,
+               const Vector_Class<Employee>& empSalaries);
 
     // Constructor cho Khách hàng
     Statistics(int cID, double pAmount, int pQuantity,
-           double avgQPerOrder, double avgAPerOrder,
-           int favProductID, double savedMoneyDis);
+               double avgQPerOrder, double avgAPerOrder,
+               int favProductID, double savedMoneyDis);
 
     // Constructor cho Nhân viên
     Statistics(int eID, int numOrders);
@@ -51,13 +59,13 @@ public:
 
     // Getter và setter cho Siêu thị
     char* GetStatisticsType() const;
-    void SetStatisticsType(const char* newStatisticsType);
+    void SetStatisticsType(char* newStatisticsType);
 
     char* GetTimePeriod() const;
-    void SetTimePeriod(const char* newTimePeriod);
+    void SetTimePeriod(char* newTimePeriod);
 
     char* GetStatisticsData() const;
-    void SetStatisticsData(const char* newStatisticsData);
+    void SetStatisticsData(char* newStatisticsData);
 
     double GetTotalRevenue() const;
     void SetTotalRevenue(double newTotalRevenue);
@@ -103,7 +111,22 @@ public:
     int GetNumExecutedOrders() const;
     void SetNumExecutedOrders(int newNumExecutedOrders);
 
+    // Getter và setter cho các metrics của Khách hàng
+    int GetTotalOrders() const;
+    double GetTotalAmountSpent() const;
+    double GetRepeatPurchaseRate() const;
+    double GetCustomerLifetimeValue() const;
+    double GetAvgDiscountRate() const;
+
+    void SetTotalOrders(int) ; 
+    void SetTotalAmountSpent(double) ; 
+    void SetRepeatPurchaseRate(double) ; 
+    void SetCustomerLifetimeValue(double) ;
+    void SetAvgDiscountRate(double) ;  
+
     // Phương thức hiển thị và tính toán lợi nhuận
     void DisplayStatistics() const;
     void CalculateProfit(int param1, int param2, double param3);
 };
+
+#endif; 

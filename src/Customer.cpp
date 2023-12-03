@@ -21,6 +21,10 @@ int Customer::GetCustomerID() const
 {
     return this->CustomerID;
 }
+Statistics Customer::getStatistics()
+{
+    return statistics;
+}
 void Customer::SetCustomerID(int ID)
 {
     this->CustomerID = ID;
@@ -167,11 +171,10 @@ void Customer::Show_Orders_History(std::ostream &o)
         orderHistory.at(i).Display_List(o);
     }
 }
-void Customer::AddDiscount( Discount &discount)
+void Customer::AddDiscount(Discount &discount)
 {
     discounts.pushBack(discount);
-    cout << "Add discount"<< discount.getDiscountID() << " " << discount.getPercentage() <<  "succcessfully" << endl ;
-
+    cout << "Add discount" << discount.getDiscountID() << " " << discount.getPercentage() << "succcessfully" << endl;
 }
 
 Vector_Class<Discount> &Customer::GetDiscounts()
@@ -180,5 +183,34 @@ Vector_Class<Discount> &Customer::GetDiscounts()
 }
 void Customer::ApplyDiscounts(Order &order)
 {
-    
+}
+void Customer::ViewStatistics()
+{
+    getStatistics().DisplayStatistics(); 
+}
+void Customer::UpdateStatistics()
+{
+    std::cout << "Time excuted : " << Date::getRealTime() << endl ; 
+    getStatistics().SetCustomerID(CustomerID);
+    getStatistics().SetTotalOrders(getOrderHistory().getSize());
+    double avgquanity = 0;
+    double avgSpent = 0;
+    double totalspent = 0;
+    double totalwithoutdiscount;
+    for (size_t i = 0; i < getOrderHistory().getSize(); i++)
+    {
+        avgquanity += getOrderHistory().at(i).getQuanityProduct();
+        avgSpent += getOrderHistory().at(i).getTotalAfterDiscount();
+        totalspent += getOrderHistory().at(i).getTotalAfterDiscount();
+        totalwithoutdiscount += getOrderHistory().at(i).GetTotalAmount();
+    }
+    getStatistics().SetTotalAmountSpent(totalspent);
+    getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount - totalspent);
+    avgquanity = avgquanity / (getOrderHistory().getSize() + 1);
+    getStatistics().SetAvgQuantityPerOrder(avgquanity);
+    avgSpent = avgSpent / (getOrderHistory().getSize() + 1);
+    getStatistics().SetAvgAmountPerOrder(avgSpent);
+    getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount - totalspent);
+    getStatistics().SetAvgDiscountRate(totalspent/totalwithoutdiscount) ; 
+
 }

@@ -63,7 +63,7 @@ void Date::updateRealTime() {
     year = timeInfo->tm_year + 1900; // tm_year is years since 1900
 }
 
-char* Date::getRealTime() const {
+char* Date::getRealTime()  {
     auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
     // Format time using custom strftime function

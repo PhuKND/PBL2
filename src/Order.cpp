@@ -31,6 +31,12 @@ int Order::GetOrderID() const
 {
     return OrderID;
 }
+int Order::getQuanityProduct(){
+    return quanityProduct; 
+}
+void Order::setQuanityProduct(int quanity){
+    this -> quanityProduct = quanity ; 
+}
 int Order::getCustomerID()
 {
     return CustomerID;

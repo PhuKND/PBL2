@@ -25,7 +25,7 @@ public:
 friend std::istream& operator>>(std::istream& is, Date& dayObj);
     // Functions for real-time
     void updateRealTime();
-    char* getRealTime() const;
+    static char* getRealTime() ;
 };
 
 #endif // DATE_H

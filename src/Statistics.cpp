@@ -13,10 +13,10 @@ Statistics::Statistics()
 }
 
 // Constructor cho Siêu thị
-Statistics::Statistics(const char* rType, const char* tPeriod, const char* rData,
+Statistics::Statistics(char* rType,  char* tPeriod,  char* rData,
                double tRevenue, double tExpenses, double tProfit,
                double tAmountIn, double tAmountOut,
-               const Vector_Class<double>& empSalaries)
+               const Vector_Class<Employee>& empSalaries)
     : StatisticsType(nullptr), timePeriod(nullptr), StatisticsData(nullptr),
       totalRevenue(tRevenue), totalExpenses(tExpenses), totalProfit(tProfit),
       totalAmountIn(tAmountIn), totalAmountOut(tAmountOut),
@@ -33,16 +33,19 @@ Statistics::Statistics(const char* rType, const char* tPeriod, const char* rData
 
 // Constructor cho Khách hàng
 Statistics::Statistics(int cID, double pAmount, int pQuantity,
-               double avgQPerOrder, double avgAPerOrder,
-               int favProductID, double savedMoneyDis)
-    : StatisticsType(nullptr), timePeriod(nullptr), StatisticsData(nullptr),
-      totalRevenue(0.0), totalExpenses(0.0), totalProfit(0.0),
-      totalAmountIn(0.0), totalAmountOut(0.0), employeeSalaries(),
-      customerID(cID), paidAmount(pAmount), paidQuantity(pQuantity),
-      avgQuantityPerOrder(avgQPerOrder), avgAmountPerOrder(avgAPerOrder),
-      favouriteProductID(favProductID), savedMoneyDiscount(savedMoneyDis),
-      employeeID(0), numExecutedOrders(0)
+    double avgQPerOrder, double avgAPerOrder,
+    int favProductID, double savedMoneyDis)
+    : customerID(cID), paidAmount(pAmount), paidQuantity(pQuantity),
+    avgQuantityPerOrder(avgQPerOrder), avgAmountPerOrder(avgAPerOrder),
+    favouriteProductID(favProductID), savedMoneyDiscount(savedMoneyDis)
 {
+    // Initialize other member variables
+    totalOrders = 0;
+    totalAmountSpent = 0.0;
+    savedMoneyDiscount = 0.0;
+    repeatPurchaseRate = 0.0;
+    customerLifetimeValue = 0.0;
+    avgDiscountRate = 0.0;
 }
 
 // Constructor cho Nhân viên
@@ -71,52 +74,52 @@ char* Statistics::GetStatisticsType() const {
     return StatisticsType;
 }
 
-void Statistics::SetStatisticsType(const char* newStatisticsType) {
-    // Implement the logic to set the new value
+void Statistics::SetStatisticsType( char* newStatisticsType) {
+    this -> StatisticsType = newStatisticsType ;
 }
 
 char* Statistics::GetTimePeriod() const {
     return timePeriod;
 }
 
-void Statistics::SetTimePeriod(const char* newTimePeriod) {
-    // Implement the logic to set the new value
+void Statistics::SetTimePeriod( char* newTimePeriod) {
+    this -> timePeriod = newTimePeriod ;
 }
 char* Statistics::GetStatisticsData() const {
     return StatisticsData;
 }
-void Statistics::SetStatisticsData(const char* newStatisticsData) {
-    // Implement the logic to set the new value
+void Statistics::SetStatisticsData( char* newStatisticsData) {
+    this -> StatisticsData = newStatisticsData; 
 }
 double Statistics::GetTotalRevenue() const {
     return totalRevenue;
 }
 void Statistics::SetTotalRevenue(double newTotalRevenue) {
-    // Implement the logic to set the new value
+    this -> totalRevenue = newTotalRevenue ;
 }
 double Statistics::GetTotalExpenses() const {
     return totalExpenses;
 }
 void Statistics::SetTotalExpenses(double newTotalExpenses) {
-    // Implement the logic to set the new value
+    this -> totalExpenses = newTotalExpenses ; 
 }
 double Statistics::GetTotalProfit() const {
     return totalProfit;
 }
 void Statistics::SetTotalProfit(double newTotalProfit) {
-    // Implement the logic to set the new value
+    this -> totalProfit = newTotalProfit ; 
 }
 double Statistics::GetTotalAmountIn() const {
     return totalAmountIn;
 }
 void Statistics::SetTotalAmountIn(double newTotalAmountIn) {
-    // Implement the logic to set the new value
+    this -> totalAmountIn = newTotalAmountIn ; 
 }
 double Statistics::GetTotalAmountOut() const {
     return totalAmountOut;
 }
 void Statistics::SetTotalAmountOut(double newTotalAmountOut) {
-    // Implement the logic to set the new value
+    this -> totalAmountOut = newTotalAmountOut ;
 }
 // Getter and setter methods for Khách hàng
 int Statistics::GetCustomerID() const {
@@ -190,4 +193,75 @@ int Statistics::GetNumExecutedOrders() const {
 
 void Statistics::SetNumExecutedOrders(int newNumExecutedOrders) {
     numExecutedOrders = newNumExecutedOrders;
+}
+int Statistics::GetTotalOrders() const
+{
+    return totalOrders;
+}
+
+double Statistics::GetTotalAmountSpent() const
+{
+    return totalAmountSpent;
+}
+
+double Statistics::GetRepeatPurchaseRate() const
+{
+    return repeatPurchaseRate;
+}
+
+double Statistics::GetCustomerLifetimeValue() const
+{
+    return customerLifetimeValue;
+}
+
+double Statistics::GetAvgDiscountRate() const
+{
+    return avgDiscountRate;
+}
+
+// Add implementations for new setters
+
+void Statistics::SetTotalOrders(int newTotalOrders)
+{
+    totalOrders = newTotalOrders;
+}
+
+void Statistics::SetTotalAmountSpent(double newTotalAmountSpent)
+{
+    totalAmountSpent = newTotalAmountSpent;
+}
+
+void Statistics::SetRepeatPurchaseRate(double newRepeatPurchaseRate)
+{
+    repeatPurchaseRate = newRepeatPurchaseRate;
+}
+
+void Statistics::SetCustomerLifetimeValue(double newCustomerLifetimeValue)
+{
+    customerLifetimeValue = newCustomerLifetimeValue;
+}
+
+void Statistics::SetAvgDiscountRate(double newAvgDiscountRate)
+{
+    newAvgDiscountRate = newAvgDiscountRate;
+}
+// Xử lý nhân viên trước
+void Statistics::DisplayStatistics() const
+{
+ 
+    std::cout << "Total Orders: " << totalOrders << std::endl;
+    std::cout << "Total Amount Spent: $" << totalAmountSpent << std::endl;
+    std::cout << "Average Quantity Per Order: " << avgQuantityPerOrder << std::endl;
+    std::cout << "Average Amount Per Order: $" << avgAmountPerOrder << std::endl;
+    std::cout << "Favourite Product ID: " << favouriteProductID << std::endl;
+    std::cout << "Total Savings From Discounts: $" << savedMoneyDiscount << std::endl;
+    
+    std::cout << "Repeat Purchase Rate: " << repeatPurchaseRate << "%" << std::endl;
+    std::cout << "Customer Lifetime Value: $" << customerLifetimeValue << std::endl;
+    std::cout << "Average Discount Rate: " << avgDiscountRate << "%" << std::endl;
+}
+
+// Profit supermarket 
+void Statistics::CalculateProfit(int param1, int param2, double param3){
+
 }

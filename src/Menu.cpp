@@ -596,7 +596,12 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     }
 
     case 5:
-        break;
+    {
+      cus.UpdateStatistics() ; 
+      cus.ViewStatistics() ; 
+      break;  
+    }
+        
     case 6:
     {
         cus.Show_Orders_History(std::cout);

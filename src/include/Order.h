@@ -19,6 +19,7 @@ private:
     char *PaymentMethod;
     char *ShippingAddress;
     bool delivery;
+    int quanityProduct ;
     double totalAfterDiscount ; 
     static int numberofOrder;
     Vector_Class<Food> OrderedFood;
@@ -29,6 +30,8 @@ public:
     static int getNumberOrder();
     static void setNumberOrder();
     bool HoanThanh = false;
+    void setQuanityProduct(int) ; 
+    int getQuanityProduct() ; 
     void Order_Food(Food &);
     void Order_ElectricalProduct(ElectricalProduct &);
     void Order_Houseware(Houseware &);

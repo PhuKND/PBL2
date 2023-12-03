@@ -3,6 +3,7 @@
 #include "Order.h"
 #include "Person.h"
 #include"Discount.h"
+#include"Statistics.h"
 class Order; 
 class Discount;
 class Customer : public Person
@@ -13,7 +14,7 @@ private:
     char *CustomerType;
     Vector_Class<Order> orderHistory;
     Vector_Class<Discount> discounts;
-
+    Statistics statistics ;
 public:
     Customer();
     Customer(int, char *, char *, int, Date, char *, char *, char *, int, char *);
@@ -21,7 +22,7 @@ public:
     Vector_Class<Order> &getOrderHistory();
     int GetCustomerID() const;
     void SetCustomerID(int);
-
+    Statistics getStatistics() ;
     int GetPoint() const;
     void SetPoint(int);
 
@@ -45,5 +46,7 @@ public:
     void AddDiscount(Discount &discount);
     Vector_Class<Discount> &GetDiscounts();
     void ApplyDiscounts(Order &order);
+    void UpdateStatistics() ; 
+    void ViewStatistics(); 
 };
 #endif
