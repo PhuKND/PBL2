@@ -22,25 +22,6 @@ int main()
     // data.at(1).Display() ;
     
     Menu menu ;
-  //   Discount dis1(1,"DUT",20,20,1) ; 
-  // dis1.setCouponCode("DUT") ; 
-  //   Discount dis2(2,"ITF",19,1,1) ;
-  //   Discount dis3(3,"HCMUS",30,1,1) ;
-  //   Discount dis4(4,"UIT",22,1,1) ; 
-
-  //   dis2.setCouponCode("ITF") ; 
-  //   dis3.setCouponCode("HCMUS") ; 
-  //   dis4.setCouponCode("UIT") ; 
-  //  Customer cus; 
-  //  cus.UpdateStatistics(); 
-  //  cus.ViewStatistics();
-
-  //   menu.discountManager.AddToLists(dis1);
-    // menu.discountManager.AddToLists(dis2);
-    // menu.discountManager.AddToLists(dis4);
-    // menu.discountManager.AddToLists(dis3);
-
-
     menu.run();
     // DataManager<Discount> discountManager ;
     // discountManager.GetData(discountManager.lists,"data/input_output/discount.txt") ; 

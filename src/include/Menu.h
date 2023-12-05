@@ -26,13 +26,12 @@ private:
     DataManager<ElectricalProduct> electricalproductManager ;
     DataManager<Houseware> housewareManager ;
     DataManager<Order> orderManager ; 
-    
+    DataManager<Discount> discountManager ; 
     const char* key = "admin" ; 
     int customerChoiceCount;
     int managerChoiceCount;
     int employeeChoiceCount;
 public:
-DataManager<Discount> discountManager ;
     Menu();
     ~Menu() ; 
     void displayEmployeeMenu(Employee& employee) ; 

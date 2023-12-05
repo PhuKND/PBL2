@@ -357,6 +357,55 @@ int DecodeFunction(Point basepoint, int key, int n, int c)
         return -1; 
     }
 }
+std::string Decode(const std::string &ciphertext, Point basepoint, int k, int n, int m, int a, int p) {
+    // Bước 1: Chuyển dãy mã cơ số 3 sang trái 1 bit
+    std::string shiftedCiphertext = shift_left(ciphertext, m);
+
+    // Bước 2: Chuyển mã cơ số 3 về điểm
+    std::vector<Point> Points = convertToPoints(shiftedCiphertext, m);
+
+    // Bước 3: Gọi DecodeFunction và giải mã
+    Point P_base[n];
+    int Index[Points.size()];
+
+    for (size_t i = 1; i <= n; i++) {
+        P_base[i] = multiply(basepoint, i, a, p);
+        for (size_t j = 0; j < Points.size(); j++) {
+            if (P_base[i].x == Points[j].x && P_base[i].y == Points[j].y) {
+                std::cout << pointToChar(static_cast<int>(i - 1));
+                Index[j] = i;
+            }
+        }
+    }
+    std::cout << std::endl;
+
+    // Nhập key để giải mã
+    std::cout << "Nhap key de giai ma: ";
+    std::cin >> k;
+
+    // Giải mã
+    int newIndex[Points.size()];
+    for (size_t i = 0; i < Points.size(); i++) {
+        newIndex[i] = DecodeFunction(basepoint, k, n, Index[i]);
+    }
+
+    std::string decryptedSequence = "";
+    for (size_t j = 0; j < Points.size(); j++) {
+        for (size_t i = 1; i <= n; i++) {
+            P_base[i] = multiply(basepoint, i, a, p);
+            if (newIndex[j] == i) {
+                std::cout << "( " << P_base[i].x << " ; " << P_base[i].y << ")";
+                char decryptedChar = pointToChar(static_cast<int>(i));
+                std::cout << decryptedChar << std::endl;
+                decryptedSequence += decryptedChar;
+            }
+        }
+    }
+
+    std::cout << "Decrypted sequence: " << decryptedSequence << std::endl;
+
+    return decryptedSequence;
+}
 
 
 int main()
@@ -422,29 +471,24 @@ for (size_t i = 0; i <= n; i++)
 
     int arr[plaintext.size()];
     Point encodedPoint[plaintext.size()];
-    cout << "Truoc khi ma hoa " << endl;
-    for (size_t j = 0; j < plaintext.size(); j++)
-    {
-        int index = -1;
-        for (size_t i = 0; i <= n; i++)
-        {
-            if (plaintext[j] == pointToChar(i))
-            {
-                index = i;
-                break;
-            }
-        }
-
-        if (index != -1)
-        {
-            P_anhxa[index + 1] = multiply(basepoint, index + 1, a, p);
-            cout << "(" << P_anhxa[index + 1].x << ", " << P_anhxa[index + 1].y << ") - " << pointToChar(index) << endl;
-        }
-        else
-        {
-            cerr << "Khong tim thay ky tu trong bang anh xa." << endl;
+     // Truoc khi ma hoa
+cout << "Truoc khi ma hoa" << endl;
+for (size_t j = 0; j < plaintext.size(); j++) {
+    int index = -1;
+    for (size_t i = 0; i <= n; i++) {
+        if (plaintext[j] == pointToChar(i)) {
+            index = i;
+            break;
         }
     }
+
+    if (index != -1) {
+        P_anhxa[index + 1] = multiply(basepoint, index , a, p);
+        cout << "(" << P_anhxa[index + 1].x << ", " << P_anhxa[index + 1].y << ") - " << pointToChar(index) << endl;
+    } else {
+        cerr << "Khong tim thay ky tu trong bang anh xa. Ky tu: " << plaintext[j] << endl;
+    }
+}
 
     Encode(plaintext, basepoint, n, a, p, k,m );
     //  -------------------------------KẾT THÚC MÃ HÓA ---------------------------------------------

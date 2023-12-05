@@ -84,7 +84,7 @@ Menu::Menu()
             }
         }
     }
-    // discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
+    discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
 }
 
 Menu::~Menu()
@@ -621,9 +621,11 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         cin >> ch ; 
         if (ch == 'Y' || ch == 'y')
         {
+            while (1)
+            {
             std::cout << "Enter your code : ";
             char *code;
-            cin >> code; 
+            Menu::getInput(code,cin) ;
             bool found = false ; 
             for (size_t i = 0; i < discountManager.lists.getSize(); i++)
             {
@@ -633,9 +635,20 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                     cus.AddDiscount(discountManager.lists.at(i));
                     break; 
                 }
+            
             }
             if(!found) {
                 std::cout << "Can't found" << std::endl ; 
+            }
+            std::cout << "Do you want to add more discount " << std::endl ;
+            char ch3 ; 
+            std::cin >> ch3 ;
+            if(ch3 =='Y' || ch3 =='y') {
+                continue;
+            } 
+            else {
+                break; 
+            }
             }
         }
         
@@ -784,6 +797,7 @@ void Menu::displayManagerMenu()
     std::cout << "3. " << YELLOW << "Add object\n";
     std::cout << "4. " << RED << "Delete object\n";
     std::cout << "5. " << BLUE << "Statistics\n";
+    std::cout << "6. " << BLUE << "Discount\n" ; 
     std::cout << "8. " << RED << "Exit\n";
     std::cout << "==============================\n"
               << RESET;
@@ -905,11 +919,49 @@ void Menu::displayManagerMenu()
         // Xử lý Statistics
         break;
     case 6:
-        // Xử lý Save data
+    {
+        std::cout << "Available discount  " << std::endl ;
+        for (size_t i = 0; i < discountManager.lists.getSize(); i++)
+        {
+            std::cout << discountManager.lists.at(i) ;
+        }
+        std::cout << "Do you want to add new discount to system(Y/N) " ;
+        char ch3 = getch() ;
+        if (ch3 == 'y' || ch3 == 'Y')
+        {
+            do {
+            Discount newdiscount ;
+            cin >> newdiscount ;
+            discountManager.lists.pushBack(newdiscount) ;
+            std::cout << "Do you want to add more " ; 
+            char ch2 = getch() ; 
+            if(ch2 == 'Y' || ch2 == 'y') {
+                continue;
+            }
+            else {
+                break; 
+            }
+            }
+            while (1);
+            
+        }
+        std::cout << "Enter 0 to return " ; 
+        char ch2 ;
+        cin >> ch2 ;
+        if(ch2 == '0') {
+                return displayManagerMenu() ;
+        }
+    }
         break;
     case 7:
-        Menu::~Menu();
+       {
+        return run() ;
         break;
+       }
+    case 8: {
+         Menu::~Menu();
+        break;
+    }
     default:
         std::cout << "Invalid value. Please try again" << endl;
         break;

@@ -6,7 +6,7 @@
 #define MAX_LENGTH 256
 
 Customer::Customer(){
-
+    
 };
 Customer::Customer(int CustomerID, char *fullName, char *Gender, int age, Date DayOfBirth, char *address, char *phoneNumber, char *email, int point, char *type) : Person(CustomerID, fullName, Gender, age, DayOfBirth, address, phoneNumber, email), Point(Point), CustomerType(type){};
 void Customer::SetPoint(int Point)
@@ -21,7 +21,7 @@ int Customer::GetCustomerID() const
 {
     return this->CustomerID;
 }
-Statistics Customer::getStatistics()
+Statistics &Customer::getStatistics()
 {
     return statistics;
 }
@@ -190,13 +190,13 @@ void Customer::ViewStatistics()
 }
 void Customer::UpdateStatistics()
 {
-    std::cout << "Time excuted : " << Date::getRealTime() << endl ; 
+    std::cout << "Excuted time : " << Date::getRealTime() << endl ; 
     getStatistics().SetCustomerID(CustomerID);
-    getStatistics().SetTotalOrders(getOrderHistory().getSize());
+    getStatistics().SetTotalOrders(getOrderHistory().getSize() - 1);
     double avgquanity = 0;
     double avgSpent = 0;
     double totalspent = 0;
-    double totalwithoutdiscount;
+    double totalwithoutdiscount = 0 ; 
     for (size_t i = 0; i < getOrderHistory().getSize(); i++)
     {
         avgquanity += getOrderHistory().at(i).getQuanityProduct();
@@ -205,12 +205,10 @@ void Customer::UpdateStatistics()
         totalwithoutdiscount += getOrderHistory().at(i).GetTotalAmount();
     }
     getStatistics().SetTotalAmountSpent(totalspent);
-    getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount - totalspent);
-    avgquanity = avgquanity / (getOrderHistory().getSize() + 1);
+    avgquanity = avgquanity / (getOrderHistory().getSize() - 1 );
     getStatistics().SetAvgQuantityPerOrder(avgquanity);
-    avgSpent = avgSpent / (getOrderHistory().getSize() + 1);
+    avgSpent = avgSpent / (getOrderHistory().getSize() - 1);
     getStatistics().SetAvgAmountPerOrder(avgSpent);
     getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount - totalspent);
     getStatistics().SetAvgDiscountRate(totalspent/totalwithoutdiscount) ; 
-
 }

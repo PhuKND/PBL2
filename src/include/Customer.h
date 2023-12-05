@@ -22,7 +22,7 @@ public:
     Vector_Class<Order> &getOrderHistory();
     int GetCustomerID() const;
     void SetCustomerID(int);
-    Statistics getStatistics() ;
+    Statistics &getStatistics() ;
     int GetPoint() const;
     void SetPoint(int);
 
