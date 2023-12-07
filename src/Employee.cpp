@@ -128,10 +128,8 @@ void Employee::GetInformation() {
     std::cout << "Age : ";
     std::cin >> age;
     std::cout << "Day of birth: ";
-    std::cin.ignore();
     std::cin >> DayOfBirth ; 
     std::cout << "Address : ";
-    std::cin.ignore();
     Menu::getInput(address,cin);
     std::cout << "Phone number : ";
     Menu::getInput(phoneNumber,cin); 
@@ -148,7 +146,6 @@ void Employee::GetInformation() {
     std::cout << "Is working (1 for Yes, 0 for No): ";
     std::cin >> isWorking;
 }
-
 void Employee::WriteDataToFile(std::ostream &file) const
 {
     file << GetEmployeeID() <<"," 

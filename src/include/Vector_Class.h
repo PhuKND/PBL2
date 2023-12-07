@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include"Employee.h"
 template <class U>
 class Vector_Class {
 private:
@@ -21,7 +21,7 @@ public:
     void resize(int newCapacity);
     U operator[](int index) const;
     U& getLast();
- 
+    
     // void print() const;
 
     Vector_Class(const Vector_Class<U> &other);

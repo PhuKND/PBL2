@@ -13,7 +13,6 @@ private:
     Vector_Class<Houseware> housewareSupplied;
     Vector_Class<Food> foodSupplied;
     Vector_Class<ElectricalProduct> ElectricalProductSupplied;
-
 public:
     Supplier();
     Supplier(int id, char *name, char *address, char *phonenumber, char *email);

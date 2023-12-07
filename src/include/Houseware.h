@@ -10,7 +10,7 @@ public:
     Houseware();
     Houseware(int, int, char *, int, int, int, char *, Date, char *);
     ~Houseware();
-
+    friend std::istream& operator>>(std::istream& , Houseware& ) ; 
     char *GetMaterial() const;
     void SetMaterial(char *&material);
     void Display();

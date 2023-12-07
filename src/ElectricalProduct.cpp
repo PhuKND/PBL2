@@ -67,3 +67,29 @@ void ElectricalProduct::ReadDataFromFile(std::istream &file)
     file >> techSpec.wattage >> comma;
     Menu::readAttributeTillDelimiter(techSpec.operatingSystem,file) ; 
 }
+std::istream& operator>>(std::istream& is, ElectricalProduct& electricalProduct) {
+    // Input for the base Product class
+    is >> static_cast<Product&>(electricalProduct);
+
+    // Input for the TechnicalSpecification nested class
+    std::cout << "Enter Technical Specifications:\n";
+    std::cout << "Resolution X: ";
+    is >> electricalProduct.techSpec.resolutionX;
+
+    std::cout << "Resolution Y: ";
+    is >> electricalProduct.techSpec.resolutionY;
+
+    std::cout << "Capacity: ";
+    is >> electricalProduct.techSpec.capacity;
+
+    std::cout << "Screen Size: ";
+    is >> electricalProduct.techSpec.screenSize;
+
+    std::cout << "Wattage: ";
+    is >> electricalProduct.techSpec.wattage;
+
+    std::cout << "Operating System: ";
+    Menu::getInput(electricalProduct.techSpec.operatingSystem, is);
+
+    return is;
+}

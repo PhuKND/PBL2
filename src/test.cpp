@@ -22,6 +22,7 @@ int main()
     // data.at(1).Display() ;
     
     Menu menu ;
+
     menu.run();
     // DataManager<Discount> discountManager ;
     // discountManager.GetData(discountManager.lists,"data/input_output/discount.txt") ; 

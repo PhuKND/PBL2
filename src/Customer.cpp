@@ -139,6 +139,32 @@ void Customer::add_to_orders(const Order &ord)
 {
     orderHistory.pushBack(ord);
 }
+void Customer::GetInformation(){
+    // Nhập dữ liệu bằng tay
+    std::cout << "Customer Information : " << std::endl;
+    std::cout << "Employee ID : ";
+    std::cin >> CustomerID;
+    std::cout << "Full name : ";
+    Menu::getInput(fullName,cin) ;
+    std::cout << "Age : ";
+    std::cin >> age;
+    std::cout << "Day of birth: ";
+    std::cin.ignore();
+    std::cin >> DayOfBirth ; 
+    std::cout << "Address : ";
+    std::cin.ignore();
+    Menu::getInput(address,cin);
+    std::cout << "Phone number : ";
+    Menu::getInput(phoneNumber,cin); 
+    std::cout << "Email: ";
+    Menu::getInput(email,cin) ; 
+    std::cout << "Point : ";
+    std::cin >> Point ; 
+    std::cout << "Customer type :" ;
+    Menu::getInput(CustomerType,cin) ; 
+ }
+
+
 Order &Customer::Last_Order()
 {
     return orderHistory.getLast();

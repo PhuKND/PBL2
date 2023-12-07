@@ -27,7 +27,7 @@ public:
     ElectricalProduct(int , int , char* , int , int , int , char* , Date
                       ,const TechnicalSpecification& tech);
     ~ElectricalProduct();
-
+    friend std::istream& operator>>(std::istream& , ElectricalProduct&) ;
     TechnicalSpecification GetTechnicalSpecification() const;
     void SetTechnicalSpecification(const TechnicalSpecification& tech);
     void Display();

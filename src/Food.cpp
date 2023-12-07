@@ -190,3 +190,39 @@ void Food::ReadDataFromFile(std::istream &file)
     file >> netWeight >> comma;
     file >> isExpired ; 
 }
+std::istream& operator>>(std::istream& is, Food& food) {
+    // Input for the base Product class
+    is >> static_cast<Product&>(food);
+
+    // Input for the Food-specific properties
+    int foodTypeInt;
+    std::cout << "Food Type (0: Fresh, 1: Canned, 2: Packaged): ";
+    is >> foodTypeInt;
+    food.foodType = static_cast<FoodType>(foodTypeInt);
+
+    std::cout << "Calories: ";
+    is >> food.calories;
+
+    std::cout << "Protein: ";
+    is >> food.protein;
+
+    std::cout << "Carbohydrates: ";
+    is >> food.carbohydrates;
+
+    std::cout << "Fat: ";
+    is >> food.fat;
+
+    std::cout << "Vitamins: ";
+    is >> food.vitamins;
+
+    std::cout << "Net Weight: ";
+    is >> food.netWeight;
+
+    int isExpiredInt;
+    std::cout << "Is Expired (0: No, 1: Yes): ";
+    is >> isExpiredInt;
+    food.isExpired = (isExpiredInt == 1);
+
+    return is;
+}
+

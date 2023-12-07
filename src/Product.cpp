@@ -92,7 +92,23 @@ std::ostream &operator<<(std::ostream &out, const Product &product) {
     out << "Production Date: " << product.NgaySanXuat << "\n";
     return out;
 }
-
+std::istream& operator>>(std::istream& is , Product & product){
+    std::cout << "Enter Product ID : " ; 
+    is >> product.productID ; 
+    std::cout << "Import ID : " ; 
+    is >> product.importID ; 
+    std::cout <<" Product name : " ; 
+    Menu::getInput(product.TenSanPham,is) ;
+    std::cout << "Price : " ; 
+    is >> product.Price ; 
+    std::cout << "Quanity in Stock : "; 
+    is >> product.SoLuongTonKho ;
+    std::cout << "Manufacturer : " ;
+    Menu::getInput(product.NhaSanXuat,is);
+    std::cout << "Production Date : " ; 
+    is >> product.NgaySanXuat ;  
+return is ;
+}
 void Product::Display() const {
     std::cout << *this;
 }

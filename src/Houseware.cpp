@@ -26,6 +26,13 @@ void Houseware::Display_01(std::ostream &f)
     Product::Display_01(f);
     f << std::left << std::setw(15) << material << " | " << endl ;
 }
+std::istream& operator>>(std::istream& is, Houseware& houseware) {
+     is >> static_cast<Product&>(houseware);
+    std::cout << "Material: ";
+    Menu::getInput(houseware.material, is);
+
+    return is;
+}
 void Houseware::WriteDataToFile(std::ostream &file) const
 {
     Product::WriteDataToFile(file);

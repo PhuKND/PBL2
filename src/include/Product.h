@@ -47,6 +47,7 @@ public:
     void setNgaySanXuat( Date&);
 
     friend std::ostream &operator<<(std::ostream &out, const Product &product);
+    friend std::istream &operator>>(std::istream &is ,Product&)  ;
     virtual void Display() const;
 
     void WriteDataToFile(std::ostream &file) const;

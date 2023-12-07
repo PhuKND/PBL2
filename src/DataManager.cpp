@@ -94,6 +94,7 @@ void DataManager<T>::ShowLists_file(const Vector_Class<T> &data, const char *fil
 template <class T>
 void DataManager<T>::Display(const Vector_Class<T> &data)
 {
+    
     if (typeid(T) == typeid(Customer) || typeid(T) == typeid(Employee))
     {
         if (typeid(T) == typeid(Employee))
@@ -188,7 +189,7 @@ void DataManager<T>::SaveData(const Vector_Class<T> data, const char *filename)
     {
         for (size_t i = 0; i < data.getSize(); i++)
         {
-            data[i].WriteDataToFile(file); // Assuming WriteDataToFile exists in the T class
+            data[i].WriteDataToFile(file);
         }
         file.close();
     }

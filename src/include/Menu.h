@@ -11,6 +11,8 @@
 #define YELLOW  "\033[1;33m"
 #define BLUE    "\033[1;34m"
 #define BRIGHT_MAGENTA "\033[1;95m"
+#define BOLD_BLUE "\033[1;34m"
+#define WIDTH 40
 class Customer;
 class Employee;
 class Food;

@@ -163,11 +163,12 @@ void Order::Display(std::ostream &o, char *name)
     o << std::endl;
     o << std::endl;
     o << "------------------------------------------------------------------------------" << std::endl;
-    o << "                              Total before apply discount : "
+    o << "                              Total  : "
       << "$" << CalculateTotalAmount() << std::endl;
-    o << "                              Total after apply discount : ";
-
-    o << "$" << getTotalAfterDiscount()<< std::endl;
+    if (CalculateTotalAmount() != getTotalAfterDiscount()) {
+        o << "          Total with applicable discounts: ";
+        o << "$" << getTotalAfterDiscount()<< std::endl;
+        }
     o << "------------------------------------------------------------------------------" << std::endl;
     o << "                              Thank you!" << std::endl;
 }
@@ -229,13 +230,13 @@ void Order::Display_file(const char *filename, char *name)
         file << "=============================================================" << std::endl;
         file << "                       INVOICE" << std::endl;
         file << "=============================================================" << std::endl;
-        file << "Order ID : ";
+        file << "Order ID: ";
         file << GetOrderID() << std::endl;
-        file << "Order time : ";
+        file << "Order time: ";
         file << orderTime.getRealTime() << std::endl;
         file << "-------------------------------------------------------------" << std::endl;
-        file << "Customer ID : " << getCustomerID() << std::endl;
-        file << "Customer name : " << name << std::endl;
+        file << "Customer ID: " << getCustomerID() << std::endl;
+        file << "Customer name: " << name << std::endl;
         file << "-------------------------------------------------------------" << std::endl;
         file << "STT" << std::right << std::setw(2) << "|";
         file << "Product ID" << std::right << std::setw(4) << "|";
@@ -267,11 +268,12 @@ void Order::Display_file(const char *filename, char *name)
         file << std::endl;
         file << std::endl;
         file << "----------------------------------------" << std::endl;
-        file << "  Total : "
+        file << "  Subtotal before discounts: "
              << "$" << CalculateTotalAmount() << std::endl;
-              file << "                              Total after apply discount : ";
-
-    file << "$" << getTotalAfterDiscount()<< std::endl;
+        if (CalculateTotalAmount() != getTotalAfterDiscount()) {
+        file << "          Total with applicable discounts: ";
+        file << "$" << getTotalAfterDiscount()<< std::endl;
+        }
         file << "----------------------------------------" << std::endl;
         file << "          Thank you!" << std::endl;
     }

@@ -89,12 +89,12 @@ Menu::Menu()
 
 Menu::~Menu()
 {
-    customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
-    employeeManager.SaveData(employeeManager.lists, "data/input_output/employee.txt");
-    orderManager.SaveData(orderManager.lists, "data/input_output/order.txt");
-    foodManager.SaveData(foodManager.lists, "data/input_output/food.txt");
-    electricalproductManager.SaveData(electricalproductManager.lists, "data/input_output/electricalproduct.txt");
-    housewareManager.SaveData(housewareManager.lists, "data/input_output/houseware.txt");
+    // customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
+    // employeeManager.SaveData(employeeManager.lists, "data/input_output/employee.txt");
+    // orderManager.SaveData(orderManager.lists, "data/input_output/order.txt");
+    // foodManager.SaveData(foodManager.lists, "data/input_output/food.txt");
+    // electricalproductManager.SaveData(electricalproductManager.lists, "data/input_output/electricalproduct.txt");
+    // housewareManager.SaveData(housewareManager.lists, "data/input_output/houseware.txt");
 }
 void Menu::displayCustomerMenu(Customer &cus, Order &order)
 {
@@ -121,21 +121,23 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         break;
     case 2:
     {
-        std::cout << BLUE << "==============================\n";
-        std::cout << " " << BRIGHT_MAGENTA << "Account Management" << BLUE << "   \n";
-        std::cout << "==============================\n";
-        std::cout << "Account ID: " << cus.GetCustomerID() << "\n";
-        std::cout << "Please select the information you need to change:\n";
-        std::cout << "1. " << YELLOW << "Full Name\n";
-        std::cout << "2. " << YELLOW << "Gender\n";
-        std::cout << "3. " << YELLOW << "Age\n";
-        std::cout << "4. " << YELLOW << "Day of Birth\n";
-        std::cout << "5. " << YELLOW << "Address\n";
-        std::cout << "6. " << YELLOW << "Phone Number\n";
-        std::cout << "7. " << YELLOW << "Email\n";
-        std::cout << "8. " << BLUE << "Go back\n";
-        std::cout << "==============================\n"
+        std::cout << BLUE << std::setw(WIDTH) << "||========================================||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << BRIGHT_MAGENTA << "             Account Management           " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||========================================||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << RESET << " Account ID: " << std::setw(37) << cus.GetCustomerID() << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << RESET << " Please select the information to change:" << std::setw(5) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||----------------------------------------|" << std::endl;
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 1. Full Name" << std::setw(26) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 2. Gender" << std::setw(29) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 3. Age" << std::setw(32) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 4. Day of Birth" << std::setw(25) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 5. Address" << std::setw(28) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 6. Phone Number" << std::setw(22) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 7. Email" << std::setw(27) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||" << YELLOW << " 8. Go back" << std::setw(28) << " " << BLUE << "||\n";
+        std::cout << BLUE << std::setw(WIDTH) << "||========================================||\n"
                   << RESET;
+
         int selection;
         std::cin >> selection;
         system("CLS");
@@ -562,7 +564,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             if (discountChoice > 0 && discountChoice <= static_cast<int>(cus.GetDiscounts().getSize()))
             {
                 order.ApplyDiscount(cus.GetDiscounts().at(discountChoice - 1));
-                order.Display(std::cout,cus.GetFullName()) ; 
+                order.Display(std::cout, cus.GetFullName());
             }
             else
             {
@@ -597,11 +599,11 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
 
     case 5:
     {
-      cus.UpdateStatistics() ; 
-      cus.ViewStatistics() ; 
-      break;  
+        cus.UpdateStatistics();
+        cus.ViewStatistics();
+        break;
     }
-        
+
     case 6:
     {
         cus.Show_Orders_History(std::cout);
@@ -615,43 +617,50 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     }
     case 7:
     {
-        std::cout << cus.GetDiscounts();
+        if (cus.GetDiscounts().isEmpty())
+        {
+            std::cout << "No discount available " << std::endl;
+        }
+        else
+            std::cout << cus.GetDiscounts();
         std::cout << "Do you want to add new discount(Y/N)" << std::endl;
-        char ch ; 
-        cin >> ch ; 
+        char ch;
+        cin >> ch;
         if (ch == 'Y' || ch == 'y')
         {
             while (1)
             {
-            std::cout << "Enter your code : ";
-            char *code;
-            Menu::getInput(code,cin) ;
-            bool found = false ; 
-            for (size_t i = 0; i < discountManager.lists.getSize(); i++)
-            {
-                if (areEqual(code,discountManager.lists.at(i).getCouponCode()))
+                std::cout << "Enter your code : ";
+                char *code;
+                Menu::getInput(code, cin);
+                bool found = false;
+                for (size_t i = 0; i < discountManager.lists.getSize(); i++)
                 {
-                    found = true; 
-                    cus.AddDiscount(discountManager.lists.at(i));
-                    break; 
+                    if (areEqual(code, discountManager.lists.at(i).getCouponCode()))
+                    {
+                        found = true;
+                        cus.AddDiscount(discountManager.lists.at(i));
+                        break;
+                    }
                 }
-            
-            }
-            if(!found) {
-                std::cout << "Can't found" << std::endl ; 
-            }
-            std::cout << "Do you want to add more discount " << std::endl ;
-            char ch3 ; 
-            std::cin >> ch3 ;
-            if(ch3 =='Y' || ch3 =='y') {
-                continue;
-            } 
-            else {
-                break; 
-            }
+                if (!found)
+                {
+                    std::cout << "Can't found" << std::endl;
+                }
+                std::cout << "Do you want to add more discount " << std::endl;
+                char ch3;
+                std::cin >> ch3;
+                if (ch3 == 'Y' || ch3 == 'y')
+                {
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
             }
         }
-        
+
         cout << "Enter 0 to return " << endl;
         int is;
         cin >> is;
@@ -665,7 +674,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         break;
     }
 }
-void Menu::displayEmployeeMenu(Employee& employee)
+void Menu::displayEmployeeMenu(Employee &employee)
 {
     std::cout << BLUE << "==============================\n";
     std::cout << "    " << BRIGHT_MAGENTA << "Employee Menu" << BLUE << "       \n";
@@ -683,9 +692,9 @@ void Menu::displayEmployeeMenu(Employee& employee)
     switch (choice)
     {
     case 1:
-        employee.Display() ; 
+        employee.Display();
         break;
-   case 2:
+    case 2:
     {
         std::cout << BLUE << "==============================\n";
         std::cout << " " << BRIGHT_MAGENTA << "Account Management" << BLUE << "   \n";
@@ -772,7 +781,47 @@ void Menu::displayEmployeeMenu(Employee& employee)
         break;
     }
     case 3:
+    {
+        std::cout << BLUE << "==============================\n";
+        std::cout << "  " << BRIGHT_MAGENTA << "Product Categories" << BLUE << "   \n";
+        std::cout << "==============================\n";
+        std::cout << "1. " << YELLOW << "View Houseware Products\n";
+        std::cout << "2. " << YELLOW << "View Food Products\n";
+        std::cout << "3. " << YELLOW << "View Electrical Products\n";
+        std::cout << "4. " << BLUE << "Go back\n";
+        std::cout << "==============================\n"
+                  << RESET;
+
+        int viewChoice;
+        std::cin >> viewChoice;
+
+        switch (viewChoice)
+        {
+        case 1:
+            housewareManager.Display(housewareManager.lists);
+            break;
+        case 2:
+            foodManager.Display(foodManager.lists);
+            break;
+        case 3:
+            electricalproductManager.Display(electricalproductManager.lists);
+            break;
+        case 4:
+            displayEmployeeMenu(employee);
+            break;
+        default:
+            std::cout << "Invalid selection!" << endl;
+            break;
+            cout << "Enter 0 to return " << endl;
+            int is;
+            cin >> is;
+            system("CLS");
+            if (is == 0)
+                return displayEmployeeMenu(employee);
+        }
         break;
+    }
+    break;
     case 4:
         break;
     case 5:
@@ -797,7 +846,6 @@ void Menu::displayManagerMenu()
     std::cout << "3. " << YELLOW << "Add object\n";
     std::cout << "4. " << RED << "Delete object\n";
     std::cout << "5. " << BLUE << "Statistics\n";
-    std::cout << "6. " << BLUE << "Discount\n" ; 
     std::cout << "8. " << RED << "Exit\n";
     std::cout << "==============================\n"
               << RESET;
@@ -850,7 +898,43 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            //show product
+            std::cout << BLUE << "==============================\n";
+            std::cout << "  " << BRIGHT_MAGENTA << "Product Categories" << BLUE << "   \n";
+            std::cout << "==============================\n";
+            std::cout << "1. " << YELLOW << "View Houseware Products\n";
+            std::cout << "2. " << YELLOW << "View Food Products\n";
+            std::cout << "3. " << YELLOW << "View Electrical Products\n";
+            std::cout << "4. " << BLUE << "Go back\n";
+            std::cout << "==============================\n"
+                      << RESET;
+
+            int viewChoice;
+            std::cin >> viewChoice;
+
+            switch (viewChoice)
+            {
+            case 1:
+                housewareManager.Display(housewareManager.lists);
+                break;
+            case 2:
+                foodManager.Display(foodManager.lists);
+                break;
+            case 3:
+                electricalproductManager.Display(electricalproductManager.lists);
+                break;
+            case 4:
+                displayManagerMenu();
+                break;
+            default:
+                std::cout << "Invalid selection!" << endl;
+                break;
+                cout << "Enter 0 to return " << endl;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
+            }
             break;
         }
         case 4:
@@ -904,71 +988,262 @@ void Menu::displayManagerMenu()
         }
         case 2:
         {
+            int numCustomer;
+            std::cout << "Enter the number of Customer to add: ";
+            std::cin >> numCustomer;
+            Customer *customers = new Customer[numCustomer];
 
+            for (int i = 0; i < numCustomer; i++)
+            {
+                customers[i].GetInformation();
+
+                customerManager.AddToLists(customers[i]);
+            }
+
+            delete[] customers;
+            break;
+        }
+        case 3:
+        {
+            std::cout << BLUE << "==============================\n";
+            std::cout << "  " << BRIGHT_MAGENTA << "Product Categories" << BLUE << "   \n";
+            std::cout << "==============================\n";
+            std::cout << "1. " << YELLOW << "Add Houseware Products\n";
+            std::cout << "2. " << YELLOW << "Add Food Products\n";
+            std::cout << "3. " << YELLOW << "Add Electrical Products\n";
+            std::cout << "4. " << BLUE << "Go back\n";
+            std::cout << "==============================\n"
+                      << RESET;
+
+            int selection;
+            std::cin >> selection;
+            switch (selection)
+            {
+            case 1:
+            {
+                std::cout << "Enter number houseware product you want to add  : ";
+                int numHouseware;
+                std::cin >> numHouseware;
+                Houseware *houseware = new Houseware[numHouseware];
+                for (size_t i = 0; i < numHouseware; i++)
+                {
+                    cin >> houseware[i];
+                    housewareManager.AddToLists(houseware[i]);
+                }
+                delete[] houseware;
+                break;
+            }
+            case 2:
+            {
+                std::cout << "Enter number food product you want to add  : ";
+                int numfood;
+                std::cin >> numfood;
+                Food *food = new Food[numfood];
+                for (size_t i = 0; i < numfood; i++)
+                {
+                    cin >> food[i];
+                    foodManager.AddToLists(food[i]);
+                }
+                delete[] food;
+                break;
+            }
+            case 3:
+            {
+                std::cout << "Enter number electrical product you want to add  : ";
+                int numelectricalproduct;
+                std::cin >> numelectricalproduct;
+                ElectricalProduct *electricalproducts = new ElectricalProduct[numelectricalproduct];
+                for (size_t i = 0; i < numelectricalproduct; i++)
+                {
+                    cin >> electricalproducts[i];
+                    electricalproductManager.AddToLists(electricalproducts[i]);
+                }
+                delete[] electricalproducts;
+                break;
+            }
+            case 4:
+            {
+                return displayManagerMenu();
+                break;
+            }
+            default:
+                std::cout << "Invalid selection ";
+                break;
+            }
+            break;
+        case 4:
+        {
+            // Discount
+            std::cout << "Enter number of Discount you want to add ";
+            int numDiscount;
+            std::cin >> numDiscount;
+            Discount *discount = new Discount[numDiscount];
+            for (size_t i = 0; i < numDiscount; i++)
+            {
+                std::cin >> discount[i];
+                discountManager.AddToLists(discount[i]);
+            }
+            delete[] discount;
+            break;
+        }
+        default:
+            std::cout << "Invalid selection";
+            break;
+        }
+        break;
+        }
+    case 4:
+    {
+        std::cout << "Which object you want to delete " << std::endl;
+        std::cout << "1. Customer " << std::endl;
+        std::cout << "2. Employee " << std::endl;
+        std::cout << "3. Product" << std::endl;
+        std::cout << "4. Discount " << std::endl;
+        int selection;
+        std::cin >> selection;
+        switch (selection)
+        {
+        case 1:
+        {
+            std::cout << "Enter customer ID you want to delete" << std::endl;
+            int id;
+            std::cin >> id;
+            for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+            {
+                if (id == customerManager.lists.at(i).GetCustomerID())
+                {
+                    customerManager.lists.remove(i);
+                    break;
+                }
+            }
+            break;
+        }
+        case 2:
+        {
+            std::cout << "Enter employee ID you want to delete" << std::endl;
+            int id;
+            std::cin >> id;
+            for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
+            {
+                if (id == employeeManager.lists.at(i).GetEmployeeID())
+                {
+                    employeeManager.lists.remove(i);
+                    break;
+                }
+            }
+            break;
+        }
+        case 3:
+        {
+            std::cout << BLUE << "==============================\n";
+            std::cout << "  " << BRIGHT_MAGENTA << "Product Categories" << BLUE << "   \n";
+            std::cout << "==============================\n";
+            std::cout << "1. " << YELLOW << "Delete Houseware Products\n";
+            std::cout << "2. " << YELLOW << "Delete Food Products\n";
+            std::cout << "3. " << YELLOW << "Delete Electrical Products\n";
+            std::cout << "4. " << BLUE << "Go back\n";
+            std::cout << "==============================\n";
+            int choice;
+            std::cin >> choice;
+            switch (choice)
+            {
+            case 1:
+            {
+                std::cout << "Enter HousewareID you want to delete" << std::endl;
+                int id;
+                std::cin >> id;
+                for (size_t i = 0; i < housewareManager.lists.getSize(); i++)
+                {
+                    if (id == housewareManager.lists.at(i).getMaSanPham())
+                    {
+                        housewareManager.lists.remove(i);
+                        break;
+                    }
+                }
+                break;
+            }
+            case 2:
+            {
+                std::cout << "Enter Food ID you want to delete" << std::endl;
+                int id;
+                std::cin >> id;
+                for (size_t i = 0; i < foodManager.lists.getSize(); i++)
+                {
+                    if (id == foodManager.lists.at(i).getMaSanPham())
+                    {
+                        foodManager.lists.remove(i);
+                        break;
+                    }
+                }
+                break;
+            }
+            case 3:
+            {
+                std::cout << "Enter electrical product ID you want to delete" << std::endl;
+                int id;
+                std::cin >> id;
+                for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
+                {
+                    if (id == electricalproductManager.lists.at(i).getMaSanPham())
+                    {
+                        electricalproductManager.lists.remove(i);
+                        break;
+                    }
+                }
+                break;
+            }
+            case 4:
+            {
+                std::cout << "Enter Discount ID you want to delete" << std::endl;
+                int id;
+                std::cin >> id;
+                for (size_t i = 0; i < discountManager.lists.getSize(); i++)
+                {
+                    if (id == discountManager.lists.at(i).getDiscountID())
+                    {
+                        discountManager.lists.remove(i);
+                        break;
+                    }
+                }
+                break;
+            }
+            case 5:
+            {
+                return displayManagerMenu();
+                break;
+            }
+            default:
+                std::cout << "Invalid selection ";
+                break;
+            }
             break;
         }
         default:
             break;
         }
-        break;
     }
-    case 4:
-        // Xử lý Delete object
-        break;
+    break;
     case 5:
-        // Xử lý Statistics
-        break;
-    case 6:
-    {
-        std::cout << "Available discount  " << std::endl ;
-        for (size_t i = 0; i < discountManager.lists.getSize(); i++)
-        {
-            std::cout << discountManager.lists.at(i) ;
-        }
-        std::cout << "Do you want to add new discount to system(Y/N) " ;
-        char ch3 = getch() ;
-        if (ch3 == 'y' || ch3 == 'Y')
-        {
-            do {
-            Discount newdiscount ;
-            cin >> newdiscount ;
-            discountManager.lists.pushBack(newdiscount) ;
-            std::cout << "Do you want to add more " ; 
-            char ch2 = getch() ; 
-            if(ch2 == 'Y' || ch2 == 'y') {
-                continue;
-            }
-            else {
-                break; 
-            }
-            }
-            while (1);
-            
-        }
-        std::cout << "Enter 0 to return " ; 
-        char ch2 ;
-        cin >> ch2 ;
-        if(ch2 == '0') {
-                return displayManagerMenu() ;
-        }
-    }
-        break;
+        // Statistics 
+        
+                break;
     case 7:
-       {
-        return run() ;
+    {
+        return run();
         break;
-       }
-    case 8: {
-         Menu::~Menu();
+    }
+    case 8:
+    {
+        Menu::~Menu();
         break;
     }
     default:
         std::cout << "Invalid value. Please try again" << endl;
         break;
     }
+    }
 }
 
-//!
 void Menu::run()
 {
     bool exit = false;
@@ -1026,7 +1301,7 @@ void Menu::run()
                     system("CLS");
                     if (choice == 0)
                     {
-                        break; 
+                        break;
                     }
                     else
                     {
@@ -1037,7 +1312,7 @@ void Menu::run()
 
             if (validID)
             {
-                break; 
+                break;
             }
             else
             {
@@ -1057,7 +1332,7 @@ void Menu::run()
     {
         int maxChar = 100;
         char temp[maxChar];
-        char *password; 
+        char *password;
         std::cout << "Enter Manager Password: ";
         getInput(password, std::cin);
 
@@ -1097,7 +1372,7 @@ void Menu::run()
                 if (employeeid == employeeManager.lists.at(i).GetEmployeeID())
                 {
                     system("CLS");
-                    Employee &employee = employeeManager.lists.at(i) ;
+                    Employee &employee = employeeManager.lists.at(i);
                     displayEmployeeMenu(employee);
                     int choice;
                     std::cout << "Choose a number to continue or 0 to exit: ";
@@ -1109,7 +1384,7 @@ void Menu::run()
                     }
                     else
                     {
-                        
+
                         return run();
                     }
                 }

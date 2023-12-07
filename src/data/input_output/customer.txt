@@ -1,1 +1,2 @@
 1,Nguyen Ba Xuan An,Male,19,19/09/2004,Dak Lak,0818563466,an@gmail.com,11001,VIP
+2,Pham Thanh Dat,Male,23,24/01/2000,Dak Lak,0921411421,ptd@gmail.com,0,Standard

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iomanip>
 #include <limits>
-
+#include<algorithm>
 using namespace std;
 
 struct Point
@@ -71,7 +71,6 @@ Point add(Point P, Point Q, int a, int p)
         }
     }
 
-    // Calculate R.x and R.y
     R.x = mod(m * m - P.x - Q.x, p);
     R.y = mod(m * (P.x - R.x) - P.y, p);
 
@@ -238,8 +237,7 @@ void Encode(string plaintext, Point basepoint, int n, int a, int p, int k,int m)
     int arr[size];
     Point encodedPoint[size];
     cout << endl;
-      std::string mahoa_truocshift = "";  // Initialize an empty string to store the encoded points before the shift
-
+      std::string mahoa_truocshift = "";  
     cout << "Ma hoa: " << endl;
     for (size_t i = 0; i < size; i++)
     {
@@ -410,9 +408,9 @@ std::string Decode(const std::string &ciphertext, Point basepoint, int k, int n,
 
 int main()
 {
-    int n = 120;
-    int a = -3;
-    int p = 139;
+    int n = 150;
+    int a = 3;
+    int p = 199;
     int m = decimalToBase3(n).size();
     Point basepoint = {1, 7};
     vector<char> pointToCharTable(n + 1, ' '); 
@@ -498,6 +496,7 @@ for (size_t j = 0; j < plaintext.size(); j++) {
     string ciphertext;
     cout << "Nhap ban ma hoa" << endl;
     getline(cin, ciphertext);
+     ciphertext.erase(std::remove(ciphertext.begin(), ciphertext.end(), ' '), ciphertext.end());
     // ciphertext = shift_left(ciphertext, m);
     // cout << "Shift left" << endl;
     // cout << ciphertext << endl;
@@ -516,19 +515,19 @@ for (size_t j = 0; j < plaintext.size(); j++) {
     int Index[Points.size()]  ;
     cout << "Ky tu khi chua giai ma " << endl;
     basepoint = {1,7} ;
+    for (size_t j = 0; j < Points.size(); j++)
+{
     for (size_t i = 1; i <= n; i++)
     {
         P_base[i] = multiply(basepoint, i, a, p);
-            for (size_t j = 0; j < Points.size(); j++)
-            {
-                if (P_base[i].x == Points[j].x && P_base[i].y == Points[j].y)
-                {
-                   cout << pointToChar(static_cast<int>(i-1)); 
-                   Index[j] = i ;
-                }
-            }
-                    
+        if (P_base[i].x == Points[j].x && P_base[i].y == Points[j].y)
+        {
+            cout << pointToChar(static_cast<int>(i - 1));
+            Index[j] = i;
+        }
     }
+}
+
     cout << endl ; 
 cout << "Nhap key de giai ma " ; 
 cin >> k ; 
