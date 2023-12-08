@@ -6,7 +6,6 @@
 using namespace std;
 bool Menu::areEqual(const char *str1, const char *str2)
 {
-    while (*str1 && *str2)
     {
         if (*str1 != *str2)
         {
@@ -18,7 +17,7 @@ bool Menu::areEqual(const char *str1, const char *str2)
     return (*str1 == '\0' && *str2 == '\0');
 }
 // Đọc có dấu cách và  stop khi xuống dòng
-void Menu::getInput(char *&str, istream &cin, int maxChar)
+void Menu::getInput(char *&str, istream &cin, int maxChar )
 {
     char temp[maxChar];
     std::cin.ignore();
@@ -64,7 +63,49 @@ void Menu::readAttributeTillDelimiter(char *&attribute, std::istream &file)
     }
     attribute[index] = '\0';
 }
+void Menu::UpdateStatistics(){
+    statistics.SetTotalOrders(orderManager.lists.getSize()); 
+    double revenue = 0 ;
+    for (int i = 0 ; i < orderManager.lists.getSize();i++)
+    {
+        revenue += orderManager.lists.at(i).getTotalAfterDiscount();
+    }
 
+    statistics.SetTotalRevenue(revenue);
+    // Tính chi phí
+    double tAmountOut = 0 ;
+    double tSalary= 0 ;
+    // Tiền nhập sản phẩm , tiền lương , tiền mặt bằng 
+    for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
+    {
+        tAmountOut += employeeManager.lists.at(i).GetSalary(); 
+        tSalary += employeeManager.lists.at(i).GetSalary(); 
+    }
+    // thiếu tiền nhập hàng 
+
+    statistics.SetTotalAmountOut(tAmountOut) ;
+    double tAmountIn = 0 ; 
+    int numOrds = 0 ; 
+    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+    {
+        for (size_t j = 0; j < customerManager.lists.at(i).getOrderHistory().getSize(); j++)
+        {
+            tAmountIn += customerManager.lists.at(i).getOrderHistory().at(j).getTotalAfterDiscount() ; 
+            numOrds += 1 ;
+        }
+    }
+    statistics.SetTotalAmountIn(tAmountIn) ; 
+    statistics.SetNumberOfCustomers(customerManager.lists.getSize()) ;
+    statistics.SetNumberOfSalesInvoices(numOrds); 
+    statistics.SetNumberOfEmployees(employeeManager.lists.getSize()) ; 
+    statistics.SetTotalPaymentsToEmployees(tSalary) ; 
+    int tQuanitySold; 
+    for (size_t i = 0; i < orderManager.lists.getSize(); i++)
+    {
+        tQuanitySold += orderManager.lists.at(i).getQuanityProduct(); 
+    }
+    statistics.SetTotalUnitsSold(tQuanitySold) ;
+}
 Menu::Menu()
 {
 
@@ -89,9 +130,9 @@ Menu::Menu()
 
 Menu::~Menu()
 {
-    // customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
+    customerManager.SaveData(customerManager.lists, "data/input_output/customer.txt");
     // employeeManager.SaveData(employeeManager.lists, "data/input_output/employee.txt");
-    // orderManager.SaveData(orderManager.lists, "data/input_output/order.txt");
+    orderManager.SaveData(orderManager.lists, "data/input_output/order.txt");
     // foodManager.SaveData(foodManager.lists, "data/input_output/food.txt");
     // electricalproductManager.SaveData(electricalproductManager.lists, "data/input_output/electricalproduct.txt");
     // housewareManager.SaveData(housewareManager.lists, "data/input_output/houseware.txt");
@@ -797,31 +838,32 @@ void Menu::displayEmployeeMenu(Employee &employee)
 
         switch (viewChoice)
         {
-        case 1:
-            housewareManager.Display(housewareManager.lists);
+            {
+            case 1:
+                housewareManager.Display(housewareManager.lists);
+                break;
+            case 2:
+                foodManager.Display(foodManager.lists);
+                break;
+            case 3:
+                electricalproductManager.Display(electricalproductManager.lists);
+                break;
+            case 4:
+                displayEmployeeMenu(employee);
+                break;
+            default:
+                std::cout << "Invalid selection!" << endl;
+                break;
+                cout << "Enter 0 to return " << endl;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
+            }
             break;
-        case 2:
-            foodManager.Display(foodManager.lists);
-            break;
-        case 3:
-            electricalproductManager.Display(electricalproductManager.lists);
-            break;
-        case 4:
-            displayEmployeeMenu(employee);
-            break;
-        default:
-            std::cout << "Invalid selection!" << endl;
-            break;
-            cout << "Enter 0 to return " << endl;
-            int is;
-            cin >> is;
-            system("CLS");
-            if (is == 0)
-                return displayEmployeeMenu(employee);
         }
         break;
-    }
-    break;
     case 4:
         break;
     case 5:
@@ -833,6 +875,7 @@ void Menu::displayEmployeeMenu(Employee &employee)
     default:
         std::cout << "Invalid value. Please try again" << endl;
         break;
+    }
     }
 }
 //!
@@ -1224,9 +1267,10 @@ void Menu::displayManagerMenu()
     }
     break;
     case 5:
-        // Statistics 
-        
-                break;
+        UpdateStatistics();
+        statistics.DisplaySuperMarketStatistics(); 
+
+        break;
     case 7:
     {
         return run();
@@ -1330,14 +1374,14 @@ void Menu::run()
     }
     case 2:
     {
-        int maxChar = 100;
-        char temp[maxChar];
-        char *password;
-        std::cout << "Enter Manager Password: ";
-        getInput(password, std::cin);
+        // int maxChar = 100;
+        // char temp[maxChar];
+        // char* password;
+        // std::cout << "Enter Manager Password: ";
+        // getInput(password, std::cin);
 
-        if (areEqual(password, key))
-        {
+        // if (areEqual(password,key))
+        // {
             system("CLS");
             displayManagerMenu();
             int choice;
@@ -1353,12 +1397,11 @@ void Menu::run()
                 return run();
             }
         }
-        else
-        {
-            std::cout << "Invalid password!" << std::endl;
-        }
+        // else
+        // {
+        //     std::cout << "Invalid password!" << std::endl;
+        // }
         break;
-    }
     case 3:
     {
         while (true)

@@ -12,6 +12,7 @@
 #include"include/Discount.h"
 int main()
 {
+    // Order cần thêm Employee , Product cần thêm import ID chính xác
     // Order order ;
     // Customer cus ;
     // Vector_Class<Food> data ;
@@ -22,8 +23,8 @@ int main()
     // data.at(1).Display() ;
     
     Menu menu ;
-
     menu.run();
+    
     // DataManager<Discount> discountManager ;
     // discountManager.GetData(discountManager.lists,"data/input_output/discount.txt") ; 
     // for (size_t i = 0; i < discountManager.lists.getSize(); i++)

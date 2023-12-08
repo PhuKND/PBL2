@@ -14,6 +14,12 @@ private:
     double totalProfit;
     double totalAmountIn;
     double totalAmountOut;
+    int numberCustomer; 
+    int totalUnitsSold ;
+    int bestSellingProductID ;
+    int numberInvoice ;
+    int numberEmployee ;
+    int paymentsToEmployee ;
     Vector_Class<Employee> employeeSalaries;
 
     // Khách hàng
@@ -63,7 +69,18 @@ public:
 
     char* GetTimePeriod() const;
     void SetTimePeriod(char* newTimePeriod);
-
+    void SetNumberOfCustomers(int) ;
+    int GetNumberOfCustomers() const;
+    void SetTotalUnitsSold(int);
+    int GetTotalUnitsSold()const ; 
+    int GetNumberOfSalesInvoices()const; 
+    void SetNumberOfSalesInvoices(int); 
+    int GetBestSellingProduct() const;
+    void SetBestSellingProduct(int);
+    int GetNumberOfEmployees() const;
+    void SetNumberOfEmployees(int);
+    int GetTotalPaymentsToEmployees()const; 
+    void SetTotalPaymentsToEmployees(int); 
     char* GetStatisticsData() const;
     void SetStatisticsData(char* newStatisticsData);
 

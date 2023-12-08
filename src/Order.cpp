@@ -201,6 +201,7 @@ void Order::Display_List(std::ostream &o)
     o << std::setw(8) << GetOrderID() << "|"
       << std::setw(13) << "$" << GetTotalAmount() << "|"
       << std::setw(15) << GetOrderTime() << "|"
+      << std::setw(12) << getQuanityProduct() << "|" 
       << std::setw(12) << HoanThanh << "|"
       << std::endl;
 }
@@ -210,6 +211,7 @@ void Order::ReadDataFromFile(std::istream &file)
     file >> OrderID >> comma;
     file >> CustomerID >> comma;
     file >> totalAmount >> comma;
+    file >> quanityProduct >> comma ;
     file >> HoanThanh;
     SetOrderID(OrderID);
 }
@@ -218,6 +220,7 @@ void Order::WriteDataToFile(std::ostream &file)
     file << GetOrderID() << ","
          << getCustomerID() << ","
          << GetTotalAmount() << ","
+         << getQuanityProduct() << "," 
          << HoanThanh << std::endl;
 }
 void Order::Display_file(const char *filename, char *name)

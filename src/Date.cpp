@@ -22,7 +22,7 @@ void Date::setDay(int day) {
 std::ostream& operator<<(std::ostream& os, const Date& dayObj) {
     os << std::setw(2) << std::setfill('0') << dayObj.day << "/"
        << std::setw(2) << std::setfill('0') << dayObj.month << "/"
-       << std::setw(4) << std::setfill('0') << dayObj.year;
+       << std::setw(4) << std::setfill('0') << dayObj.year << std::setfill(' ') ; 
     return os;
 }
 std::istream& operator>>(std::istream& is, Date& dayObj) {
@@ -44,6 +44,16 @@ int Date::getYear() const {
 
 void Date::setYear(int year) {
     this->year = year;
+}
+void Date::setCurrentDate() {
+  // Get current time
+  auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+  std::tm* timeInfo = localtime(&currentTime);
+
+  // Set day, month, and year based on the current time
+  day = timeInfo->tm_mday;
+  month = timeInfo->tm_mon + 1; // tm_mon is 0-based
+  year = timeInfo->tm_year + 1900; // tm_year is years since 1900
 }
 
 char* Date::getFormattedDate() const {

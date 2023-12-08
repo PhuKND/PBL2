@@ -278,6 +278,66 @@ void Statistics::SetAvgDiscountRate(double newAvgDiscountRate)
 {
     newAvgDiscountRate = newAvgDiscountRate;
 }
+int Statistics::GetNumberOfCustomers() const
+{
+    return numberCustomer;
+}
+
+void Statistics::SetNumberOfCustomers(int newNumberOfCustomers)
+{
+    numberCustomer = newNumberOfCustomers;
+}
+
+int Statistics::GetTotalUnitsSold() const
+{
+    return totalUnitsSold;
+}
+
+void Statistics::SetTotalUnitsSold(int newTotalUnitsSold)
+{
+    totalUnitsSold = newTotalUnitsSold;
+}
+
+int Statistics::GetNumberOfSalesInvoices() const
+{
+    return numberInvoice;
+}
+
+void Statistics::SetNumberOfSalesInvoices(int newNumberOfSalesInvoices)
+{
+    numberInvoice = newNumberOfSalesInvoices;
+}
+
+int Statistics::GetBestSellingProduct() const
+{
+    return 0; // Thay bằng triển khai thực tế
+}
+
+void Statistics::SetBestSellingProduct(int newBestSellingProduct)
+{
+    bestSellingProductID = newBestSellingProduct  ;
+}
+
+int Statistics::GetNumberOfEmployees() const
+{
+    return numberEmployee;
+}
+
+void Statistics::SetNumberOfEmployees(int newNumberOfEmployees)
+{
+    numberEmployee = newNumberOfEmployees;
+}
+
+int Statistics::GetTotalPaymentsToEmployees() const
+{
+    return paymentsToEmployee;
+}
+
+void Statistics::SetTotalPaymentsToEmployees(int newTotalPaymentsToEmployees)
+{
+    paymentsToEmployee = newTotalPaymentsToEmployees;
+}
+
 // Xử lý nhân viên trước
 void Statistics::DisplayCustomerStatistics() const
 {
@@ -295,9 +355,24 @@ void Statistics::DisplayCustomerStatistics() const
 }
 void Statistics::DisplaySuperMarketStatistics() const
 {
+    std::cout << "Supermarket Statistics " << std::endl ;
+    // std::cout << "Statistics type : " << GetStatisticsType() << std::endl ;
+    // std::cout << "Statistics date : " << GetStatisticsData() << std::endl; 
+    std::cout << "Total revenue : $" << GetTotalRevenue() << std::endl ;
+    std::cout << "Total profit :  $" << GetTotalProfit() << std::endl ;
+    std::cout << "Total amount in :  $" << GetTotalAmountIn() << std::endl; 
+    std::cout << "Total amount out :  $" << GetTotalAmountOut() << std::endl ;
+    std::cout << "Number of customers: " << GetNumberOfCustomers() << std::endl;
+    std::cout << "Total units sold: " << GetTotalUnitsSold() << std::endl;
+    std::cout << "Number of sales invoices: " << GetNumberOfSalesInvoices() << std::endl;
+    std::cout << "Best-selling product: " << GetBestSellingProduct() << std::endl;
+    std::cout << "Number of employees: " << GetNumberOfEmployees() << std::endl;
+    std::cout << "Total payments to employees:  $" << GetTotalPaymentsToEmployees() << std::endl;
+
 }
 
 // Profit supermarket
 void Statistics::CalculateProfit(int param1, int param2, double param3)
 {
+
 }

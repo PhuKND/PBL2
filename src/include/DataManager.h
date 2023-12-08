@@ -15,6 +15,7 @@ class Houseware;
 class Order;
 class Discount;
 
+
 template <class T>
 class DataManager
 {
@@ -25,5 +26,5 @@ public:
     void Display(const Vector_Class<T>&);
     void ShowLists_file(const Vector_Class<T> &data, const char *filename);
     void SaveData(const Vector_Class<T> data , const char* ) ;
-    void GetData( Vector_Class<T> &data, const char* ) ;
+    void GetData(Vector_Class<T>& data, const char*);
 };

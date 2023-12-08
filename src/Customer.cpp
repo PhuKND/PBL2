@@ -212,7 +212,7 @@ void Customer::ApplyDiscounts(Order &order)
 }
 void Customer::ViewStatistics()
 {
-    getStatistics().DisplayStatistics(); 
+    getStatistics().DisplayCustomerStatistics(); 
 }
 void Customer::UpdateStatistics()
 {

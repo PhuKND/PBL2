@@ -59,7 +59,6 @@ void Employee::SetStartDay(const Date&start)
 {
     startDay = start;
 }
-
 const Date& Employee::GetEndDay() const
 {
     return endDay;
@@ -96,6 +95,7 @@ void Employee::Display()
     std::cout << "End day : " << GetEndDay() << std::endl;
     std::cout << "Is working : " << (IsWorking() ? "Yes" : "No") << std::endl;
 }
+
 // Hàm show theo lists
 void Employee::Display_01(ostream& out){
        cout << std::left << std::setw(15) << GetEmployeeID() << " | ";

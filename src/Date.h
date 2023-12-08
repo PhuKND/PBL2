@@ -11,8 +11,7 @@ private:
 public:
     Date();
     Date(int day, int month, int year);
-
-    // Getters and setters
+    void setCurrentDate();  
     int getDay() const;
     void setDay(int day);
     int getMonth() const;
@@ -20,10 +19,8 @@ public:
     int getYear() const;
     void setYear(int year);
     friend std::ostream& operator<<(std::ostream& os, const Date& dayObj);
-    // Function to display the date in a formatted way
     char* getFormattedDate() const;
 friend std::istream& operator>>(std::istream& is, Date& dayObj);
-    // Functions for real-time
     void updateRealTime();
     static char* getRealTime() ;
 };
