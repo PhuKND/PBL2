@@ -171,7 +171,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
     std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
     std::cout << std::setfill(' ');
-    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:"<<cus.GetCustomerID()<<"\t   "     <<BLUE<<"| |"<<std::endl;
+    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:" <<std::setw(29)<<left<<cus.GetCustomerID()<<BLUE<<"| |"<<std::endl;
     std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
     std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
     std::cout << std::setfill(' ');
@@ -222,7 +222,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         // ... (other cases)
         case 5:
         {
-            std::cout<<CYAN << "Enter your new address";
+            std::cout<<CYAN << "Enter your new address : ";
             std::cout << RESET;
             char *address;
             getInput(address, std::cin);
@@ -767,7 +767,7 @@ void Menu::displayEmployeeMenu(Employee &employee)
     std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
     std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
     std::cout << std::setfill(' ');
-    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:"<<employee.GetEmployeeID()<<"\t   "     <<BLUE<<"| |"<<std::endl;
+    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:" <<std::setw(29)<<left<<employee.GetEmployeeID()<<BLUE<<"| |"<<std::endl;
     std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
     std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
     std::cout << std::setfill(' ');
