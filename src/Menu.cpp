@@ -837,15 +837,18 @@ void Menu::displayEmployeeMenu(Employee &employee)
     }
     case 3:
     {
-        std::cout << BLUE << "==============================\n";
-        std::cout << "  " << BRIGHT_MAGENTA << "Product Categories" << BLUE << "   \n";
-        std::cout << "==============================\n";
-        std::cout << "1. " << YELLOW << "View Houseware Products\n";
-        std::cout << "2. " << YELLOW << "View Food Products\n";
-        std::cout << "3. " << YELLOW << "View Electrical Products\n";
-        std::cout << "4. " << BLUE << "Go back\n";
-        std::cout << "==============================\n"
-                  << RESET;
+        std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
+     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "View Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "View Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"View Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
 
         int viewChoice;
         std::cin >> viewChoice;
@@ -961,15 +964,18 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            std::cout << BLUE << "==============================\n";
-            std::cout << "  " << BRIGHT_MAGENTA << "Product Categories" << BLUE << "   \n";
-            std::cout << "==============================\n";
-            std::cout << "1. " << YELLOW << "View Houseware Products\n";
-            std::cout << "2. " << YELLOW << "View Food Products\n";
-            std::cout << "3. " << YELLOW << "View Electrical Products\n";
-            std::cout << "4. " << BLUE << "Go back\n";
-            std::cout << "==============================\n"
-                      << RESET;
+            std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
+     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "View Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "View Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"View Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
 
             int viewChoice;
             std::cin >> viewChoice;
