@@ -194,7 +194,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         {
         case 1:
         {
-            std::cout << "Enter your new full name : ";
+            std::cout <<CYAN << "Enter your new full name : ";
+            std::cout << RESET;
             char *fullName;
             getInput(fullName, std::cin);
             cus.SetFullName(fullName);
@@ -202,7 +203,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         }
         case 2:
         {
-            std::cout << "Enter your new gender :";
+            std::cout<< CYAN << "Enter your new gender :";
+            std::cout << RESET;
             char *gender;
             getInput(gender, std::cin);
             cus.SetGender(gender);
@@ -211,7 +213,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         case 3:
         {
             int age;
-            std::cout << "Enter your new age : ";
+            std::cout<<CYAN << "Enter your new age : ";
+            std::cout << RESET;
             std::cin >> age;
             cus.SetAge(age);
             break;
@@ -219,7 +222,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         // ... (other cases)
         case 5:
         {
-            std::cout << "Enter your new address";
+            std::cout<<CYAN << "Enter your new address";
+            std::cout << RESET;
             char *address;
             getInput(address, std::cin);
             cus.SetAddress(address);
@@ -227,7 +231,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         }
         case 6:
         {
-            std::cout << "Enter your new phone number : ";
+            std::cout<<CYAN << "Enter your new phone number : ";
+            std::cout << RESET;
             char *phonenumber;
             getInput(phonenumber, std::cin);
             cus.SetPhoneNumber(phonenumber);
@@ -235,7 +240,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         }
         case 7:
         {
-            std::cout << "Enter your new email : ";
+            std::cout<<CYAN << "Enter your new email : ";
+            std::cout << RESET;
             char *email;
             getInput(email, std::cin);
             cus.SetEmail(email);
@@ -249,7 +255,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
 
         default:
         {
-            std::cout << "Invalid selection!";
+            std::cout<<RED << "Invalid selection!";
+            std::cout << RESET;
             break;
         }
         }
@@ -685,7 +692,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         {
             while (1)
             {
-                std::cout << "Enter your code : ";
+                std::cout<<CYAN << "Enter your code : ";
+                std::cout << RESET;
                 char *code;
                 Menu::getInput(code, cin);
                 bool found = false;
@@ -773,7 +781,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
         {
         case 1:
         {
-            std::cout << "Enter your new full name : ";
+            std::cout<<CYAN << "Enter your new full name : ";
+            std::cout << RESET;
             char *fullName;
             getInput(fullName, std::cin);
             employee.SetFullName(fullName);
@@ -781,7 +790,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
         }
         case 2:
         {
-            std::cout << "Enter your new gender :";
+            std::cout <<CYAN<< "Enter your new gender :";
+            std::cout << RESET;
             char *gender;
             getInput(gender, std::cin);
             employee.SetGender(gender);
@@ -790,7 +800,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
         case 3:
         {
             int age;
-            std::cout << "Enter your new age : ";
+            std::cout<<CYAN << "Enter your new age : ";
+            std::cout << RESET;
             std::cin >> age;
             employee.SetAge(age);
             break;
@@ -798,7 +809,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
         // ... (other cases)
         case 5:
         {
-            std::cout << "Enter your new address";
+            std::cout<<CYAN << "Enter your new address";
+            std::cout << RESET;
             char *address;
             getInput(address, std::cin);
             employee.SetAddress(address);
@@ -806,7 +818,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
         }
         case 6:
         {
-            std::cout << "Enter your new phone number : ";
+            std::cout<<CYAN << "Enter your new phone number : ";
+            std::cout << RESET;
             char *phonenumber;
             getInput(phonenumber, std::cin);
             employee.SetPhoneNumber(phonenumber);
@@ -814,7 +827,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
         }
         case 7:
         {
-            std::cout << "Enter your new email : ";
+            std::cout<<CYAN << "Enter your new email : ";
+            std::cout << RESET;
             char *email;
             getInput(email, std::cin);
             employee.SetEmail(email);
@@ -828,7 +842,8 @@ void Menu::displayEmployeeMenu(Employee &employee)
 
         default:
         {
-            std::cout << "Invalid selection!";
+            std::cout<<RED << "Invalid selection!";
+            std::cout << RESET;
             break;
         }
         }
@@ -1356,7 +1371,8 @@ void Menu::run()
         while (true)
         {
             int customerid;
-            cout << "Enter your CustomerID: ";
+            std::cout <<CYAN<< "Enter your CustomerID: ";
+            std::cout << RESET;
             std::cin >> customerid;
             system("CLS");
             for (size_t i = 0; i < customerManager.lists.getSize(); i++)
@@ -1449,7 +1465,8 @@ void Menu::run()
         while (true)
         {
             int employeeid;
-            std::cout << "Enter your Employee ID: ";
+            std::cout<<CYAN << "Enter your Employee ID: ";
+            std::cout << RESET;
             std::cin >> employeeid;
 
             for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
