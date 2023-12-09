@@ -1024,14 +1024,20 @@ void Menu::displayManagerMenu()
         break;
     case 3:
     {
-        std::cout << BRIGHT_MAGENTA << "=== Select object you want to add ===" << RESET << endl;
-        std::cout << YELLOW << "1. Employee" << RESET << endl;
-        std::cout << GREEN << "2. Customer" << RESET << endl;
-        std::cout << BLUE << "3. Product" << RESET << endl;
-        std::cout << CYAN << "4. Discount" << RESET << endl;
-        std::cout << BLUE << "5. Delivery" << RESET << endl;
-        std::cout << RED << "6. Turn back " << RESET << endl;
-        std::cout << BRIGHT_MAGENTA << "-------------------------------------" << RESET << endl;
+        std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"   Select object you want to add:  "<<BLUE<<"| |"<<std::endl;
+     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "Employee\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "Customer\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"Product\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Discount\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|5|" <<YELLOW<<"Delivery\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|6|" <<YELLOW<<"Turn back\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
 
         int choose;
         std::cin >> choose;
