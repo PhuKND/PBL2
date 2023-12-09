@@ -762,21 +762,26 @@ void Menu::displayEmployeeMenu(Employee &employee)
         break;
     case 2:
     {
-        std::cout << BLUE << "==============================\n";
-        std::cout << " " << BRIGHT_MAGENTA << "Account Management" << BLUE << "   \n";
-        std::cout << "==============================\n";
-        std::cout << "Account ID: " << employee.GetEmployeeID() << "\n";
-        std::cout << "Please select the information you need to change:\n";
-        std::cout << "1. " << YELLOW << "Full Name\n";
-        std::cout << "2. " << YELLOW << "Gender\n";
-        std::cout << "3. " << YELLOW << "Age\n";
-        std::cout << "4. " << YELLOW << "Day of Birth\n";
-        std::cout << "5. " << YELLOW << "Address\n";
-        std::cout << "6. " << YELLOW << "Phone Number\n";
-        std::cout << "7. " << YELLOW << "Email\n";
-        std::cout << "8. " << BLUE << "Go back\n";
-        std::cout << "==============================\n"
-                  << RESET;
+        std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:"<<employee.GetEmployeeID()<<"\t   "     <<BLUE<<"| |"<<std::endl;
+    std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "Full Name\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "Gender\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"Age\t\t\t                   "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Day of Birth\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN <<"|5|"<<YELLOW<< "Address\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|6|"<<YELLOW<< "Phone Number\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|7|"<<YELLOW<<"Email\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|8|" <<YELLOW<<"Go back\t\t\t           "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
         int selection;
         std::cin >> selection;
         system("CLS");
