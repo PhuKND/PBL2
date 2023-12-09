@@ -739,16 +739,19 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
 }
 void Menu::displayEmployeeMenu(Employee &employee)
 {
-    std::cout << BLUE << "==============================\n";
-    std::cout << "    " << BRIGHT_MAGENTA << "Employee Menu" << BLUE << "       \n";
-    std::cout << "==============================\n";
-    std::cout << "1. " << YELLOW << "View Personal Information\n";
-    std::cout << "2. " << YELLOW << "Account Management\n";
-    std::cout << "3. " << YELLOW << "Manage Inventory\n";
-    std::cout << "4. " << BLUE << "Statistics\n";
-    std::cout << "5. " << RED << "Exit\n";
-    std::cout << "==============================\n"
-              << RESET;
+     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Employee Menu           "<<BLUE<<"| |"<<std::endl;
+     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "View Personal Information\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "Account Management\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"Manage Inventory\t \t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Statistics\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|5|" <<YELLOW<<"Exit\t\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
     int choice;
     std::cin >> choice;
     system("CLS");
