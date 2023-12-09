@@ -119,6 +119,7 @@ void Order::Order_Food(Food &obj)
 }
 void Order::Display(std::ostream &o, char *name)
 {
+    
     int total;
     int stt = 1;
     o << "============================================================================" << std::endl;
@@ -159,7 +160,6 @@ void Order::Display(std::ostream &o, char *name)
         OrderedHouseware.at(i).Display_Order(o);
         stt++;
     }
-
     o << std::endl;
     o << std::endl;
     o << "------------------------------------------------------------------------------" << std::endl;
@@ -175,23 +175,26 @@ void Order::Display(std::ostream &o, char *name)
 int Order::CalculateTotalAmount()
 {
      totalAmount = 0;
-
+    quanityProduct = 0 ;
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
     {
         int productTotal = OrderedElectricalProduct.at(i).getPrice() * OrderedElectricalProduct.at(i).getSoLuongTrongGio();
         totalAmount += productTotal;
+        quanityProduct += OrderedElectricalProduct.at(i).getSoLuongTrongGio() ;
     }
 
     for (size_t i = 0; i < OrderedFood.getSize(); i++)
     {
         int productTotal = OrderedFood.at(i).getPrice() * OrderedFood.at(i).getSoLuongTrongGio();
         totalAmount += productTotal;
+        quanityProduct += OrderedFood.at(i).getSoLuongTrongGio();
     }
 
     for (size_t i = 0; i < OrderedHouseware.getSize(); i++)
     {
         int productTotal = OrderedHouseware.at(i).getPrice() * OrderedHouseware.at(i).getSoLuongTrongGio();
         totalAmount += productTotal;
+        quanityProduct += OrderedHouseware.at(i).getSoLuongTrongGio() ;
     }
 
     return totalAmount;

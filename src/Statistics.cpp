@@ -1,3 +1,4 @@
+
 #include "include/Statistics.h"
 
 Statistics::Statistics()
@@ -368,11 +369,5 @@ void Statistics::DisplaySuperMarketStatistics() const
     std::cout << "Best-selling product: " << GetBestSellingProduct() << std::endl;
     std::cout << "Number of employees: " << GetNumberOfEmployees() << std::endl;
     std::cout << "Total payments to employees:  $" << GetTotalPaymentsToEmployees() << std::endl;
-
 }
 
-// Profit supermarket
-void Statistics::CalculateProfit(int param1, int param2, double param3)
-{
-
-}

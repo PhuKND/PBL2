@@ -144,7 +144,6 @@ public:
     // Phương thức hiển thị và tính toán lợi nhuận
     void DisplayCustomerStatistics() const;
     void DisplaySuperMarketStatistics() const;
-    void CalculateProfit(int param1, int param2, double param3);
 };
 
-#endif; 
+#endif 

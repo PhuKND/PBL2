@@ -187,6 +187,8 @@ void Customer::Show_Orders_History(std::ostream &o)
       << "|"
       << std::setw(15) << "Date"
       << "|"
+      << std::setw(12)  << "Quanity"
+      << "|"
       << std::setw(12) << "Is Complete"
       << "|"
       << std::endl
