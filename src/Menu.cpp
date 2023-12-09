@@ -917,16 +917,19 @@ void Menu::displayManagerMenu()
     {
     case 1:
     {
-        std::cout << BLUE << "==============================\n";
-        std::cout << "    " << BRIGHT_MAGENTA << "MENU OPTIONS" << BLUE << "        \n";
-        std::cout << "==============================\n";
-        std::cout << "1. " << YELLOW << "View employee list\n";
-        std::cout << "2. " << YELLOW << "View customer list\n";
-        std::cout << "3. " << YELLOW << "View product list\n";
-        std::cout << "4. " << RED << "View order list\n";
-        std::cout << "5. " << BLUE << "Turn back\n";
-        std::cout << "==============================\n"
-                  << RESET;
+        std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"            MENU OPTIONS:          "<<BLUE<<"| |"<<std::endl;
+     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "View employee list\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "View customer list\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"View product list\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"View order list\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|5|" <<YELLOW<<"Turn back\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
         std::cin >> choice;
         switch (choice)
         {
