@@ -1169,11 +1169,18 @@ void Menu::displayManagerMenu()
         }
     case 4:
     {
-        std::cout << "Which object you want to delete " << std::endl;
-        std::cout << "1. Customer " << std::endl;
-        std::cout << "2. Employee " << std::endl;
-        std::cout << "3. Product" << std::endl;
-        std::cout << "4. Discount " << std::endl;
+       std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"  Which object you want to delete: "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << setfill('=') << setw(40)<< "=" <<std::endl;
+    std::cout <<std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "Customer\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "Employee\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"Produc\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Discount\t\t\t      "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
         int selection;
         std::cin >> selection;
         switch (selection)
