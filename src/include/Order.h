@@ -54,7 +54,7 @@ public:
     void SetShippingAddress(char *ShippingAddress);
     bool useDelivery();
     void Display(std::ostream &o, char *);
-    int CalculateTotalAmount();
+    int &CalculateTotalAmount();
     void Display_List(std::ostream &);
     void Display_file(const char *, char *);
     void WriteDataToFile(std::ostream &file);

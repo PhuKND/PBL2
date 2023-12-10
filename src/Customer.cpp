@@ -230,7 +230,7 @@ void Customer::UpdateStatistics()
         avgquanity += getOrderHistory().at(i).getQuanityProduct();
         avgSpent += getOrderHistory().at(i).getTotalAfterDiscount();
         totalspent += getOrderHistory().at(i).getTotalAfterDiscount();
-        totalwithoutdiscount += getOrderHistory().at(i).GetTotalAmount();
+        totalwithoutdiscount += getOrderHistory().at(i).CalculateTotalAmount();
     }
     getStatistics().SetTotalAmountSpent(totalspent);
     avgquanity = avgquanity / (getOrderHistory().getSize() - 1 );

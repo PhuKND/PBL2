@@ -9,7 +9,7 @@
 9,109,FlatwareSet,45,55,35,FlatwareFancy,2023/09/0010,Silver
 10,110,TablewareSet,50,60,40,TableDelight,2023/10/0015,BoneChina
 11,111,CookingUtensilsSet,55,65,45,CookingCompanion,2023/11/0020,Silicone
-12,112,MixingBowlsSet,60,71,49,MixingMarvel,2023/12/0025,Plastic
+12,112,MixingBowlsSet,60,75,45,MixingMarvel,2023/12/0025,Plastic
 13,113,MeasuringCupsandSpoonsSet,65,75,55,MeasureMate,2024/01/0001,Copper
 14,114,BakingSheetsSet,70,80,60,BakingBuddy,2024/02/0005,Aluminum
 15,115,PotsandPansSet,75,86,64,PotPanPal,2024/03/0010,CastIron

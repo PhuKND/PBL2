@@ -172,7 +172,7 @@ void Order::Display(std::ostream &o, char *name)
     o << "------------------------------------------------------------------------------" << std::endl;
     o << "                              Thank you!" << std::endl;
 }
-int Order::CalculateTotalAmount()
+int &Order::CalculateTotalAmount()
 {
      totalAmount = 0;
     quanityProduct = 0 ;
