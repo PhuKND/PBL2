@@ -14,19 +14,22 @@ private:
     int OrderID;
     int CustomerID;
     int totalAmount;
+    int importPrice ;
     Time orderTime;
     char *orderStatus;
     char *PaymentMethod;
     char *ShippingAddress;
     bool delivery;
     int quanityProduct ;
-    double totalAfterDiscount ; 
+    int totalAfterDiscount ; 
     static int numberofOrder;
     Vector_Class<Food> OrderedFood;
     Vector_Class<ElectricalProduct> OrderedElectricalProduct;
     Vector_Class<Houseware> OrderedHouseware;
 
 public:
+    void SetImportPrice(int ) ;
+    int GetImportPrice() const ;
     static int getNumberOrder();
     static void setNumberOrder();
     bool HoanThanh = false;
@@ -55,13 +58,15 @@ public:
     bool useDelivery();
     void Display(std::ostream &o, char *);
     int &CalculateTotalAmount();
+    int &CalculateTotalAmountOut() ;
     void Display_List(std::ostream &);
     void Display_file(const char *, char *);
     void WriteDataToFile(std::ostream &file);
     void ReadDataFromFile(std::istream &file);
     void ApplyDiscount(Discount &discount);
-    void setTotalAfterDiscount(double) ;
-    double getTotalAfterDiscount() ; 
+    void setTotalAfterDiscount(int) ;
+    int getTotalAfterDiscount() ; 
+    void UpdateOrder() ;
 };
 
 #endif

@@ -1,9 +1,9 @@
 #include "include/Discount.h"
 #include "include/Menu.h"
 
-Discount::Discount(int discountid,  char *couponCode, int percentage, int quantity, bool available)
-: discountID(numberofDiscount++), type(COUPON_CODE_BASED), date(), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
-Discount::Discount(int discountid, const Time &date, int percentage, int quantity, bool available)
+Discount::Discount(int discountid,int holderID,   char *couponCode, int percentage, int quantity, bool available)
+: discountID(numberofDiscount++),holderID(holderID) ,type(COUPON_CODE_BASED), date(), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+Discount::Discount(int percentage)
 : discountID(numberofDiscount++), type(DATE_BASED), date(date), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
 
 Discount::Discount(int discountid, int pointThreshold, int percentage, int quantity, bool available)
@@ -11,10 +11,16 @@ Discount::Discount(int discountid, int pointThreshold, int percentage, int quant
 
 Discount::~Discount()
 {
-delete[] couponCode;
 }
-Discount::Discount() : Discount(0, "", 0.0, 0, 0)
+Discount::Discount() : Discount(0,-1, "", 0.0, 0, 1)
 {
+}
+int Discount::getHolderID(){
+    return holderID; 
+
+}
+void Discount::setHolderID(int id) {
+    this -> holderID = id ;
 }
 int Discount::getPercentage() const
 {
@@ -31,7 +37,6 @@ void Discount::setNumberOfDiscount(int value)
 numberofDiscount = value;
 }
 
-// Getter and setter for DiscountType
 DiscountType Discount::getType() const
 {
 return type;
@@ -113,22 +118,22 @@ available = newAvailable;
 }
 std::ostream &operator<<(std::ostream &os, const Discount &discount)
 {
-os << discount.discountID << " ";
+os << "Discount ID : " ; 
+os << discount.discountID << " " << std::endl ;
 
 switch (discount.type)
 {
 case DATE_BASED:
-    os << "DATE_BASED " << discount.date << " ";
+    os <<   "Discount type : "  << " DATE_BASED " << std::endl ;
     break;
 case POINT_BASED:
-    os << "POINT_BASED " << discount.pointThreshold << " ";
+    os <<   "Discount type : "  << "POINT_BASED "  << std::endl ;
     break;
 case COUPON_CODE_BASED:
-    os << "COUPON_CODE_BASED " << discount.couponCode << " ";
+    os << "Discount type : "  <<  "COUPON_CODE_BASED " << std::endl ;
     break;
 }
-
-os << discount.percentage << " " << discount.quantity << " " << discount.available;
+os << "Percentage : " << discount.percentage << std::endl ;
 os << std::endl;
 return os;
 }
@@ -175,20 +180,32 @@ std::istream &operator>>(std::istream &is, Discount &discount)
 }
 void Discount::WriteDataToFile(std::ostream &file) const
 {
-file << discountID << "," << couponCode << "," << percentage
-        << "," << quantity << "," << available << std::endl;
+file << discountID << "," << percentage <<"," << available << "," 
+        << quantity << "," << holderID << "," << couponCode << std::endl ;
 }
 void Discount::ReadDataFromFile(std::istream &file)
 {
     char comma;
-    int typeCode; // Read DiscountType as an integer code
+    int typeCode;
 
     file >> discountID >> comma;
-    file >> typeCode >> comma; // Read DiscountType as an integer code
-    type = static_cast<DiscountType>(typeCode - 1); 
+    type = static_cast<DiscountType>(2); 
     file >> percentage >> comma;
     file >> available >> comma;
     file >> quantity >> comma;
+    file >> holderID >> comma;
     Menu::readAttributeTillDelimiter(couponCode, file);
     file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
+void Discount::Display_01(std::ostream& os){
+    os << std::left << std::setw(15) << getDiscountID() << " | ";
+    os << std::left << std::setw(20) <<  getType() << " | ";
+    os << std::left << std::setw(14) << getDate()  << " | "  ; 
+    os << std::left << std::setw(4) << getCouponCode() << " | ";
+    os << std::left << std::setw(20) << getPercentage() << " | ";
+    os << std::left << std::setw(25) << getQuantity() << " | ";
+    os << std::left << std::setw(15) << isAvailable() << " | ";
+    os << std::left << std::setw(30) << getHolderID()<< " | ";
+    os << "\n";
+}
+

@@ -3,10 +3,10 @@
 #include<limits>
 ElectricalProduct::ElectricalProduct() : Product(), techSpec() {}
 
-ElectricalProduct::ElectricalProduct(int productID, int importID,  char* TenSanPham,
+ElectricalProduct::ElectricalProduct(int productID, int importPrice,  char* TenSanPham,
                  int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat, Date NgaySanXuat 
                                     ,const TechnicalSpecification &tech)
-    : Product(productID,importID,TenSanPham,Price,SoLuongDaBan,SoLuongTonKho,NhaSanXuat,NgaySanXuat), techSpec(tech) {}
+    : Product(productID,importPrice,TenSanPham,Price,SoLuongDaBan,SoLuongTonKho,NhaSanXuat,NgaySanXuat), techSpec(tech) {}
 
 ElectricalProduct::~ElectricalProduct()
 {

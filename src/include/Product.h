@@ -7,8 +7,8 @@
 class Product {
 private:
     int productID;
-    int importID;
     char* TenSanPham;
+    int importPrice; 
     int Price;
     int SoLuongDaBan;
     int SoLuongTonKho;
@@ -27,6 +27,9 @@ public:
     Product(int , int , char* , int , int , int , char* , Date ) ; 
     char* getTenSanPham() const;
     void setTenSanPham( char* &TenSanPham);
+
+    int GetImportPrice() const ;
+    void SetImportPrice(int) ;
 
     int getMaSanPham() const;
     void setMaSanPham(int MaSanPham);

@@ -162,6 +162,19 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
 			cout << "Material" << std::right << std::setw(1) << "|";
 		}
 	}
+	if (typeid(T) == typeid(Discount))
+    {
+        cout << "STT" << std::right << std::setw(3) << "|";
+        cout << "Discount ID" << std::right << std::setw(0) << "|";
+        cout << "Discount Type" << std::right << std::setw(20) << "|";
+        cout << "Date" << std::right << std::setw(14) << "|";
+        cout << "Coupon Code" << std::right << std::setw(4) << "|";
+        cout << "Percentage" << std::right << std::setw(20) << "|";
+        cout << "Quantity" << std::right << std::setw(25) << "|";
+        cout << "Available" << std::right << std::setw(15) << "|";
+        cout << "Holder ID" << std::right << std::setw(30) << "|";
+        cout << "\n";
+	}
 	cout << std::endl;
 	for (int i = 0; i < 200; ++i)
 	{

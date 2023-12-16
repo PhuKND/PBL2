@@ -225,18 +225,27 @@ void Customer::UpdateStatistics()
     double avgSpent = 0;
     double totalspent = 0;
     double totalwithoutdiscount = 0 ; 
+    int numUseDiscount = 0 ;
+    int total_import_price = 0;
     for (size_t i = 0; i < getOrderHistory().getSize(); i++)
     {
         avgquanity += getOrderHistory().at(i).getQuanityProduct();
         avgSpent += getOrderHistory().at(i).getTotalAfterDiscount();
         totalspent += getOrderHistory().at(i).getTotalAfterDiscount();
-        totalwithoutdiscount += getOrderHistory().at(i).CalculateTotalAmount();
+        total_import_price += getOrderHistory().at(i).GetImportPrice();
+        totalwithoutdiscount += getOrderHistory().at(i).GetTotalAmount();
+        if (getOrderHistory().at(i).getTotalAfterDiscount()!= getOrderHistory().at(i).GetTotalAmount())
+        {
+            numUseDiscount++ ; 
+        }
     }
     getStatistics().SetTotalAmountSpent(totalspent);
     avgquanity = avgquanity / (getOrderHistory().getSize() - 1 );
     getStatistics().SetAvgQuantityPerOrder(avgquanity);
     avgSpent = avgSpent / (getOrderHistory().getSize() - 1);
     getStatistics().SetAvgAmountPerOrder(avgSpent);
-    getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount - totalspent);
+    getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount- totalspent);
     getStatistics().SetAvgDiscountRate(totalspent/totalwithoutdiscount) ; 
+    getStatistics().SetCustomerLifetimeValue(totalspent - total_import_price) ; 
+    getStatistics().SetAvgDiscountRate(numUseDiscount*100/getStatistics().GetTotalOrders());
 }

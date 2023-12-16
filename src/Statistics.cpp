@@ -277,7 +277,7 @@ void Statistics::SetCustomerLifetimeValue(double newCustomerLifetimeValue)
 
 void Statistics::SetAvgDiscountRate(double newAvgDiscountRate)
 {
-    newAvgDiscountRate = newAvgDiscountRate;
+    avgDiscountRate= newAvgDiscountRate;
 }
 int Statistics::GetNumberOfCustomers() const
 {

@@ -90,7 +90,12 @@ void Order::SetPaymentMethod(char *PaymentMethod)
 {
     this->PaymentMethod = PaymentMethod;
 }
-
+int Order::GetImportPrice() const{
+    return importPrice ;
+}
+void Order::SetImportPrice(int price){
+    this -> importPrice = price ;
+}
 char *Order::GetShippingAddress() const
 {
     return ShippingAddress;
@@ -163,11 +168,13 @@ void Order::Display(std::ostream &o, char *name)
     o << std::endl;
     o << std::endl;
     o << "------------------------------------------------------------------------------" << std::endl;
-    o << "                              Total  : "
-      << "$" << CalculateTotalAmount() << std::endl;
+      
     if (CalculateTotalAmount() != getTotalAfterDiscount()) {
-        o << "          Total with applicable discounts: ";
-        o << "$" << getTotalAfterDiscount()<< std::endl;
+        o << "          Total : " << "$" << CalculateTotalAmount() << std::endl;
+        o << "Total after appliable discount : " << "$" << getTotalAfterDiscount()<< std::endl;
+        }
+    else {
+             o << "          Total : " << "$" << CalculateTotalAmount() << std::endl;
         }
     o << "------------------------------------------------------------------------------" << std::endl;
     o << "                              Thank you!" << std::endl;
@@ -199,6 +206,33 @@ int &Order::CalculateTotalAmount()
 
     return totalAmount;
 }
+int &Order::CalculateTotalAmountOut()
+{
+    importPrice = 0;
+    quanityProduct = 0 ;
+    for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
+    {
+        int productTotal = OrderedElectricalProduct.at(i).GetImportPrice() * OrderedElectricalProduct.at(i).getSoLuongTrongGio();
+        importPrice += productTotal;
+        quanityProduct += OrderedElectricalProduct.at(i).getSoLuongTrongGio() ;
+    }
+
+    for (size_t i = 0; i < OrderedFood.getSize(); i++)
+    {
+        int productTotal = OrderedFood.at(i).GetImportPrice() * OrderedFood.at(i).getSoLuongTrongGio();
+        importPrice += productTotal;
+        quanityProduct += OrderedFood.at(i).getSoLuongTrongGio();
+    }
+
+    for (size_t i = 0; i < OrderedHouseware.getSize(); i++)
+    {
+        int productTotal = OrderedHouseware.at(i).GetImportPrice() * OrderedHouseware.at(i).getSoLuongTrongGio();
+        importPrice += productTotal;
+        quanityProduct += OrderedHouseware.at(i).getSoLuongTrongGio() ;
+    }
+
+    return importPrice;
+}
 void Order::Display_List(std::ostream &o)
 {
     o << std::setw(8) << GetOrderID() << "|"
@@ -214,6 +248,8 @@ void Order::ReadDataFromFile(std::istream &file)
     file >> OrderID >> comma;
     file >> CustomerID >> comma;
     file >> totalAmount >> comma;
+    file >> totalAfterDiscount >> comma; 
+    file >> importPrice >> comma ;
     file >> quanityProduct >> comma ;
     file >> HoanThanh;
     SetOrderID(OrderID);
@@ -223,6 +259,8 @@ void Order::WriteDataToFile(std::ostream &file)
     file << GetOrderID() << ","
          << getCustomerID() << ","
          << GetTotalAmount() << ","
+        << getTotalAfterDiscount() << ","
+        << GetImportPrice() << ","  
          << getQuanityProduct() << "," 
          << HoanThanh << std::endl;
 }
@@ -274,11 +312,16 @@ void Order::Display_file(const char *filename, char *name)
         file << std::endl;
         file << std::endl;
         file << "----------------------------------------" << std::endl;
-        file << "  Subtotal before discounts: "
-             << "$" << CalculateTotalAmount() << std::endl;
+        
         if (CalculateTotalAmount() != getTotalAfterDiscount()) {
+            file << "  Subtotal before discounts: "
+             << "$" << CalculateTotalAmount() << std::endl;
         file << "          Total with applicable discounts: ";
         file << "$" << getTotalAfterDiscount()<< std::endl;
+        }
+        else {
+            file << "  Total: "
+             << "$" << CalculateTotalAmount() << std::endl;
         }
         file << "----------------------------------------" << std::endl;
         file << "          Thank you!" << std::endl;
@@ -305,9 +348,9 @@ void Order::ApplyDiscount(Discount &discount)
         std::cout << "Invalid Discount" << std::endl;
     }
 }
-void Order::setTotalAfterDiscount(double newtotal){
+void Order::setTotalAfterDiscount(int newtotal){
     this -> totalAfterDiscount = newtotal ;
 }
-double Order::getTotalAfterDiscount(){
+int Order::getTotalAfterDiscount(){
     return totalAfterDiscount; 
 }

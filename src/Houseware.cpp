@@ -2,7 +2,7 @@
 #include<limits>
 #include"include/Menu.h"
 Houseware::Houseware() : Product(), material("") {}
-Houseware::Houseware(int productID, int importID, char *TenSanPham,
+Houseware::Houseware(int productID, int importPrice, char *TenSanPham,
                      int Price, int SoLuongDaBan, int SoLuongTonKho, char *NhaSanXuat, Date NgaySanXuat, char *mat)
 {
 }

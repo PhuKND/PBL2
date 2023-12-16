@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& os, const Date& dayObj) {
     return os;
 }
 std::istream& operator>>(std::istream& is, Date& dayObj) {
-    char slash;  // Để đọc dấu '/'
+    char slash;  
     is >> dayObj.day >> slash >> dayObj.month >> slash >> dayObj.year;
     return is;
 }

@@ -4,7 +4,7 @@
 using namespace std;
 Product::Product() {
     productID = 0;
-    importID = 0;
+    importPrice = 0;
     TenSanPham = "";
     Price = 0;
     SoLuongDaBan = 0;
@@ -12,10 +12,11 @@ Product::Product() {
     NhaSanXuat = "";
     NgaySanXuat = Date(0,0,0);
 }
-Product::Product(int productID, int importID,  char* TenSanPham,
+Product::Product(int productID, int importPrice,  char* TenSanPham,
                  int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat,  Date NgaySanXuat)
-    : productID(productID), importID(importID),  TenSanPham(TenSanPham),
+    : productID(productID), importPrice(importPrice),  TenSanPham(TenSanPham),
       Price(Price), SoLuongDaBan(SoLuongDaBan), SoLuongTonKho(SoLuongTonKho), NhaSanXuat(NhaSanXuat), NgaySanXuat(NgaySanXuat) {
+        this -> SoLuongTrongGio = 0 ;
 }
 
 Product::~Product() {
@@ -43,6 +44,12 @@ int Product::getPrice() const {
 
 void Product::setPrice(int Gia) {
     Price = Gia;
+}
+int Product::GetImportPrice() const {
+    return importPrice ; 
+}
+void Product::SetImportPrice(int price) { 
+    this -> importPrice = price; 
 }
 void Product::setSoLuongDaBan(int sl) { 
     this -> SoLuongDaBan = sl ; 
@@ -83,7 +90,7 @@ int Product::getSoLuongTrongGio() {
 }
 std::ostream &operator<<(std::ostream &out, const Product &product) {
     out << "Product ID: " << product.productID << "\n";
-    out << "Import ID: " << product.importID << "\n";
+    out << "Import Price : " << product.importPrice << "\n";
     out << "Product Name: " << product.TenSanPham << "\n";
     out << "Price: " << product.Price << "\n";
     out << "Quantity Sold: " << product.SoLuongDaBan << "\n";
@@ -95,8 +102,8 @@ std::ostream &operator<<(std::ostream &out, const Product &product) {
 std::istream& operator>>(std::istream& is , Product & product){
     std::cout << "Enter Product ID : " ; 
     is >> product.productID ; 
-    std::cout << "Import ID : " ; 
-    is >> product.importID ; 
+    std::cout << "Import Price : " ; 
+    is >> product.importPrice ; 
     std::cout <<" Product name : " ; 
     Menu::getInput(product.TenSanPham,is) ;
     std::cout << "Price : " ; 
@@ -114,7 +121,7 @@ void Product::Display() const {
 }
 void Product::Display_01(std::ostream& f ){
     f << std::left << std::setw(8) << getMaSanPham() << " | ";
-    f << std::left << std::setw(8) << importID << " | " ; 
+    f << std::left << std::setw(8) << GetImportPrice() << " | " ; 
     f << std::left << std::setw(25) << getTenSanPham() << " | ";
     f << std::left << std::setw(4) <<  getPrice()<< " | ";
     f << std::left << std::setw(5) << getSoLuongTonKho() << " | ";
@@ -123,7 +130,7 @@ void Product::Display_01(std::ostream& f ){
 }
 void Product::WriteDataToFile(std::ostream &file) const {
     file << productID << ","
-         << importID << ","
+         << importPrice << ","
          << TenSanPham << ","
          << Price << ","
          << SoLuongDaBan << ","
@@ -135,7 +142,7 @@ void Product::WriteDataToFile(std::ostream &file) const {
 void Product::ReadDataFromFile(std::istream& file) {
     char comma ; 
     file >> productID >> comma ; 
-    file >> importID >> comma ;
+    file >> importPrice>> comma ;
     Menu::readAttributeTillDelimiter(TenSanPham,file) ; 
     file >> Price >> comma ;
     file >> SoLuongDaBan >> comma ;

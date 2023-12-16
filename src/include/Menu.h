@@ -22,6 +22,7 @@ class Order;
 class Discount;
 class Menu {
 private:
+    Time time ;
     DataManager<Customer> customerManager ; 
     DataManager<Employee> employeeManager ;
     DataManager<Food> foodManager ; 

@@ -16,6 +16,7 @@ class Discount
 {
 private:
     static int numberofDiscount;
+    int holderID ; 
     DiscountType type;
     int discountID;
     Time date;
@@ -24,16 +25,15 @@ private:
     int percentage;
     int quantity;
     bool available;
-
 public:
-    // Constructors
-    Discount(int discountid, char *couponCode, int percentage, int quanity, bool available);
-    Discount(int discountid, const Time &date, int percentage, int quanity, bool available);
+    Discount(int discountid,int holderID, char *couponCode, int percentage, int quanity, bool available);
+    Discount(int percentage);
     Discount(int discountid, int pointThreshold, int percentage, int quanity, bool available);
     
     ~Discount();
     Discount();
-
+    int getHolderID() ;
+    void setHolderID(int) ;
     int getPercentage() const;
     static int getNumberOfDiscount();
     static void setNumberOfDiscount(int value);
@@ -56,6 +56,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Discount &discount);
     void WriteDataToFile(std::ostream &file) const;
     void ReadDataFromFile(std::istream &file);
+    void Display_01(std::ostream&) ;
 };
 
 #endif

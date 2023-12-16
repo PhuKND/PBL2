@@ -21,7 +21,12 @@ int main()
     // cus.BuyProduct(order,data.at(2) , 2) ;
     // order.Display(cout) ;
     // data.at(1).Display() ;
-    
+// if (discount.isTimeInRange(startTime, endTime)) {
+//     std::cout << "" << std::endl ;
+// } else {
+//    std::cout << "KHONG DUNG GIO " ; 
+// }
+
     Menu menu ;
     menu.run();
     

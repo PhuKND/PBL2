@@ -35,7 +35,12 @@ char* Time::getFormattedTime() const {
 
 void Time::updateRealTime() {
     realTime = std::chrono::system_clock::now();
+    auto timeT = std::chrono::system_clock::to_time_t(realTime);
+    auto timeStruct = std::localtime(&timeT);
+    hour = timeStruct->tm_hour;
+    minute = timeStruct->tm_min;
 }
+
 
 char* Time::getRealTime() const {
     auto currentTime = std::chrono::system_clock::to_time_t(realTime);
@@ -62,4 +67,25 @@ std::istream& operator>>(std::istream& is, Time& timeObj) {
 }
 bool Time::operator==(const Time& other) const {
     return (hour == other.hour) && (minute == other.minute);
+}
+// Inside Time class
+
+bool Time::operator>=(const Time& other) const {
+    if (hour > other.hour) {
+        return true;
+    } else if (hour == other.hour) {
+        return minute >= other.minute;
+    } else {
+        return false;
+    }
+}
+
+bool Time::operator<=(const Time& other) const {
+    if (hour < other.hour) {
+        return true;
+    } else if (hour == other.hour) {
+        return minute <= other.minute;
+    } else {
+        return false;
+    }
 }
