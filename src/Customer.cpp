@@ -247,5 +247,5 @@ void Customer::UpdateStatistics()
     getStatistics().SetSavedMoneyDiscount(totalwithoutdiscount- totalspent);
     getStatistics().SetAvgDiscountRate(totalspent/totalwithoutdiscount) ; 
     getStatistics().SetCustomerLifetimeValue(totalspent - total_import_price) ; 
-    getStatistics().SetAvgDiscountRate(numUseDiscount*100/getStatistics().GetTotalOrders());
+    getStatistics().SetAvgDiscountRate(numUseDiscount*100/(getStatistics().GetTotalOrders()-1));
 }
