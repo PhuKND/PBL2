@@ -264,6 +264,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             break;
         }
         case 8:
+
         {
             return;
             break;
@@ -796,6 +797,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         {
             while (1)
             {
+                cin.ignore() ; 
                 std::cout << "Enter your code : ";
                 char *code;
                 Menu::getInput(code, cin);
@@ -1829,6 +1831,7 @@ void Menu::displayManagerMenu()
 
 void Menu::run()
 {
+    //Tạo discount theo thời gian 10%
     Time startTime(11, 0);
     Time endTime(13, 0);
     time.updateRealTime();
@@ -1841,6 +1844,22 @@ void Menu::run()
             customerManager.lists.at(i).AddDiscount(discount);
         }
     }
+    //Tạo discount theo điểm 
+    // Discount trên 100 điểm
+    Discount discount100(5) ;
+    discount100.setType(POINT_BASED) ; 
+    Discount discount1000(10) ;
+    discount1000.setType(POINT_BASED) ; 
+    discount100.setAvailable(1) ;
+    discount1000.setAvailable(1); 
+    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+        {
+            if(customerManager.lists.at(i).GetPoint() >= 100)
+            customerManager.lists.at(i).AddDiscount(discount100);
+            if(customerManager.lists.at(i).GetPoint() >= 1000){
+                customerManager.lists.at(i).AddDiscount(discount1000) ; 
+            }
+        }
 
     bool exit = false;
     int userType;
