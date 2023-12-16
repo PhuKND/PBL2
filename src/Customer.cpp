@@ -1,7 +1,7 @@
 #include <iomanip>
 #include <limits>
-#include "include/Menu.h"
-#include "include/Customer.h"
+#include "Menu.h"
+#include "Customer.h"
 
 #define MAX_LENGTH 256
 
@@ -167,7 +167,7 @@ void Customer::GetInformation(){
 
 Order &Customer::Last_Order()
 {
-    return orderHistory.getLast();
+    return orderHistory.at(orderHistory.getSize()-1);
 }
 int Customer::getOrd_Size()
 {

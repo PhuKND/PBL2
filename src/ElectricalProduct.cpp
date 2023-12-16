@@ -1,5 +1,5 @@
-#include "include/ElectricalProduct.h"
-#include"include/Menu.h"
+#include "ElectricalProduct.h"
+#include"Menu.h"
 #include<limits>
 ElectricalProduct::ElectricalProduct() : Product(), techSpec() {}
 
@@ -68,10 +68,8 @@ void ElectricalProduct::ReadDataFromFile(std::istream &file)
     Menu::readAttributeTillDelimiter(techSpec.operatingSystem,file) ; 
 }
 std::istream& operator>>(std::istream& is, ElectricalProduct& electricalProduct) {
-    // Input for the base Product class
     is >> static_cast<Product&>(electricalProduct);
 
-    // Input for the TechnicalSpecification nested class
     std::cout << "Enter Technical Specifications:\n";
     std::cout << "Resolution X: ";
     is >> electricalProduct.techSpec.resolutionX;

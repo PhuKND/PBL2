@@ -1,4 +1,4 @@
-#include"include/Vector_Class.h"
+#include"Vector_Class.h"
 
 template <class U>
 Vector_Class<U>::Vector_Class() : data(nullptr), size(0), capacity(0) {}

@@ -1,5 +1,5 @@
-#include "include/Product.h"
-#include"include/Menu.h"
+#include "Product.h"
+#include"Menu.h"
 #include<iomanip>
 using namespace std;
 Product::Product() {

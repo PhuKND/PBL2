@@ -5,7 +5,6 @@
 #include"Food.h"
 #include"ElectricalProduct.h"
 #include"Houseware.h"
-#include "Vector.h"
 #include "Vector_Class.h"
 class Customer;
 class Employee;

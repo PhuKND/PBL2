@@ -1,4 +1,4 @@
-#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+#include"Time.h"
 #include <iomanip>
 #include <sstream>
 #include <cstring>

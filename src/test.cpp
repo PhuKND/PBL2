@@ -1,15 +1,14 @@
-#include "include/Employee.h"
+#include "Employee.h"
 #include "DataManager.cpp"
-#include "Vector.cpp"
 #include "Vector_Class.cpp"
-#include "include/Food.h"
-#include "include/ElectricalProduct.h"
-#include "include/Houseware.h"
-#include "include/Order.h"
+#include "Food.h"
+#include "ElectricalProduct.h"
+#include "Houseware.h"
+#include "Order.h"
 #include "Menu.cpp"
-#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Date.h"
-#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
-#include"include/Discount.h"
+#include"Date.h"
+#include"Time.h"
+#include"Discount.h"
 int main()
 {
     // Order cần thêm Employee , Product cần thêm import ID chính xác

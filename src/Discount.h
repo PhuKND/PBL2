@@ -1,7 +1,7 @@
 #ifndef DISCOUNT_H
 #define DISCOUNT_H
 
-#include "C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+#include "Time.h"
 #include <iostream>
 // #include"Menu.h"
 #include "Vector_Class.h"

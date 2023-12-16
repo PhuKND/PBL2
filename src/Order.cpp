@@ -1,5 +1,5 @@
-#include "include/Order.h"
-#include "C:\Users\nguye\Downloads\Ky3\PBL2\src\Time.h"
+#include "Order.h"
+#include "Time.h"
 Order::Order(int OrderID, int CustomerID, int totalAmount, Time orderTime, char *orderStatus, bool HoanThanh, char *PaymentMethod, char *ShippingAddress, bool delivery)
 {
     this->OrderID = OrderID;

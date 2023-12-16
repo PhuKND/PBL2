@@ -1,5 +1,5 @@
-#include "include/Discount.h"
-#include "include/Menu.h"
+#include "Discount.h"
+#include "Menu.h"
 
 Discount::Discount(int discountid,int holderID,   char *couponCode, int percentage, int quantity, bool available)
 : discountID(numberofDiscount++),holderID(holderID) ,type(COUPON_CODE_BASED), date(), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}

@@ -2,6 +2,7 @@
 #include <iostream>
 #include"Employee.h"
 template <class U>
+
 class Vector_Class {
 private:
     U *data;

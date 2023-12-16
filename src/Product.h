@@ -1,6 +1,6 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
-#include"C:\Users\nguye\Downloads\Ky3\PBL2\src\Date.h"
+#include"Date.h"
 #include <iomanip>
 // #include"Discount.h"
 #include <iostream>
