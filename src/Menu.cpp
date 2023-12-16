@@ -1832,8 +1832,8 @@ void Menu::displayManagerMenu()
 void Menu::run()
 {
     //Tạo discount theo thời gian 10%
-    Time startTime(11, 0);
-    Time endTime(13, 0);
+    Time startTime(12, 0);
+    Time endTime(15, 0);
     time.updateRealTime();
     Discount discount(10);
     discount.setAvailable(1) ;

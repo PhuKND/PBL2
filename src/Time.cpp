@@ -8,7 +8,7 @@ Time::Time() : hour(0), minute(0) {
 }
 
 Time::Time(int hour, int minute) : hour(hour), minute(minute) {
-    updateRealTime();
+    // updateRealTime();
 }
 
 int Time::getHour() const {

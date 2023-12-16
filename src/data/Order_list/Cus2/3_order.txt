@@ -1,18 +1,19 @@
 =============================================================
                        INVOICE
 =============================================================
-Order ID : 3
-Order time : 2023-11-28 19:25:49
+Order ID: 3
+Order time: 2023-12-16 13:41:14
 -------------------------------------------------------------
-Customer ID : 2
-Customer name : Pham Thanh Dat
+Customer ID: 2
+Customer name: Tran Phuoc Phu
 -------------------------------------------------------------
 STT |Product ID   |Product name               |Unit price |Quantity|Total    |
 ------------------------------------------------------------
-1   | 15          | PotsandPansSet            | $75       | 1      | $75     | 
+1   | 310         | Acer_Aspire_Laptop        | $1600     | 1      | $1600   | 
 
 
 ----------------------------------------
-  Total : $75
+  Subtotal before discounts: $1600
+          Total with applicable discounts: $1440
 ----------------------------------------
           Thank you!

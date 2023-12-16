@@ -256,6 +256,7 @@ void Order::ReadDataFromFile(std::istream &file)
 }
 void Order::WriteDataToFile(std::ostream &file)
 {
+    CalculateTotalAmountOut() ; 
     file << GetOrderID() << ","
          << getCustomerID() << ","
          << GetTotalAmount() << ","
