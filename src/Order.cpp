@@ -156,8 +156,9 @@ void Order::Display(std::ostream &o, char *name)
     o << "------------------------------------------------------------------------------" << std::endl;
     o << "                              Thank you!" << std::endl;
 }
-int &Order::CalculateTotalAmount()
+int Order::CalculateTotalAmount()
 {
+    int totalAmount = 0 ; 
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
     {
         int productTotal = OrderedElectricalProduct.at(i).getPrice() * OrderedElectricalProduct.at(i).getSoLuongTrongGio();
@@ -181,8 +182,9 @@ int &Order::CalculateTotalAmount()
 
     return totalAmount;
 }
-int &Order::CalculateTotalAmountOut()
+int Order::CalculateTotalAmountOut()
 {
+    int importPrice = 0 ;
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
     {
         int productTotal = OrderedElectricalProduct.at(i).GetImportPrice() * OrderedElectricalProduct.at(i).getSoLuongTrongGio();

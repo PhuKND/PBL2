@@ -719,7 +719,11 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     }
     case 4:
     {
-        order.setTotalAfterDiscount(order.CalculateTotalAmount());
+        int totalamoutout = order.CalculateTotalAmountOut() ;
+        int totalamount = order.CalculateTotalAmount(); 
+        order.SetImportPrice(totalamoutout); 
+        order.SetTotalAmount(totalamount) ; 
+        order.setTotalAfterDiscount(totalamount);
         order.Display(std::cout, cus.GetFullName());
         std::cout << "Do you want to apply discount (Y/N)" << std::endl;
         char ch1 = getch();

@@ -48,14 +48,9 @@ public:
     void SetOrderTime(Time &);
     char *GetOrderStatus() const;
     void SetOrderStatus(char *orderStatus);
-    char *GetPaymentMethod() const;
-    void SetPaymentMethod(char *PaymentMethod);
-    char *GetShippingAddress() const;
-    void SetShippingAddress(char *ShippingAddress);
-    bool useDelivery();
     void Display(std::ostream &o, char *);
-    int &CalculateTotalAmount();
-    int &CalculateTotalAmountOut() ;
+    int CalculateTotalAmount();
+    int CalculateTotalAmountOut() ;
     void Display_List(std::ostream &);
     void Display_file(const char *, char *);
     void WriteDataToFile(std::ostream &file);
