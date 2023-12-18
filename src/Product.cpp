@@ -31,7 +31,57 @@ char* Product::getTenSanPham() const {
 void Product::setTenSanPham(char* &TenSanPham) {
     this->TenSanPham = TenSanPham;
 }
+// Trong lớp Product
+void Product::EditProduct() {
+    int choice;
+    do {
+        // Hiển thị menu sửa thông tin
+        cout << "1. Edit Product Name\n";
+        cout << "2. Edit Price\n";
+        cout << "3. Edit Quantity in Stock\n";
+        cout << "4. Edit Manufacturer\n";
+        cout << "5. Edit Production Date\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
+        // Sử dụng switch case để xử lý từng lựa chọn
+        switch (choice) {
+            case 1: {
+                cout << "Enter new product name: ";
+                Menu::getInput(TenSanPham, cin);
+                break;
+            }
+            case 2: {
+                cout << "Enter new price: ";
+                cin >> Price;
+                break;
+            }
+            case 3: {
+                cout << "Enter new quantity in stock: ";
+                cin >> SoLuongTonKho;
+                break;
+            }
+            case 4: {
+                cout << "Enter new manufacturer: ";
+                Menu::getInput(NhaSanXuat, cin);
+                break;
+            }
+            case 5: {
+                cout << "Enter new production date: ";
+                cin >> NgaySanXuat;
+                break;
+            }
+            case 0: {
+                cout << "Exiting product edit menu.\n";
+                break;
+            }
+            default: {
+                cout << "Invalid choice. Please enter a valid option.\n";
+            }
+        }
+    } while (choice != 0);
+}
 int Product::getMaSanPham() const {
     return productID;
 }
