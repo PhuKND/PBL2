@@ -1,6 +1,7 @@
 #include "Order.h"
 #include "Time.h"
-Order::Order(int OrderID, int CustomerID, int totalAmount, Time orderTime, char *orderStatus, bool HoanThanh, char *PaymentMethod, char *ShippingAddress, bool delivery)
+
+Order::Order(int OrderID, int CustomerID, int totalAmount, Time orderTime, char *orderStatus, bool HoanThanh)
 {
     this->OrderID = OrderID;
     this->CustomerID = CustomerID;
@@ -9,9 +10,6 @@ Order::Order(int OrderID, int CustomerID, int totalAmount, Time orderTime, char 
     this->orderTime = orderTime;
     this->orderStatus = orderStatus;
     this->HoanThanh = HoanThanh;
-    this->PaymentMethod = PaymentMethod;
-    this->ShippingAddress = ShippingAddress;
-    this->delivery = delivery;
 }
 int Order::numberofOrder = 0;
 
@@ -81,35 +79,14 @@ void Order::SetOrderStatus(char *orderStatus)
     this->orderStatus = orderStatus;
 }
 
-char *Order::GetPaymentMethod() const
-{
-    return PaymentMethod;
-}
 
-void Order::SetPaymentMethod(char *PaymentMethod)
-{
-    this->PaymentMethod = PaymentMethod;
-}
 int Order::GetImportPrice() const{
     return importPrice ;
 }
 void Order::SetImportPrice(int price){
     this -> importPrice = price ;
 }
-char *Order::GetShippingAddress() const
-{
-    return ShippingAddress;
-}
 
-void Order::SetShippingAddress(char *ShippingAddress)
-{
-    this->ShippingAddress = ShippingAddress;
-}
-
-bool Order::useDelivery()
-{
-    return delivery;
-}
 void Order::Order_Houseware(Houseware &obj)
 {
     OrderedHouseware.pushBack(obj);
@@ -181,8 +158,6 @@ void Order::Display(std::ostream &o, char *name)
 }
 int &Order::CalculateTotalAmount()
 {
-     totalAmount = 0;
-    quanityProduct = 0 ;
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
     {
         int productTotal = OrderedElectricalProduct.at(i).getPrice() * OrderedElectricalProduct.at(i).getSoLuongTrongGio();
@@ -208,8 +183,6 @@ int &Order::CalculateTotalAmount()
 }
 int &Order::CalculateTotalAmountOut()
 {
-    importPrice = 0;
-    quanityProduct = 0 ;
     for (size_t i = 0; i < OrderedElectricalProduct.getSize(); i++)
     {
         int productTotal = OrderedElectricalProduct.at(i).GetImportPrice() * OrderedElectricalProduct.at(i).getSoLuongTrongGio();
@@ -251,18 +224,20 @@ void Order::ReadDataFromFile(std::istream &file)
     file >> totalAfterDiscount >> comma; 
     file >> importPrice >> comma ;
     file >> quanityProduct >> comma ;
+    file >> orderTime >> comma ; 
     file >> HoanThanh;
     SetOrderID(OrderID);
 }
 void Order::WriteDataToFile(std::ostream &file)
 {
-    CalculateTotalAmountOut() ; 
+    // CalculateTotalAmountOut() ; 
     file << GetOrderID() << ","
          << getCustomerID() << ","
          << GetTotalAmount() << ","
         << getTotalAfterDiscount() << ","
         << GetImportPrice() << ","  
          << getQuanityProduct() << "," 
+         << GetOrderTime() << "," 
          << HoanThanh << std::endl;
 }
 void Order::Display_file(const char *filename, char *name)

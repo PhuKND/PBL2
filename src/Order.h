@@ -17,9 +17,6 @@ private:
     int importPrice ;
     Time orderTime;
     char *orderStatus;
-    char *PaymentMethod;
-    char *ShippingAddress;
-    bool delivery;
     int quanityProduct ;
     int totalAfterDiscount ; 
     static int numberofOrder;
@@ -38,7 +35,7 @@ public:
     void Order_Food(Food &);
     void Order_ElectricalProduct(ElectricalProduct &);
     void Order_Houseware(Houseware &);
-    Order(int = 0, int = 0, int = 0, Time = Time(), char * = "", bool = false, char * = " ", char * = "", bool = false);
+    Order(int = 0, int = 0, int = 0, Time = Time(), char * = "", bool = false);
     ~Order();
     int GetOrderID() const;
     void SetOrderID(int OrderID);

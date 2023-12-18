@@ -2,10 +2,14 @@
 #define STATISTICS_CLASS_H
 #include"Employee.h"
 #include"Vector_Class.h"
+#include"Time.h"
 class Statistics
 {
 private:
     // Siêu thị
+    int day ;
+    int month ;
+    int year ;
     char* StatisticsType;
     char* timePeriod;
     char* StatisticsData;
@@ -14,6 +18,7 @@ private:
     double totalProfit;
     double totalAmountIn;
     double totalAmountOut;
+    int importCost ;
     int numberCustomer; 
     int totalUnitsSold ;
     int bestSellingProductID ;
@@ -47,13 +52,13 @@ public:
     Statistics(); // Constructor mặc định
 
     // Constructor cho Siêu thị
-    Statistics(char* rType, char* tPeriod, char* rData,
+    Statistics(int day , int month , int year ,char* rType, char* tPeriod, char* rData,
                double tRevenue, double tExpenses, double tProfit,
                double tAmountIn, double tAmountOut,
                const Vector_Class<Employee>& empSalaries);
 
     // Constructor cho Khách hàng
-    Statistics(int cID, double pAmount, int pQuantity,
+    Statistics(int day , int month ,int year ,int cID, double pAmount, int pQuantity,
                double avgQPerOrder, double avgAPerOrder,
                int favProductID, double savedMoneyDis);
 
@@ -66,7 +71,8 @@ public:
     // Getter và setter cho Siêu thị
     char* GetStatisticsType() const;
     void SetStatisticsType(char* newStatisticsType);
-
+    int getImportCost()const ;
+    void setImportCost(int) ; 
     char* GetTimePeriod() const;
     void SetTimePeriod(char* newTimePeriod);
     void SetNumberOfCustomers(int) ;
@@ -86,6 +92,14 @@ public:
 
     double GetTotalRevenue() const;
     void SetTotalRevenue(double newTotalRevenue);
+
+    int GetDay() const  ; 
+    void SetDay(int day) ;
+    int GetMonth() const ; 
+    void SetMonth(int month) ;
+    int GetYear()const ;
+    int SetYear(int year) ;
+
 
     double GetTotalExpenses() const;
     void SetTotalExpenses(double newTotalExpenses);

@@ -46,7 +46,7 @@ public:
     void AddDiscount(Discount &discount);
     Vector_Class<Discount> &GetDiscounts();
     void ApplyDiscounts(Order &order);
-    void UpdateStatistics() ; 
-    void ViewStatistics(); 
+    void UpdateStatistics(Time& start, Time& end) ; 
+    void ViewStatistics(Time& start ,Time& end); 
 };
 #endif

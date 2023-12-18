@@ -45,6 +45,6 @@ public:
     static bool areEqual(const char *, const char *) ;
     static void getInput(char*& , std::istream&,int = 100 ) ;
     static void readAttributeTillDelimiter(char* &attribute, std::istream& file);
-    void UpdateStatistics(); 
+    void UpdateStatistics(Time& start , Time& end); 
 };
 

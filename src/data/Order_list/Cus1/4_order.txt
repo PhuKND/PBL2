@@ -1,18 +1,19 @@
 =============================================================
                        INVOICE
 =============================================================
-Order id : 4
-Order time : 2023-11-28 17:33:34
+Order ID: 4
+Order time: 2023-12-17 13:42:51
 -------------------------------------------------------------
-Customer ID : 1
-Customer name : Nguyen Ba Xuan An
+Customer ID: 1
+Customer name: Nguyen Ba Xuan An
 -------------------------------------------------------------
 STT |Product ID   |Product name               |Unit price |Quantity|Total    |
 ------------------------------------------------------------
-1   | 12          | MixingBowlsSet            | $60       | 2      | $120    | 
+1   | 310         | Acer_Aspire_Laptop        | $1600     | 1      | $1600   | 
 
 
 ----------------------------------------
-  Total : $120
+  Subtotal before discounts: $1600
+          Total with applicable discounts: $1440
 ----------------------------------------
           Thank you!

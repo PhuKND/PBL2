@@ -2,18 +2,20 @@
 #define PRODUCT_H
 #include"Date.h"
 #include <iomanip>
+#include"Time.h"
 // #include"Discount.h"
 #include <iostream>
 class Product {
 private:
     int productID;
+    Time NgayNhapHang; 
     char* TenSanPham;
     int importPrice; 
     int Price;
     int SoLuongDaBan;
     int SoLuongTonKho;
     char* NhaSanXuat;
-    Date NgaySanXuat;
+Date NgaySanXuat;
     int SoLuongTrongGio; 
     enum class ProductType {
     Houseware,
@@ -28,6 +30,8 @@ public:
     char* getTenSanPham() const;
     void setTenSanPham( char* &TenSanPham);
 
+    Time getNgayNhapHang() const ; 
+    void setNgayNhapHang(Time&) ; 
     int GetImportPrice() const ;
     void SetImportPrice(int) ;
 

@@ -9,7 +9,7 @@ Date::Date() : day(1), month(1), year(2000) {
 }
 
 Date::Date(int day, int month, int year) : day(day), month(month), year(year) {
-    updateRealTime();
+    // updateRealTime();
 }
 
 int Date::getDay() const {

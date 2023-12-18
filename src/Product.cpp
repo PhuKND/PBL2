@@ -9,8 +9,10 @@ Product::Product() {
     Price = 0;
     SoLuongDaBan = 0;
     SoLuongTonKho = 0;
+    SoLuongTrongGio = 0  ;
     NhaSanXuat = "";
     NgaySanXuat = Date(0,0,0);
+    NgayNhapHang = Time(1,1,1); 
 }
 Product::Product(int productID, int importPrice,  char* TenSanPham,
                  int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat,  Date NgaySanXuat)
@@ -72,7 +74,12 @@ char* Product::getNhaSanXuat() const {
 void Product::setNhaSanXuat( char* &NhaSanXuat) {
     this->NhaSanXuat = NhaSanXuat;
 }
-
+Time Product::getNgayNhapHang()const {
+    return NgayNhapHang ;
+}
+void Product::setNgayNhapHang(Time& date){
+    this -> NgayNhapHang = date ;
+}
 Date Product::getNgaySanXuat() const {
     return NgaySanXuat;
 }
@@ -130,6 +137,7 @@ void Product::Display_01(std::ostream& f ){
 }
 void Product::WriteDataToFile(std::ostream &file) const {
     file << productID << ","
+        << NgayNhapHang << ","
          << importPrice << ","
          << TenSanPham << ","
          << Price << ","
@@ -142,6 +150,7 @@ void Product::WriteDataToFile(std::ostream &file) const {
 void Product::ReadDataFromFile(std::istream& file) {
     char comma ; 
     file >> productID >> comma ; 
+    file >> NgayNhapHang >> comma ;
     file >> importPrice>> comma ;
     Menu::readAttributeTillDelimiter(TenSanPham,file) ; 
     file >> Price >> comma ;

@@ -1,8 +1,9 @@
 #include "Menu.h"
 #include <iostream>
 #include <conio.h>
-// #include <cstdlib>
-// #include <cstring>
+#include <algorithm>
+#include <cstdlib>
+#include <cstring>
 using namespace std;
 bool Menu::areEqual(const char *str1, const char *str2)
 {
@@ -63,72 +64,94 @@ void Menu::readAttributeTillDelimiter(char *&attribute, std::istream &file)
     }
     attribute[index] = '\0';
 }
-void Menu::UpdateStatistics()
+void Menu::UpdateStatistics(Time &start, Time &end)
 {
-    statistics.SetTotalOrders(orderManager.lists.getSize());
-    double revenue = 0;
-    for (int i = 0; i < orderManager.lists.getSize(); i++)
-    {
-        revenue += orderManager.lists.at(i).getTotalAfterDiscount();
-    }
-
-    statistics.SetTotalRevenue(revenue);
-    // Tính chi phí
+    int tQuanitySold = 0;
+    double tAmountIn = 0;
     double tAmountOut = 0;
     double tSalary = 0;
-    // Tiền nhập sản phẩm , tiền lương , tiền mặt bằng
+    int numOrds = 0;
+    int numCustomer = 0; // Khởi tạo giá trị ban đầu
+    int numEmployees = 0 ;
+    for (size_t i = 0; i < orderManager.lists.getSize(); i++)
+    {
+        if (orderManager.lists.at(i).GetOrderTime() >= start && orderManager.lists.at(i).GetOrderTime() <= end)
+        {
+            // Số hóa đơn
+            numOrds++;
+            // Tiền vào, khách mua hàng
+            tAmountIn += orderManager.lists.at(i).getTotalAfterDiscount();
+            // Số lượng sản phẩm
+            tQuanitySold += orderManager.lists.at(i).getQuanityProduct();
+            // Xem id cua khach hang là orderManager.lists.at(i).getCustomerID() ;
+            bool isUnique = true;
+            for (size_t j = i + 1; j < orderManager.lists.getSize(); j++)
+            {
+                if (orderManager.lists.at(j).GetOrderTime() >= start && orderManager.lists.at(j).GetOrderTime() <= end)
+                {
+                    if (orderManager.lists.at(i).getCustomerID() == orderManager.lists.at(j).getCustomerID())
+                    {
+                        isUnique = false;
+                        break; // Thoát ngay khi tìm thấy khách hàng trùng
+                    }
+                }
+            }
+            if (isUnique)
+            {
+                numCustomer++;
+            }
+        }
+    }
+
+    // Tính lương nhân viên
     for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
     {
-        tAmountOut += employeeManager.lists.at(i).GetSalary();
-        tSalary += employeeManager.lists.at(i).GetSalary();
+        if (employeeManager.lists.at(i).GetEndDay() >= start && employeeManager.lists.at(i).GetStartDay() <= end)
+        {
+            // Tính số ngày làm việc trong khoảng thời gian
+            Time employeeStart = std::max(employeeManager.lists.at(i).GetStartDay(), start);
+            Time employeeEnd = std::min(employeeManager.lists.at(i).GetEndDay(), end);
+            int workingDays = employeeEnd - employeeStart;
+            numEmployees++ ; 
+            // Tính lương dựa trên số ngày làm việc và lương theo ngày
+            tSalary += workingDays * employeeManager.lists.at(i).GetSalary();
+        }
     }
-    // tiền nhập hàng
+    // Tính tiền nhập hàng trong khoảng thời gian
+    int tImport = 0;
     for (size_t i = 0; i < housewareManager.lists.getSize(); i++)
     {
-        tAmountOut += housewareManager.lists.at(i).GetImportPrice() ; 
-    }
-    for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
-    {
-        tAmountOut += electricalproductManager.lists.at(i).GetImportPrice() ;
+        if (housewareManager.lists.at(i).getNgayNhapHang() <= end && housewareManager.lists.at(i).getNgayNhapHang() >= start)
+        {
+            tImport += housewareManager.lists.at(i).GetImportPrice();
+        }
     }
     for (size_t i = 0; i < foodManager.lists.getSize(); i++)
     {
-        tAmountOut+= foodManager.lists.at(i).GetImportPrice() ; 
-    }
-    
-    statistics.SetTotalAmountOut(tAmountOut);
-    double tAmountIn = 0;
-    int numOrds = 0;
-    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
-    {
-        for (size_t j = 0; j < customerManager.lists.at(i).getOrderHistory().getSize(); j++)
+        if (foodManager.lists.at(i).getNgayNhapHang() <= end && foodManager.lists.at(i).getNgayNhapHang() >= start)
         {
-            tAmountIn += customerManager.lists.at(i).getOrderHistory().at(j).getTotalAfterDiscount();
-            numOrds += 1;
+            tImport += housewareManager.lists.at(i).GetImportPrice();
         }
     }
-    statistics.SetTotalProfit(tAmountIn - tAmountOut);
-    statistics.SetTotalAmountIn(tAmountIn);
-    statistics.SetNumberOfCustomers(customerManager.lists.getSize());
-    statistics.SetNumberOfSalesInvoices(numOrds);
-    statistics.SetNumberOfEmployees(employeeManager.lists.getSize());
-    statistics.SetTotalPaymentsToEmployees(tSalary);
-    int tQuanitySold = 0;
-    // for (size_t i = 0; i < orderManager.lists.getSize(); i++)
-    // {
-    //     tQuanitySold += orderManager.lists.at(i).getQuanityProduct();
-    // }
-
-    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+    for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
     {
-        for (size_t j = 0; j < customerManager.lists.at(i).getOrderHistory().getSize(); j++)
+        if (electricalproductManager.lists.at(i).getNgayNhapHang() <= end && electricalproductManager.lists.at(i).getNgayNhapHang() >= start)
         {
-            tQuanitySold += customerManager.lists.at(i).getOrderHistory().at(j).getQuanityProduct();
+            tImport += electricalproductManager.lists.at(i).GetImportPrice();
         }
     }
-
+    statistics.SetNumberOfSalesInvoices(numOrds) ;
     statistics.SetTotalUnitsSold(tQuanitySold);
+    statistics.SetTotalAmountOut(tImport + tSalary);
+    statistics.setImportCost(tImport);
+    statistics.SetTotalPaymentsToEmployees(tSalary);
+    statistics.SetTotalProfit(tAmountIn - tAmountOut - tSalary);
+    statistics.SetTotalAmountIn(tAmountIn);
+    statistics.SetTotalRevenue(tAmountIn);
+    statistics.SetNumberOfCustomers(numCustomer);
+    statistics.SetNumberOfEmployees(numEmployees) ;
 }
+
 Menu::Menu()
 {
 
@@ -162,22 +185,22 @@ Menu::~Menu()
 }
 void Menu::displayCustomerMenu(Customer &cus, Order &order)
 {
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"          Customer Menu:           "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "          Customer Menu:           " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View Personal Information\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Account Management\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Browse Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Purchase Orders\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN <<"|5|"<<YELLOW<< "Statistics\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|"<<YELLOW<< "View Order History\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|7|"<<YELLOW<<"View Available Discount\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|8|" <<YELLOW<<"Exit\t\t\t              "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << GREEN << "|1|" << YELLOW << "View Personal Information\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|2|" << YELLOW << "Account Management\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|3|" << YELLOW << "Browse Products\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|4|" << YELLOW << "Purchase Orders\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|5|" << YELLOW << "Statistics\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|6|" << YELLOW << "View Order History\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|7|" << YELLOW << "View Available Discount\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|8|" << YELLOW << "Exit\t\t\t              " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout<< RESET;
+    std::cout << RESET;
     int choice;
     int vitri;
     std::cin >> choice;
@@ -189,26 +212,26 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         break;
     case 2:
     {
-        std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:" <<std::setw(29)<<left<<cus.GetCustomerID()<<BLUE<<"| |"<<std::endl;
-    std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Full Name\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Gender\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Age\t\t\t                   "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Day of Birth\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN <<"|5|"<<YELLOW<< "Address\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|"<<YELLOW<< "Phone Number\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|7|"<<YELLOW<<"Email\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|8|" <<YELLOW<<"Go back\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "           Account Management:          " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << YELLOW << "Account ID:" << std::setw(29) << left << cus.GetCustomerID() << BLUE << "| |" << std::endl;
+        std::cout << BLUE << "| |" << YELLOW << "Please select the information to change:" << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "Full Name\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "Gender\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "Age\t\t\t                   " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "Day of Birth\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|5|" << YELLOW << "Address\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|6|" << YELLOW << "Phone Number\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|7|" << YELLOW << "Email\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|8|" << YELLOW << "Go back\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
         int selection;
         std::cin >> selection;
         system("CLS");
@@ -281,18 +304,18 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     }
     case 3:
     {
-        std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"         Browse Products:          "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View all products\t              "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Search for a product\t              "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Add a product to the cart\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "         Browse Products:          " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "View all products\t              " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "Search for a product\t              " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "Add a product to the cart\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
         int browseChoice;
         std::cin >> browseChoice;
         system("CLS");
@@ -300,18 +323,18 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         {
         case 1:
         {
-           std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "View Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"View Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "        Product Categories:        " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << GREEN << "|1|" << YELLOW << "View Houseware Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "View Food Products\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|3|" << YELLOW << "View Electrical Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << RESET;
 
             int viewChoice;
             std::cin >> viewChoice;
@@ -347,16 +370,16 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
 
         case 2:
         {
-           std::cout  << BLUE << std::setfill('=') << std::setw(54)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"Enter Product name or Product ID:\t\t   "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << setfill('=') << setw(54)<< "=" <<std::endl;
-    std::cout <<std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Product name\t\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Product id\t\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(54)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+            std::cout << BLUE << std::setfill('=') << std::setw(54) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "Enter Product name or Product ID:\t\t   " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << setfill('=') << setw(54) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << GREEN << "|1|" << YELLOW << "Product name\t\t\t\t           " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "Product id\t\t\t\t           " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(54) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << RESET;
             int selection;
             char *name;
             int proid;
@@ -579,24 +602,25 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                         std::cout << CYAN << "Enter quanity =  ";
                         std::cout << RESET;
                         cin >> sl;
-                        if (sl > foodManager.lists.at(i).getSoLuongTonKho()) {
-                            std::cout << "Not enough quanity in stock "  << std::endl ; 
+                        if (sl > foodManager.lists.at(i).getSoLuongTonKho())
+                        {
+                            std::cout << "Not enough quanity in stock " << std::endl;
                         }
                         {
-                        std::cout << "Do you want to buy " << sl << " " << foodManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
-                        char ch = getch();
-                        if (ch == 'Y' || ch == 'y')
-                        {
-                            cus.BuyProduct(order, foodManager.lists.at(i), sl);
-                            std::cout << YELLOW << "Enter 0 to return " << endl;
-                            std::cout << RESET;
-                            int is;
-                            cin >> is;
-                            if (is == 0)
-                                return displayCustomerMenu(cus, order);
-                        }
-                        productFound = true;
-                        break;
+                            std::cout << "Do you want to buy " << sl << " " << foodManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
+                            char ch = getch();
+                            if (ch == 'Y' || ch == 'y')
+                            {
+                                cus.BuyProduct(order, foodManager.lists.at(i), sl);
+                                std::cout << YELLOW << "Enter 0 to return " << endl;
+                                std::cout << RESET;
+                                int is;
+                                cin >> is;
+                                if (is == 0)
+                                    return displayCustomerMenu(cus, order);
+                            }
+                            productFound = true;
+                            break;
                         }
                     }
                 }
@@ -609,26 +633,29 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                         std::cout << CYAN << "Enter quanity =  ";
                         std::cout << RESET;
                         cin >> sl;
-                        if(sl > electricalproductManager.lists.at(i).getSoLuongTonKho()){
-                            std::cout << "Not enough quanity in stock " << std::endl ;
-                        }
-                        else {
-                        std::cout << "Do you want to buy " << sl << " " << electricalproductManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
-                        char ch = getch();
-                        if (ch == 'Y' || ch == 'y')
+                        if (sl > electricalproductManager.lists.at(i).getSoLuongTonKho())
                         {
-                            cus.BuyProduct(order, electricalproductManager.lists.at(i), sl);
+                            std::cout << "Not enough quanity in stock " << std::endl;
                         }
-                        std::cout << YELLOW << "Enter 0 to return " << endl;
-                        std::cout << RESET;
-                        int is;
-                        cin >> is;
-                        system("CLS");
-                        if (is == 0)
-                            return displayCustomerMenu(cus, order);
-                        productFound = true;
-                        break;
-                    }}
+                        else
+                        {
+                            std::cout << "Do you want to buy " << sl << " " << electricalproductManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
+                            char ch = getch();
+                            if (ch == 'Y' || ch == 'y')
+                            {
+                                cus.BuyProduct(order, electricalproductManager.lists.at(i), sl);
+                            }
+                            std::cout << YELLOW << "Enter 0 to return " << endl;
+                            std::cout << RESET;
+                            int is;
+                            cin >> is;
+                            system("CLS");
+                            if (is == 0)
+                                return displayCustomerMenu(cus, order);
+                            productFound = true;
+                            break;
+                        }
+                    }
                 }
                 for (int i = 0; i < housewareManager.lists.getSize(); i++)
                 {
@@ -639,26 +666,29 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                         std::cout << CYAN << "Enter quanity =  ";
                         std::cout << RESET;
                         cin >> sl;
-                        if(sl > housewareManager.lists.at(i).getSoLuongTonKho()) {
-                            std::cout << "Not enough quanity in stock " << std::endl ;
-                        }
-                        else {
-                        std::cout << "Do you want to buy " << sl << " " << housewareManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
-                        char ch = getch();
-                        if (ch == 'Y' || ch == 'y')
+                        if (sl > housewareManager.lists.at(i).getSoLuongTonKho())
                         {
-                            // Mua ;
-                            cus.BuyProduct(order, housewareManager.lists.at(i), sl);
+                            std::cout << "Not enough quanity in stock " << std::endl;
                         }
-                        std::cout << YELLOW << "Enter 0 to return " << endl;
-                        std::cout << RESET;
-                        int is;
-                        cin >> is;
-                        if (is == 0)
-                            return displayCustomerMenu(cus, order);
-                        productFound = true;
-                        break;
-                    }}
+                        else
+                        {
+                            std::cout << "Do you want to buy " << sl << " " << housewareManager.lists.at(i).getTenSanPham() << "(Y/N)" << endl;
+                            char ch = getch();
+                            if (ch == 'Y' || ch == 'y')
+                            {
+                                // Mua ;
+                                cus.BuyProduct(order, housewareManager.lists.at(i), sl);
+                            }
+                            std::cout << YELLOW << "Enter 0 to return " << endl;
+                            std::cout << RESET;
+                            int is;
+                            cin >> is;
+                            if (is == 0)
+                                return displayCustomerMenu(cus, order);
+                            productFound = true;
+                            break;
+                        }
+                    }
                 }
             }
             cout << "Enter 0 to return " << endl;
@@ -720,18 +750,23 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         cin >> is;
         if (is == 0)
         {
-            int totalquanity = 0 ;
+            int totalquanity = 0;
             for (size_t i = 0; i < housewareManager.lists.getSize(); i++)
             {
-                totalquanity += housewareManager.lists.at(i).getSoLuongTrongGio() ; 
+                totalquanity += housewareManager.lists.at(i).getSoLuongTrongGio();
             }
-            for(size_t i = 0 ; i < foodManager.lists.getSize() ; i++) {
-                totalquanity += foodManager.lists.at(i).getSoLuongTrongGio() ;
+            for (size_t i = 0; i < foodManager.lists.getSize(); i++)
+            {
+                totalquanity += foodManager.lists.at(i).getSoLuongTrongGio();
             }
-            for(size_t i = 0 ; i < electricalproductManager.lists.getSize() ; i++) {
-                totalquanity += electricalproductManager.lists.at(i).getSoLuongTrongGio() ;
+            for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
+            {
+                totalquanity += electricalproductManager.lists.at(i).getSoLuongTrongGio();
             }
-            order.setQuanityProduct(totalquanity) ; 
+            order.setQuanityProduct(totalquanity);
+            Time time;
+            time.updateRealTime();
+            order.SetOrderTime(time);
             order.HoanThanh = true;
             orderManager.AddToLists(order);
             std::cout << CYAN << "Do you want to export bill (Y/N)" << endl;
@@ -757,15 +792,89 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
 
     case 5:
     {
-        cus.UpdateStatistics();
-        cus.ViewStatistics();
-        std::cout << YELLOW << "Enter 0 to return " << endl;
-        std::cout << RESET;
-        int is;
-        cin >> is;
-        system("CLS");
-        if (is == 0)
-            return displayCustomerMenu(cus, order);
+        int choice;
+        do
+        {
+            try
+            {
+                std::cout << "1. View statistics by day\n";
+                std::cout << "2. View statistics by month\n";
+                std::cout << "3. View statistics by year\n";
+                std::cout << YELLOW << "Enter 0 to return\n"
+                          << RESET;
+                std::cout << "Enter your choice: ";
+                std::cin >> choice;
+
+                Time start, end;
+
+                switch (choice)
+                {
+                case 1:
+                    int temp;
+                    std::cout << "Enter start day " << std::endl;
+                    std::cout << "Day : ";
+                    std::cin >> temp;
+                    start.setDay(temp);
+                    std::cout << "Month : ";
+                    std::cin >> temp;
+                    start.setMonth(temp);
+                    std::cout << "Year  : ";
+                    std::cin >> temp;
+                    start.setMonth(temp);
+                    std::cout << "Enter end day " << std::endl;
+                    std::cout << "Day : ";
+                    std::cin >> temp;
+                    end.setDay(temp);
+                    std::cout << "Month : ";
+                    std::cin >> temp;
+                    end.setMonth(temp);
+                    std::cout << "Year  : ";
+                    std::cin >> temp;
+                    end.setMonth(temp);
+                    break;
+                case 2:
+                    int selectedMonth, selectedYear;
+                    std::cout << "Enter month (1-12): ";
+                    std::cin >> selectedMonth;
+                    std::cout << "Enter year: ";
+                    std::cin >> selectedYear;
+                    start.setMonth(selectedMonth);
+                    end.setMonth(selectedMonth);
+                    start.setYear(selectedYear);
+                    end.setYear(selectedYear);
+                    start.setDay(1);
+                    end.setDay(31);
+                    break;
+                case 3:
+                    std::cout << "Enter year: ";
+                    std::cin >> selectedYear;
+                    end.setYear(selectedYear);
+                    start.setYear(selectedYear);
+                    start.setDay(1);
+                    start.setMonth(1);
+                    end.setDay(31);
+                    end.setMonth(12);
+                    break;
+                case 0:
+                    return;
+                default:
+                    std::cout << "Invalid choice. Please try again.\n";
+                }
+
+                cus.UpdateStatistics(start, end);
+                cus.ViewStatistics(start, end);
+
+                std::cout << YELLOW << "Enter 0 to return\n"
+                          << RESET;
+                std::cout << "Enter your choice: ";
+                std::cin >> choice;
+                system("CLS");
+            }
+            catch (const std::exception &ex)
+            {
+                std::cerr << "Error: " << ex.what() << std::endl;
+            }
+        } while (choice != 0);
         break;
     }
 
@@ -845,20 +954,20 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
 }
 void Menu::displayEmployeeMenu(Employee &employee)
 {
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Employee Menu           "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "           Employee Menu           " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View Personal Information\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Account Management\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<< "View Inventory\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|"<<YELLOW<<"Manage Inventory\t \t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|5|" <<YELLOW<<"Statistics\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|" <<YELLOW<<"Exit\t\t\t              "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << GREEN << "|1|" << YELLOW << "View Personal Information\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|2|" << YELLOW << "Account Management\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|3|" << YELLOW << "View Inventory\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|4|" << YELLOW << "Manage Inventory\t \t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|5|" << YELLOW << "Statistics\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|6|" << YELLOW << "Exit\t\t\t              " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout<< RESET;
+    std::cout << RESET;
     int choice;
     std::cin >> choice;
     system("CLS");
@@ -869,26 +978,26 @@ void Menu::displayEmployeeMenu(Employee &employee)
         break;
     case 2:
     {
-         std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:" <<std::setw(29)<<left<<employee.GetEmployeeID()<<BLUE<<"| |"<<std::endl;
-    std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Full Name\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Gender\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Age\t\t\t                   "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Day of Birth\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN <<"|5|"<<YELLOW<< "Address\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|"<<YELLOW<< "Phone Number\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|7|"<<YELLOW<<"Email\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|8|" <<YELLOW<<"Go back\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "           Account Management:          " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << YELLOW << "Account ID:" << std::setw(29) << left << employee.GetEmployeeID() << BLUE << "| |" << std::endl;
+        std::cout << BLUE << "| |" << YELLOW << "Please select the information to change:" << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "Full Name\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "Gender\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "Age\t\t\t                   " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "Day of Birth\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|5|" << YELLOW << "Address\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|6|" << YELLOW << "Phone Number\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|7|" << YELLOW << "Email\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|8|" << YELLOW << "Go back\t\t\t           " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
         int selection;
         std::cin >> selection;
         system("CLS");
@@ -967,18 +1076,18 @@ void Menu::displayEmployeeMenu(Employee &employee)
     }
     case 3:
     {
-       std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "View Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"View Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "        Product Categories:        " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "View Houseware Products\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "View Food Products\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "View Electrical Products\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
 
         int viewChoice;
         std::cin >> viewChoice;
@@ -1032,20 +1141,20 @@ void Menu::displayEmployeeMenu(Employee &employee)
 //!
 void Menu::displayManagerMenu()
 {
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"            Manager Menu:          "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "            Manager Menu:          " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View lists\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Edit Information\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Add object\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Delete object\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|5|" <<YELLOW<<"Statistics\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|8|" <<YELLOW<<"Exit\t\t\t              "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << GREEN << "|1|" << YELLOW << "View lists\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|2|" << YELLOW << "Edit Information\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|3|" << YELLOW << "Add object\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|4|" << YELLOW << "Delete object\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|5|" << YELLOW << "Statistics\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|8|" << YELLOW << "Exit\t\t\t              " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout<< RESET;
+    std::cout << RESET;
 
     int choice;
     std::cin >> choice;
@@ -1054,19 +1163,19 @@ void Menu::displayManagerMenu()
     {
     case 1:
     {
-        std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"            MENU OPTIONS:          "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View employee list\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "View customer list\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"View product list\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"View order list\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|5|" <<YELLOW<<"Turn back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "            MENU OPTIONS:          " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "View employee list\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "View customer list\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "View product list\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "View order list\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|5|" << YELLOW << "Turn back\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
         std::cin >> choice;
         switch (choice)
         {
@@ -1100,18 +1209,18 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "View Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "View Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"View Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "        Product Categories:        " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << GREEN << "|1|" << YELLOW << "View Houseware Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "View Food Products\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|3|" << YELLOW << "View Electrical Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << RESET;
 
             int viewChoice;
             std::cin >> viewChoice;
@@ -1198,26 +1307,26 @@ void Menu::displayManagerMenu()
                 std::cout << RED << "Can't found" << std::endl;
             else
             {
-                 std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:" <<std::setw(29)<<left<<employee.GetEmployeeID()<<BLUE<<"| |"<<std::endl;
-    std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Full Name\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Gender\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Age\t\t\t                   "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Day of Birth\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN <<"|5|"<<YELLOW<< "Address\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|"<<YELLOW<< "Phone Number\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|7|"<<YELLOW<<"Email\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|8|" <<YELLOW<<"Go back\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "           Account Management:          " << BLUE << "| |" << std::endl;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << BLUE << "| |" << YELLOW << "Account ID:" << std::setw(29) << left << employee.GetEmployeeID() << BLUE << "| |" << std::endl;
+                std::cout << BLUE << "| |" << YELLOW << "Please select the information to change:" << BLUE << "| |" << std::endl;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << GREEN << "|1|" << YELLOW << "Full Name\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|2|" << YELLOW << "Gender\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|3|" << YELLOW << "Age\t\t\t                   " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|4|" << YELLOW << "Day of Birth\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|5|" << YELLOW << "Address\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|6|" << YELLOW << "Phone Number\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|7|" << YELLOW << "Email\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|8|" << YELLOW << "Go back\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << RESET;
                 int selection;
                 std::cin >> selection;
                 system("CLS");
@@ -1316,26 +1425,26 @@ void Menu::displayManagerMenu()
                 std::cout << RED << "Can't found" << std::endl;
             else
             {
-                std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"           Account Management:          "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << BLUE <<"| |"<<YELLOW<< "Account ID:" <<std::setw(29)<<left<<cus.GetCustomerID()<<BLUE<<"| |"<<std::endl;
-    std::cout << BLUE <<"| |"<<YELLOW<< "Please select the information to change:"<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Full Name\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Gender\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Age\t\t\t                   "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Day of Birth\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN <<"|5|"<<YELLOW<< "Address\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|"<<YELLOW<< "Phone Number\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|7|"<<YELLOW<<"Email\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|8|" <<YELLOW<<"Go back\t\t\t           "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(46)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "           Account Management:          " << BLUE << "| |" << std::endl;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << BLUE << "| |" << YELLOW << "Account ID:" << std::setw(29) << left << cus.GetCustomerID() << BLUE << "| |" << std::endl;
+                std::cout << BLUE << "| |" << YELLOW << "Please select the information to change:" << BLUE << "| |" << std::endl;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << GREEN << "|1|" << YELLOW << "Full Name\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|2|" << YELLOW << "Gender\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|3|" << YELLOW << "Age\t\t\t                   " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|4|" << YELLOW << "Day of Birth\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|5|" << YELLOW << "Address\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|6|" << YELLOW << "Phone Number\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|7|" << YELLOW << "Email\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << GREEN << "|8|" << YELLOW << "Go back\t\t\t           " << BLUE << "| |" << std::endl;
+                std::cout << BLUE << std::setfill('=') << std::setw(46) << "=" << std::endl;
+                std::cout << std::setfill(' ');
+                std::cout << RESET;
                 int selection;
                 std::cin >> selection;
                 system("CLS");
@@ -1415,18 +1524,18 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << setfill('=') << setw(41)<< "=" <<std::endl;
-    std::cout <<std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Add Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Add Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Add Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "        Product Categories:        " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << setfill('=') << setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << GREEN << "|1|" << YELLOW << "Add Houseware Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "Add Food Products\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|3|" << YELLOW << "Add Electrical Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << RESET;
 
             int selection;
             std::cin >> selection;
@@ -1530,20 +1639,19 @@ void Menu::displayManagerMenu()
     break;
     case 3:
     {
-       std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"   Select object you want to add:  "<<BLUE<<"| |"<<std::endl;
-     std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Employee\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Customer\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Product\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Discount\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|5|" <<YELLOW<<"Delivery\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|6|" <<YELLOW<<"Turn back\t\t              "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "   Select object you want to add:  " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "Employee\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "Customer\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "Product\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "Discount\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|6|" << YELLOW << "Turn back\t\t              " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
 
         int choose;
         std::cin >> choose;
@@ -1588,18 +1696,18 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << setfill('=') << setw(41)<< "=" <<std::endl;
-    std::cout <<std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Add Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Add Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Add Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "        Product Categories:        " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << setfill('=') << setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << GREEN << "|1|" << YELLOW << "Add Houseware Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "Add Food Products\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|3|" << YELLOW << "Add Electrical Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << RESET;
             int selection;
             std::cin >> selection;
             switch (selection)
@@ -1685,18 +1793,18 @@ void Menu::displayManagerMenu()
         }
     case 4:
     {
-        std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"  Which object you want to delete: "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << setfill('=') << setw(40)<< "=" <<std::endl;
-    std::cout <<std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Customer\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Employee\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Produc\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Discount\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "  Which object you want to delete: " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << setfill('=') << setw(40) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << GREEN << "|1|" << YELLOW << "Customer\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|2|" << YELLOW << "Employee\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "Produc\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|4|" << YELLOW << "Discount\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+        std::cout << std::setfill(' ');
+        std::cout << RESET;
         int selection;
         std::cin >> selection;
         switch (selection)
@@ -1733,18 +1841,18 @@ void Menu::displayManagerMenu()
         }
         case 3:
         {
-            std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"        Product Categories:        "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << setfill('=') << setw(41)<< "=" <<std::endl;
-    std::cout <<std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Delete Houseware Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Delete Food Products\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Delete Electrical Products\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Go back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
-    std::cout << std::setfill(' ');
-    std::cout<< RESET;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "        Product Categories:        " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << setfill('=') << setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << GREEN << "|1|" << YELLOW << "Delete Houseware Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "Delete Food Products\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|3|" << YELLOW << "Delete Electrical Products\t      " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|4|" << YELLOW << "Go back\t\t\t      " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+            std::cout << std::setfill(' ');
+            std::cout << RESET;
             int choice;
             std::cin >> choice;
             switch (choice)
@@ -1831,15 +1939,91 @@ void Menu::displayManagerMenu()
     }
     break;
     case 5:
-        UpdateStatistics();
-        statistics.DisplaySuperMarketStatistics();
-        std::cout << YELLOW << "Enter 0 to return " << endl;
-        std::cout << RESET;
-        int selection;
-        std::cin >> selection;
-        if (selection == 0)
-            return displayManagerMenu();
+    {
+        int choice;
+        do
+        {
+            try
+            {
+                std::cout << "1. View statistics by day\n";
+                std::cout << "2. View statistics by month\n";
+                std::cout << "3. View statistics by year\n";
+                std::cout << YELLOW << "Enter 0 to return\n"
+                          << RESET;
+                std::cout << "Enter your choice: ";
+                std::cin >> choice;
+
+                Time start, end;
+
+                switch (choice)
+                {
+                case 1:
+                    int temp;
+                    std::cout << "Enter start day " << std::endl;
+                    std::cout << "Day : ";
+                    std::cin >> temp;
+                    start.setDay(temp);
+                    std::cout << "Month : ";
+                    std::cin >> temp;
+                    start.setMonth(temp);
+                    std::cout << "Year  : ";
+                    std::cin >> temp;
+                    start.setMonth(temp);
+                    std::cout << "Enter end day " << std::endl;
+                    std::cout << "Day : ";
+                    std::cin >> temp;
+                    end.setDay(temp);
+                    std::cout << "Month : ";
+                    std::cin >> temp;
+                    end.setMonth(temp);
+                    std::cout << "Year  : ";
+                    std::cin >> temp;
+                    end.setMonth(temp);
+                    break;
+                case 2:
+                    int selectedMonth, selectedYear;
+                    std::cout << "Enter month (1-12): ";
+                    std::cin >> selectedMonth;
+                    std::cout << "Enter year: ";
+                    std::cin >> selectedYear;
+                    start.setMonth(selectedMonth);
+                    end.setMonth(selectedMonth);
+                    start.setYear(selectedYear);
+                    end.setYear(selectedYear);
+                    start.setDay(1);
+                    end.setDay(31);
+                    break;
+                case 3:
+                    std::cout << "Enter year: ";
+                    std::cin >> selectedYear;
+                    end.setYear(selectedYear);
+                    start.setYear(selectedYear);
+                    start.setDay(1);
+                    start.setMonth(1);
+                    end.setDay(31);
+                    end.setMonth(12);
+                    break;
+                case 0:
+                    return;
+                default:
+                    std::cout << "Invalid choice. Please try again.\n";
+                }
+                UpdateStatistics(start,end) ;
+                statistics.DisplaySuperMarketStatistics(); 
+                std::cout << YELLOW << "Enter 0 to return\n"
+                          << RESET;
+                std::cout << "Enter your choice: ";
+                std::cin >> choice;
+                system("CLS");
+            }
+            catch (const std::exception &ex)
+            {
+                std::cerr << "Error: " << ex.what() << std::endl;
+            }
+        } while (choice != 0);
         break;
+    }
+
     case 7:
     {
         return run();
@@ -1860,12 +2044,12 @@ void Menu::displayManagerMenu()
 
 void Menu::run()
 {
-    //Tạo discount theo thời gian 10%
+    // Tạo discount theo thời gian 10%
     Time startTime(11, 0);
-    Time endTime(13, 0);
+    Time endTime(17, 0);
     time.updateRealTime();
     Discount discount(10);
-    discount.setAvailable(1) ;
+    discount.setAvailable(1);
     if (time >= startTime && time <= endTime)
     {
         for (size_t i = 0; i < customerManager.lists.getSize(); i++)
@@ -1873,37 +2057,38 @@ void Menu::run()
             customerManager.lists.at(i).AddDiscount(discount);
         }
     }
- //Tạo discount theo điểm 
-    // Discount trên 100 điểm
-    Discount discount100(5) ;
-    discount100.setType(POINT_BASED) ; 
-    Discount discount1000(10) ;
-    discount1000.setType(POINT_BASED) ; 
-    discount100.setAvailable(1) ;
-    discount1000.setAvailable(1); 
+    // Tạo discount theo điểm
+    //  Discount trên 100 điểm
+    Discount discount100(5);
+    discount100.setType(POINT_BASED);
+    Discount discount1000(10);
+    discount1000.setType(POINT_BASED);
+    discount100.setAvailable(1);
+    discount1000.setAvailable(1);
     for (size_t i = 0; i < customerManager.lists.getSize(); i++)
-        {
-            if(customerManager.lists.at(i).GetPoint() >= 100)
+    {
+        if (customerManager.lists.at(i).GetPoint() >= 100)
             customerManager.lists.at(i).AddDiscount(discount100);
-            if(customerManager.lists.at(i).GetPoint() >= 1000){
-                customerManager.lists.at(i).AddDiscount(discount1000) ; 
-            }
+        if (customerManager.lists.at(i).GetPoint() >= 1000)
+        {
+            customerManager.lists.at(i).AddDiscount(discount1000);
         }
+    }
     bool exit = false;
     int userType;
 
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"       Select the user type:       "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << setfill('=') << setw(41)<< "=" <<std::endl;
-    std::cout <<std::setfill(' ');
-    std::cout << GREEN <<"|1|"<<YELLOW<< "Customer\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|2|"<<YELLOW<< "Manager\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|3|"<<YELLOW<<"Employee\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout << GREEN << "|4|" <<YELLOW<<"Turn back\t\t\t      "<<BLUE<<"| |"<<std::endl;
-    std::cout  << BLUE << std::setfill('=') << std::setw(41)<< "=" <<std::endl;
+    std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "       Select the user type:       " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << setfill('=') << setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');
-    std::cout<< RESET;
+    std::cout << GREEN << "|1|" << YELLOW << "Customer\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|2|" << YELLOW << "Manager\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|3|" << YELLOW << "Employee\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << GREEN << "|4|" << YELLOW << "Turn back\t\t\t      " << BLUE << "| |" << std::endl;
+    std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << RESET;
 
     std::cin >> userType;
     system("CLS");

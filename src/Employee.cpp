@@ -11,7 +11,7 @@ Employee::Employee() : Person(), employeeID(0), position(const_cast<char*>("")),
 
   
 
-Employee::Employee(int ID, char* fullName, char* Gender, int age,  Date& dayofbirth, char* address, char* phoneNumber, char* email, char* position, int salary, Date& startDay,  Date& endDay, bool isWorking)
+Employee::Employee(int ID, char* fullName, char* Gender, int age,  Date& dayofbirth, char* address, char* phoneNumber, char* email, char* position, int salary, Time& startDay,  Time& endDay, bool isWorking)
     : Person(ID, fullName, Gender, age, dayofbirth, address, phoneNumber, email), position(position), salary(salary), startDay(startDay), endDay(endDay), isWorking(isWorking)
 {
 }
@@ -50,21 +50,21 @@ void Employee::SetSalary(int sal)
     salary = sal;
 }
 
-const Date& Employee::GetStartDay() const
+const Time& Employee::GetStartDay() const
 {
     return startDay;
 }
 
-void Employee::SetStartDay(const Date&start)
+void Employee::SetStartDay(const Time&start)
 {
     startDay = start;
 }
-const Date& Employee::GetEndDay() const
+const Time& Employee::GetEndDay() const
 {
     return endDay;
 }
 
-void Employee::SetEndDay(const Date& end)
+void Employee::SetEndDay(const Time& end)
 {
     endDay = end;
 }
@@ -166,8 +166,8 @@ void Employee::ReadDataFromFile(std::istream &file) {
         Menu::readAttributeTillDelimiter(phoneNumber, file);
         Menu::readAttributeTillDelimiter(email, file);
         Menu::readAttributeTillDelimiter(position, file);
-        file >> salary >> comma;
-        file >> startDay >> comma;
+        file >> salary >> comma ;
+        file >> startDay  >> comma ;
         file >> endDay >> comma;
         file >> isWorking  ; 
         file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

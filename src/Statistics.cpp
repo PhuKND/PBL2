@@ -13,11 +13,11 @@ Statistics::Statistics()
 }
 
 // Constructor cho Siêu thị
-Statistics::Statistics(char *rType, char *tPeriod, char *rData,
+Statistics::Statistics(int day , int month , int year ,char *rType, char *tPeriod, char *rData,
                        double tRevenue, double tExpenses, double tProfit,
                        double tAmountIn, double tAmountOut,
                        const Vector_Class<Employee> &empSalaries)
-    : StatisticsType(nullptr), timePeriod(nullptr), StatisticsData(nullptr),
+    :day(day),month(month),year(year), StatisticsType(nullptr), timePeriod(nullptr), StatisticsData(nullptr),
       totalRevenue(tRevenue), totalExpenses(tExpenses), totalProfit(tProfit),
       totalAmountIn(tAmountIn), totalAmountOut(tAmountOut),
       employeeSalaries(empSalaries),
@@ -32,10 +32,10 @@ Statistics::Statistics(char *rType, char *tPeriod, char *rData,
 }
 
 // Constructor cho Khách hàng
-Statistics::Statistics(int cID, double pAmount, int pQuantity,
+Statistics::Statistics(int day, int month , int year, int cID, double pAmount, int pQuantity,
                        double avgQPerOrder, double avgAPerOrder,
                        int favProductID, double savedMoneyDis)
-    : customerID(cID), paidAmount(pAmount), paidQuantity(pQuantity),
+    : day(day),month(month), year(year), customerID(cID), paidAmount(pAmount), paidQuantity(pQuantity),
       avgQuantityPerOrder(avgQPerOrder), avgAmountPerOrder(avgAPerOrder),
       favouriteProductID(favProductID), savedMoneyDiscount(savedMoneyDis)
 {
@@ -252,7 +252,12 @@ double Statistics::GetAvgDiscountRate() const
 {
     return avgDiscountRate;
 }
-
+int Statistics::getImportCost() const {
+    return importCost ; 
+}
+void Statistics::setImportCost(int cost) { 
+    this -> importCost = cost ;
+}
 // Add implementations for new setters
 
 void Statistics::SetTotalOrders(int newTotalOrders)
@@ -283,7 +288,6 @@ int Statistics::GetNumberOfCustomers() const
 {
     return numberCustomer;
 }
-
 void Statistics::SetNumberOfCustomers(int newNumberOfCustomers)
 {
     numberCustomer = newNumberOfCustomers;
@@ -363,6 +367,7 @@ void Statistics::DisplaySuperMarketStatistics() const
     std::cout << "Total profit :  $" << GetTotalProfit() << std::endl ;
     std::cout << "Total amount in :  $" << GetTotalAmountIn() << std::endl; 
     std::cout << "Total amount out :  $" << GetTotalAmountOut() << std::endl ;
+    std::cout << "Import cost  : $" << getImportCost() << std::endl ;
     std::cout << "Number of customers: " << GetNumberOfCustomers() << std::endl;
     std::cout << "Total units sold: " << GetTotalUnitsSold() << std::endl;
     std::cout << "Number of sales invoices: " << GetNumberOfSalesInvoices() << std::endl;
