@@ -436,15 +436,50 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             {
             case 1:
                 housewareManager.Display(housewareManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
                 break;
             case 2:
                 foodManager.Display(foodManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
                 break;
             case 3:
                 electricalproductManager.Display(electricalproductManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
                 break;
             case 4:
                 displayCustomerMenu(cus, order);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
                 break;
             default:
                 std::cout << RED << "Invalid selection!" << endl;
@@ -1106,6 +1141,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
             char *fullName;
             getInput(fullName, std::cin);
             employee.SetFullName(fullName);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
             break;
         }
         case 2:
@@ -1114,6 +1156,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
             char *gender;
             getInput(gender, std::cin);
             employee.SetGender(gender);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
             break;
         }
         case 3:
@@ -1122,6 +1171,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
             std::cout << "Enter your new age : ";
             std::cin >> age;
             employee.SetAge(age);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
             break;
         }
         case 4:
@@ -1130,6 +1186,14 @@ void Menu::displayEmployeeMenu(Employee &employee)
             std::cout << "Enter your new day of birth  : ";
             std::cin >> date;
             employee.SetDayOfBirth(date);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
+                    break ;
         }
         case 5:
         {
@@ -1137,6 +1201,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
             char *address;
             getInput(address, std::cin);
             employee.SetAddress(address);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
             break;
         }
         case 6:
@@ -1145,6 +1216,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
             char *phonenumber;
             getInput(phonenumber, std::cin);
             employee.SetPhoneNumber(phonenumber);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
             break;
         }
         case 7:
@@ -1153,11 +1231,18 @@ void Menu::displayEmployeeMenu(Employee &employee)
             char *email;
             getInput(email, std::cin);
             employee.SetEmail(email);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
             break;
         }
         case 8:
         {
-            return;
+            return displayEmployeeMenu(employee); 
             break;
         }
 
@@ -1165,6 +1250,7 @@ void Menu::displayEmployeeMenu(Employee &employee)
         {
             std::cout << RED << "Invalid selection!" << endl;
             std::cout << RESET;
+            return displayEmployeeMenu(employee); 
             break;
         }
         }
@@ -1194,12 +1280,33 @@ void Menu::displayEmployeeMenu(Employee &employee)
             {
             case 1:
                 housewareManager.Display(housewareManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
                 break;
             case 2:
                 foodManager.Display(foodManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
                 break;
             case 3:
                 electricalproductManager.Display(electricalproductManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
                 break;
             case 4:
                 displayEmployeeMenu(employee);
@@ -1256,6 +1363,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
                 }
                 Houseware &houseware = housewareManager.lists.at(index);
                 houseware.EditProduct(); 
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
                 break;
             }
             case 2:
@@ -1275,6 +1389,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
                 }
                 Food &food = foodManager.lists.at(index);
                 food.EditProduct(); 
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
                 break;
             }
             case 3:
@@ -1294,6 +1415,13 @@ void Menu::displayEmployeeMenu(Employee &employee)
                 }
                 ElectricalProduct &electricalproduct = electricalproductManager.lists.at(index);
                 electricalproduct.EditProduct(); 
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayEmployeeMenu(employee);
                 break;
             }
             case 4:
