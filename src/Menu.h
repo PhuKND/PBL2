@@ -46,5 +46,6 @@ public:
     static void getInput(char*& , std::istream&,int = 100 ) ;
     static void readAttributeTillDelimiter(char* &attribute, std::istream& file);
     void UpdateStatistics(Time& start , Time& end); 
+    void createDiscountPointvsTime() ;
 };
 

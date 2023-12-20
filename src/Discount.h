@@ -19,7 +19,6 @@ private:
     int holderID ; 
     DiscountType type;
     int discountID;
-    Time date;
     int pointThreshold;
     char *couponCode;
     int percentage;
@@ -33,6 +32,7 @@ public:
     ~Discount();
     Discount();
     int getHolderID() ;
+     const char* DiscountTypeToString(DiscountType type) const ;
     void setHolderID(int) ;
     int getPercentage() const;
     static int getNumberOfDiscount();
@@ -41,8 +41,6 @@ public:
     void setType(DiscountType newType);
     int getDiscountID() const;
     void setDiscountID(int newDiscountID);
-    Time getDate() const;
-    void setDate(const Time &newDate);
     int getPointThreshold() const;
     void setPointThreshold(int newPointThreshold);
     char *getCouponCode() ;

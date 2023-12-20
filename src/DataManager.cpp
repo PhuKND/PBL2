@@ -167,7 +167,6 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
         cout << "STT" << std::right << std::setw(3) << "|";
         cout << "Discount ID" << std::right << std::setw(0) << "|";
         cout << "Discount Type" << std::right << std::setw(20) << "|";
-        cout << "Date" << std::right << std::setw(14) << "|";
         cout << "Coupon Code" << std::right << std::setw(4) << "|";
         cout << "Percentage" << std::right << std::setw(20) << "|";
         cout << "Quantity" << std::right << std::setw(25) << "|";

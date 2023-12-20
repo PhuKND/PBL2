@@ -2,12 +2,12 @@
 #include "Menu.h"
 
 Discount::Discount(int discountid,int holderID,   char *couponCode, int percentage, int quantity, bool available)
-: discountID(numberofDiscount++),holderID(holderID) ,type(COUPON_CODE_BASED), date(), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+: discountID(numberofDiscount++),holderID(holderID) ,type(COUPON_CODE_BASED), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
 Discount::Discount(int percentage)
-: discountID(numberofDiscount++), type(DATE_BASED), date(date), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+: discountID(numberofDiscount++), type(DATE_BASED), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
 
 Discount::Discount(int discountid, int pointThreshold, int percentage, int quantity, bool available)
-: discountID(numberofDiscount++), type(POINT_BASED), date(), pointThreshold(pointThreshold), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+: discountID(numberofDiscount++), type(POINT_BASED),  pointThreshold(pointThreshold), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
 
 Discount::~Discount()
 {
@@ -58,16 +58,7 @@ void Discount::setDiscountID(int newDiscountID)
 discountID = newDiscountID;
 }
 
-// Getter and setter for date
-Time Discount::getDate() const
-{
-return date;
-}
 
-void Discount::setDate(const Time &newDate)
-{
-date = newDate;
-}
 
 // Getter and setter for pointThreshold
 int Discount::getPointThreshold() const
@@ -151,8 +142,6 @@ std::istream &operator>>(std::istream &is, Discount &discount)
     {
     case 1:
         discount.type = DATE_BASED;
-        std::cout << "Enter discount date: ";
-        is >> discount.date;
         break;
     case 2:
         discount.type = POINT_BASED;
@@ -178,6 +167,18 @@ std::istream &operator>>(std::istream &is, Discount &discount)
 
     return is;
 }
+const char* Discount::DiscountTypeToString(DiscountType type) const {
+        switch (type) {
+            case DATE_BASED:
+                return "DATE_BASED";
+            case POINT_BASED:
+                return "POINT_BASED";
+            case COUPON_CODE_BASED:
+                return "COUPON_CODE_BASED";
+            default:
+                return "UNKNOWN";
+        }
+    }
 void Discount::WriteDataToFile(std::ostream &file) const
 {
 file << discountID << "," << percentage <<"," << available << "," 
@@ -199,8 +200,7 @@ void Discount::ReadDataFromFile(std::istream &file)
 }
 void Discount::Display_01(std::ostream& os){
     os << std::left << std::setw(15) << getDiscountID() << " | ";
-    os << std::left << std::setw(20) <<  getType() << " | ";
-    os << std::left << std::setw(14) << getDate()  << " | "  ; 
+    os << std::left << std::setw(20) << DiscountTypeToString(getType()) << " | ";
     os << std::left << std::setw(4) << getCouponCode() << " | ";
     os << std::left << std::setw(20) << getPercentage() << " | ";
     os << std::left << std::setw(25) << getQuantity() << " | ";

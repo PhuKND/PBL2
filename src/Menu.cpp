@@ -5,6 +5,47 @@
 #include <cstdlib>
 #include <cstring>
 using namespace std;
+void Menu::createDiscountPointvsTime(){
+     // Tạo discount theo thời gian 10%
+    Time startTime(11, 0);
+    Time endTime(20, 0);
+    time.updateRealTime();
+    Discount discount(10);
+    discount.setAvailable(1);
+    discount.setHolderID(-1) ;
+    discount.setQuantity(99) ; 
+    if (time >= startTime && time <= endTime)
+    {
+        for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+        {
+            customerManager.lists.at(i).AddDiscount(discount);
+        }
+        discountManager.AddToLists(discount); 
+    }
+    // Tạo discount theo điểm
+    //  Discount trên 100 điểm
+    Discount discount100(5);
+    discount100.setType(POINT_BASED);
+    Discount discount1000(10);
+    discount1000.setType(POINT_BASED);
+    discount100.setAvailable(1);
+    discount1000.setAvailable(1);
+    discount100.setQuantity(999) ;
+    discount100.setQuantity(999); 
+    discount1000.setHolderID(-1) ;
+    discount100.setHolderID(-1); 
+    discountManager.AddToLists(discount100);
+    discountManager.AddToLists(discount1000);  
+    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+    {
+        if (customerManager.lists.at(i).GetPoint() >= 100)
+            customerManager.lists.at(i).AddDiscount(discount100);
+        if (customerManager.lists.at(i).GetPoint() >= 1000)
+        {
+            customerManager.lists.at(i).AddDiscount(discount1000);
+        }
+    }
+}
 bool Menu::areEqual(const char *str1, const char *str2)
 {
     {
@@ -211,6 +252,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
     {
     case 1:
         cus.Display();
+        std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
         break;
     case 2:
     {
@@ -245,6 +293,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             char *fullName;
             getInput(fullName, std::cin);
             cus.SetFullName(fullName);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
             break;
         }
         case 2:
@@ -253,6 +308,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             char *gender;
             getInput(gender, std::cin);
             cus.SetGender(gender);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
             break;
         }
         case 3:
@@ -261,6 +323,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             std::cout << "Enter your new age : ";
             std::cin >> age;
             cus.SetAge(age);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
             break;
         }
         // ... (other cases)
@@ -270,6 +339,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             char *address;
             getInput(address, std::cin);
             cus.SetAddress(address);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
             break;
         }
         case 6:
@@ -278,6 +354,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             char *phonenumber;
             getInput(phonenumber, std::cin);
             cus.SetPhoneNumber(phonenumber);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
             break;
         }
         case 7:
@@ -286,11 +369,18 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             char *email;
             getInput(email, std::cin);
             cus.SetEmail(email);
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayCustomerMenu(cus, order);
             break;
         }
         case 8:
         {
-            return;
+            return run() ; 
             break;
         }
 
@@ -298,6 +388,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         {
             std::cout << RED << "Invalid selection!" << endl;
             std::cout << RESET;
+            return run(); 
             break;
         }
         }
@@ -2135,36 +2226,7 @@ void Menu::displayManagerMenu()
 
 void Menu::run()
 {
-    // Tạo discount theo thời gian 10%
-    Time startTime(11, 0);
-    Time endTime(17, 0);
-    time.updateRealTime();
-    Discount discount(10);
-    discount.setAvailable(1);
-    if (time >= startTime && time <= endTime)
-    {
-        for (size_t i = 0; i < customerManager.lists.getSize(); i++)
-        {
-            customerManager.lists.at(i).AddDiscount(discount);
-        }
-    }
-    // Tạo discount theo điểm
-    //  Discount trên 100 điểm
-    Discount discount100(5);
-    discount100.setType(POINT_BASED);
-    Discount discount1000(10);
-    discount1000.setType(POINT_BASED);
-    discount100.setAvailable(1);
-    discount1000.setAvailable(1);
-    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
-    {
-        if (customerManager.lists.at(i).GetPoint() >= 100)
-            customerManager.lists.at(i).AddDiscount(discount100);
-        if (customerManager.lists.at(i).GetPoint() >= 1000)
-        {
-            customerManager.lists.at(i).AddDiscount(discount1000);
-        }
-    }
+    createDiscountPointvsTime() ; 
     bool exit = false;
     int userType;
 
