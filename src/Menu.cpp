@@ -1582,12 +1582,19 @@ void Menu::displayManagerMenu()
     }
     case 2:
     {
-        std::cout << "== Select object you want to edit information ===" << std::endl;
-        std::cout << YELLOW << "1. Employee" << RESET << endl;
-        std::cout << GREEN << "2. Customer" << RESET << endl;
-        std::cout << BLUE << "3. Product" << RESET << endl;
-        std::cout << CYAN << "4. Discount" << RESET << endl;
-        std::cout << RED << "5. Turn back " << RESET << endl;
+            std::cout  << BLUE << std::setfill('=') << std::setw(49)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout  <<BLUE <<"| |"<< BRIGHT_MAGENTA <<"Select object you want to edit information:"<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(49)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout << GREEN <<"|1|"<<YELLOW<< "Employee\t\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|2|"<<YELLOW<< "Customer\t\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|3|"<<YELLOW<<"Product\t\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN << "|4|" <<YELLOW<<"Discount\t\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout << GREEN <<"|5|"<<YELLOW<< "Turn back\t\t\t              "<<BLUE<<"| |"<<std::endl;
+    std::cout  << BLUE << std::setfill('=') << std::setw(49)<< "=" <<std::endl;
+    std::cout << std::setfill(' ');
+    std::cout<< RESET;
         int choose;
         std::cin >> choose;
         system("CLS");
