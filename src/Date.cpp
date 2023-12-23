@@ -46,18 +46,15 @@ void Date::setYear(int year) {
     this->year = year;
 }
 void Date::setCurrentDate() {
-  // Get current time
   auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
   std::tm* timeInfo = localtime(&currentTime);
 
-  // Set day, month, and year based on the current time
   day = timeInfo->tm_mday;
-  month = timeInfo->tm_mon + 1; // tm_mon is 0-based
-  year = timeInfo->tm_year + 1900; // tm_year is years since 1900
+  month = timeInfo->tm_mon + 1; 
+  year = timeInfo->tm_year + 1900;
 }
 
 char* Date::getFormattedDate() const {
-    // Assuming enough space is allocated for the formatted date
     char* formattedDate = new char[11];
     std::snprintf(formattedDate, 11, "%02d/%02d/%04d", day, month, year);
     return formattedDate;
@@ -67,20 +64,17 @@ void Date::updateRealTime() {
     auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm* timeInfo = localtime(&currentTime);
 
-    // Set day, month, and year based on the current time
     day = timeInfo->tm_mday;
-    month = timeInfo->tm_mon + 1; // tm_mon is 0-based
-    year = timeInfo->tm_year + 1900; // tm_year is years since 1900
+    month = timeInfo->tm_mon + 1; 
+    year = timeInfo->tm_year + 1900; 
 }
 
 char* Date::getRealTime()  {
     auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-    // Format time using custom strftime function
     char buffer[20];
     strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", localtime(&currentTime));
     
-    // Allocate memory for the C-string
     char* realTimeStr = new char[20];
     std::strcpy(realTimeStr, buffer);
 

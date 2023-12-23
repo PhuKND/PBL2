@@ -10,7 +10,7 @@ ElectricalProduct::ElectricalProduct(int productID, int importPrice,  char* TenS
 
 ElectricalProduct::~ElectricalProduct()
 {
-    // Destructor implementation here, if needed
+    
 }
 
 ElectricalProduct::TechnicalSpecification ElectricalProduct::GetTechnicalSpecification() const

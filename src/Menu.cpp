@@ -435,6 +435,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             switch (viewChoice)
             {
             case 1:
+            {
                 housewareManager.Display(housewareManager.lists);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -445,13 +446,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                     return displayCustomerMenu(cus, order);
                     std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
-                int is;
-                cin >> is;
-                system("CLS");
-                if (is == 0)
-                    return displayCustomerMenu(cus, order);
-                break;
-            case 2:
+            }
+            case 2:{
                 foodManager.Display(foodManager.lists);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -461,7 +457,9 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 if (is == 0)
                     return displayCustomerMenu(cus, order);
                 break;
+            }
             case 3:
+            {
                 electricalproductManager.Display(electricalproductManager.lists);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -471,7 +469,9 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 if (is == 0)
                     return displayCustomerMenu(cus, order);
                 break;
+            }
             case 4:
+            {
                 displayCustomerMenu(cus, order);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -481,7 +481,9 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 if (is == 0)
                     return displayCustomerMenu(cus, order);
                 break;
+            }
             default:
+            {
                 std::cout << RED << "Invalid selection!" << endl;
                 std::cout << RESET;
                 break;
@@ -495,7 +497,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             }
             break;
         }
-
+        }
         case 2:
         {
             std::cout << BLUE << std::setfill('=') << std::setw(54) << "=" << std::endl;
@@ -1279,6 +1281,7 @@ void Menu::displayEmployeeMenu(Employee &employee)
         {
             {
             case 1:
+            {
                 housewareManager.Display(housewareManager.lists);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -1288,7 +1291,9 @@ void Menu::displayEmployeeMenu(Employee &employee)
                 if (is == 0)
                     return displayEmployeeMenu(employee);
                 break;
+            }
             case 2:
+            {
                 foodManager.Display(foodManager.lists);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -1298,7 +1303,9 @@ void Menu::displayEmployeeMenu(Employee &employee)
                 if (is == 0)
                     return displayEmployeeMenu(employee);
                 break;
+            }
             case 3:
+            {
                 electricalproductManager.Display(electricalproductManager.lists);
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
@@ -1308,9 +1315,12 @@ void Menu::displayEmployeeMenu(Employee &employee)
                 if (is == 0)
                     return displayEmployeeMenu(employee);
                 break;
+            }
             case 4:
+            {
                 displayEmployeeMenu(employee);
                 break;
+            }
             default:
                 std::cout << RED << "Invalid selection!" << endl;
                 std::cout << RESET;

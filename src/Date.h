@@ -25,4 +25,4 @@ friend std::istream& operator>>(std::istream& is, Date& dayObj);
     static char* getRealTime() ;
 };
 
-#endif // DATE_H
+#endif 
