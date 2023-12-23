@@ -15,6 +15,7 @@ private:
     int SoLuongDaBan;
     int SoLuongTonKho;
     char* NhaSanXuat;
+    int SoLuongNhapHang ;
 Date NgaySanXuat;
     int SoLuongTrongGio; 
     enum class ProductType {
@@ -29,6 +30,8 @@ public:
     Product(int , int , char* , int , int , int , char* , Date ) ; 
     char* getTenSanPham() const;
     void setTenSanPham( char* &TenSanPham);
+    int getSoLuongNhapHang() const ; 
+    void setSoLuongNhapHang(int) ;
     void EditProduct() ; 
     Time getNgayNhapHang() const ; 
     void setNgayNhapHang(Time&) ; 

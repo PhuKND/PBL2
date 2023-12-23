@@ -258,7 +258,6 @@ int Statistics::getImportCost() const {
 void Statistics::setImportCost(int cost) { 
     this -> importCost = cost ;
 }
-// Add implementations for new setters
 
 void Statistics::SetTotalOrders(int newTotalOrders)
 {
@@ -302,7 +301,6 @@ void Statistics::SetTotalUnitsSold(int newTotalUnitsSold)
 {
     totalUnitsSold = newTotalUnitsSold;
 }
-
 int Statistics::GetNumberOfSalesInvoices() const
 {
     return numberInvoice;

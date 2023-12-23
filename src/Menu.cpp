@@ -167,21 +167,21 @@ void Menu::UpdateStatistics(Time &start, Time &end)
     {
         if (housewareManager.lists.at(i).getNgayNhapHang() <= end && housewareManager.lists.at(i).getNgayNhapHang() >= start)
         {
-            tImport += housewareManager.lists.at(i).GetImportPrice();
+            tImport += housewareManager.lists.at(i).GetImportPrice()*housewareManager.lists.at(i).getSoLuongNhapHang();
         }
     }
     for (size_t i = 0; i < foodManager.lists.getSize(); i++)
     {
         if (foodManager.lists.at(i).getNgayNhapHang() <= end && foodManager.lists.at(i).getNgayNhapHang() >= start)
         {
-            tImport += housewareManager.lists.at(i).GetImportPrice();
+            tImport += housewareManager.lists.at(i).GetImportPrice()*housewareManager.lists.at(i).getSoLuongNhapHang();
         }
     }
     for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
     {
         if (electricalproductManager.lists.at(i).getNgayNhapHang() <= end && electricalproductManager.lists.at(i).getNgayNhapHang() >= start)
         {
-            tImport += electricalproductManager.lists.at(i).GetImportPrice();
+            tImport += electricalproductManager.lists.at(i).GetImportPrice()*electricalproductManager.lists.at(i).getSoLuongNhapHang();
         }
     }
     statistics.SetNumberOfSalesInvoices(numOrds);
@@ -189,11 +189,12 @@ void Menu::UpdateStatistics(Time &start, Time &end)
     statistics.SetTotalAmountOut(tImport + tSalary);
     statistics.setImportCost(tImport);
     statistics.SetTotalPaymentsToEmployees(tSalary);
-    statistics.SetTotalProfit(tAmountIn - tAmountOut - tSalary);
+    statistics.SetTotalProfit(tAmountIn - tImport - tSalary);
     statistics.SetTotalAmountIn(tAmountIn);
     statistics.SetTotalRevenue(tAmountIn);
     statistics.SetNumberOfCustomers(numCustomer);
     statistics.SetNumberOfEmployees(numEmployees);
+    
 }
 
 Menu::Menu()

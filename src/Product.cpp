@@ -12,19 +12,26 @@ Product::Product() {
     SoLuongTrongGio = 0  ;
     NhaSanXuat = "";
     NgaySanXuat = Date(0,0,0);
+    SoLuongNhapHang = 0 ;
     NgayNhapHang = Time(1,1,1); 
 }
 Product::Product(int productID, int importPrice,  char* TenSanPham,
                  int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat,  Date NgaySanXuat)
     : productID(productID), importPrice(importPrice),  TenSanPham(TenSanPham),
       Price(Price), SoLuongDaBan(SoLuongDaBan), SoLuongTonKho(SoLuongTonKho), NhaSanXuat(NhaSanXuat), NgaySanXuat(NgaySanXuat) {
-        
+
         this -> SoLuongTrongGio = 0 ;
+        this -> SoLuongNhapHang = 0 ;
 }
 
 Product::~Product() {
 }
-
+void Product::setSoLuongNhapHang(int sl) {
+    this -> SoLuongNhapHang = sl ;
+}
+int Product::getSoLuongNhapHang() const {
+    return SoLuongNhapHang ;
+}
 char* Product::getTenSanPham() const {
     return TenSanPham;
 }
@@ -160,6 +167,8 @@ std::ostream &operator<<(std::ostream &out, const Product &product) {
 std::istream& operator>>(std::istream& is , Product & product){
     std::cout << "Enter Product ID : " ; 
     is >> product.productID ; 
+    std::cout << "Import Quanity : " ; 
+    is >> product.SoLuongNhapHang ;
     std::cout << "Import Price : " ; 
     is >> product.importPrice ; 
     std::cout <<" Product name : " ; 
@@ -189,6 +198,7 @@ void Product::Display_01(std::ostream& f ){
 void Product::WriteDataToFile(std::ostream &file) const {
     file << productID << ","
         << NgayNhapHang << ","
+        << SoLuongNhapHang <<","
          << importPrice << ","
          << TenSanPham << ","
          << Price << ","
@@ -201,7 +211,9 @@ void Product::WriteDataToFile(std::ostream &file) const {
 void Product::ReadDataFromFile(std::istream& file) {
     char comma ; 
     file >> productID >> comma ; 
+   
     file >> NgayNhapHang >> comma ;
+     file >> SoLuongNhapHang >> comma; 
     file >> importPrice>> comma ;
     Menu::readAttributeTillDelimiter(TenSanPham,file) ; 
     file >> Price >> comma ;
