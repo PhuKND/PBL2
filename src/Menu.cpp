@@ -890,6 +890,19 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         order.SetTotalAmount(totalamount);
         order.setTotalAfterDiscount(totalamount);
         order.Display(std::cout, cus.GetFullName());
+        int totalquanity = 0;
+            for (size_t i = 0; i < housewareManager.lists.getSize(); i++)
+            {
+                totalquanity += housewareManager.lists.at(i).getSoLuongTrongGio();
+            }
+            for (size_t i = 0; i < foodManager.lists.getSize(); i++)
+            {
+                totalquanity += foodManager.lists.at(i).getSoLuongTrongGio();
+            }
+            for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
+            {
+                totalquanity += electricalproductManager.lists.at(i).getSoLuongTrongGio();
+            }
         std::cout << CYAN << "Do you want to apply discount (Y/N)" << std::endl;
         std::cout << RESET;
         char ch1 = getch();
@@ -926,19 +939,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         cin >> is;
         if (is == 0)
         {
-            int totalquanity = 0;
-            for (size_t i = 0; i < housewareManager.lists.getSize(); i++)
-            {
-                totalquanity += housewareManager.lists.at(i).getSoLuongTrongGio();
-            }
-            for (size_t i = 0; i < foodManager.lists.getSize(); i++)
-            {
-                totalquanity += foodManager.lists.at(i).getSoLuongTrongGio();
-            }
-            for (size_t i = 0; i < electricalproductManager.lists.getSize(); i++)
-            {
-                totalquanity += electricalproductManager.lists.at(i).getSoLuongTrongGio();
-            }
+            
             order.setQuanityProduct(totalquanity);
             Time time;
             time.updateRealTime();

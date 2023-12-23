@@ -18,6 +18,7 @@ Product::Product(int productID, int importPrice,  char* TenSanPham,
                  int Price, int SoLuongDaBan, int SoLuongTonKho,  char*NhaSanXuat,  Date NgaySanXuat)
     : productID(productID), importPrice(importPrice),  TenSanPham(TenSanPham),
       Price(Price), SoLuongDaBan(SoLuongDaBan), SoLuongTonKho(SoLuongTonKho), NhaSanXuat(NhaSanXuat), NgaySanXuat(NgaySanXuat) {
+        
         this -> SoLuongTrongGio = 0 ;
 }
 
