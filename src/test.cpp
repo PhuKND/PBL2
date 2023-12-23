@@ -29,9 +29,9 @@ int main()
     Menu menu ;
     menu.run();
 
-    // Time t(2,3) ;
+    // Time t(10,02,2023,2,3) ;
     // cout << t;
-    // cout << t.getDay() ; 
+    
     
     // DataManager<Discount> discountManager ;
     // discountManager.GetData(discountManager.lists,"data/input_output/discount.txt") ; 

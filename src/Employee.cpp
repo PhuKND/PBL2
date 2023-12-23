@@ -98,18 +98,17 @@ void Employee::Display()
 
 // Hàm show theo lists
 void Employee::Display_01(ostream& out){
-       cout << std::left << std::setw(15) << GetEmployeeID() << " | ";
-    cout << std::left << std::setw(20) << GetFullName() << " | ";
-    cout << std::left << std::setw(4) << GetAge() << " | ";
-    cout << std::left << std::setw(20) << GetDayOfBirth() << " | ";
-    cout << std::left << std::setw(25) << GetAddress() << " | ";
-    cout << std::left << std::setw(15) << GetPhoneNumber() << " | ";
-    cout << std::left << std::setw(30) << GetEmail() << " | ";
-    cout << std::left << std::setw(20) << GetPhoneNumber() << " | ";
-    cout << std::left << std::setw(10) << GetSalary() << " | ";
-    cout << std::left << std::setw(15) << GetStartDay() << " | ";
-    cout << std::left << std::setw(15) << GetEndDay() << " | ";
-    cout << std::left << std::setw(10) << (IsWorking() ? "Yes" : "No") << "\n";
+       out<< std::left << std::setw(15) << GetEmployeeID() << " | ";
+    out<< std::left << std::setw(20) << GetFullName() << " | ";
+    out << std::left << std::setw(4) << GetAge() << " | ";
+    out << std::left << std::setw(20)  <<std::right << std::setw(0) << GetDayOfBirth() << " | ";
+    out << std::left << std::setw(25) << GetAddress() << " | ";
+    out << std::left << std::setw(15) << GetPhoneNumber() << " | ";
+    out << std::left << std::setw(30) << GetEmail() << " | ";
+    out << std::left << std::setw(10) << GetSalary() << " | ";
+    out << std::left << std::setw(15) << std::right << std::setw(0) <<GetStartDay() << " | ";
+    out << std::left << std::setw(15) <<std::right << std::setw(0)  << GetEndDay() << " | ";
+    out << std::left << std::setw(10) << (IsWorking() ? "Yes" : "No") << "\n";
 }
 // Hàm để xuất file để vừa đọc và ghi ngăn nhau bởi dấu ,
 ostream &operator<<(ostream &o, const Employee &obj)

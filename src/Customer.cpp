@@ -71,7 +71,7 @@ void Customer::Display_01(ostream &cout)
     cout << std::left << std::setw(15) << GetCustomerID() << " | ";
     cout << std::left << std::setw(20) << GetFullName() << " | ";
     cout << std::left << std::setw(4) << GetAge() << " | ";
-    cout << std::left << std::setw(20) << GetDayOfBirth() << " | ";
+    cout << std::left << std::setw(20) <<std::right << std::setw(0)  << GetDayOfBirth() << " | ";
     cout << std::left << std::setw(25) << GetAddress() << " | ";
     cout << std::left << std::setw(15) << GetPhoneNumber() << " | ";
     cout << std::left << std::setw(30) << GetEmail() << " | ";

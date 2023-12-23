@@ -215,6 +215,17 @@ Menu::Menu()
         }
     }
     discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
+    for (size_t i = 0; i < discountManager.lists.getSize(); i++)
+    {
+        for (size_t j = 0; j < customerManager.lists.getSize(); j++)
+        {
+            if(discountManager.lists.at(i).getHolderID() == customerManager.lists.at(j).GetCustomerID()) {
+                customerManager.lists.at(j).AddDiscount(discountManager.lists.at(i)) ;
+            }
+        }
+        
+    }
+    
 }
 
 Menu::~Menu()
@@ -388,7 +399,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         {
             std::cout << RED << "Invalid selection!" << endl;
             std::cout << RESET;
-            return run(); 
+            return displayCustomerMenu(cus,order); 
             break;
         }
         }
@@ -1507,7 +1518,13 @@ void Menu::displayManagerMenu()
             {
                 employeeManager.ShowLists_file(employeeManager.lists, "data/employee_lists.txt");
             }
-
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         case 2:
@@ -1521,7 +1538,13 @@ void Menu::displayManagerMenu()
             {
                 customerManager.ShowLists_file(customerManager.lists, "data/customer_lists.txt");
             }
-
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         case 3:
@@ -1544,22 +1567,8 @@ void Menu::displayManagerMenu()
 
             switch (viewChoice)
             {
-            case 1:
+            case 1: {
                 housewareManager.Display(housewareManager.lists);
-                break;
-            case 2:
-                foodManager.Display(foodManager.lists);
-                break;
-            case 3:
-                electricalproductManager.Display(electricalproductManager.lists);
-                break;
-            case 4:
-                displayManagerMenu();
-                break;
-            default:
-                std::cout << RED << "Invalid selection!" << endl;
-                std::cout << RESET;
-                break;
                 std::cout << YELLOW << "Enter 0 to return " << endl;
                 std::cout << RESET;
                 int is;
@@ -1567,7 +1576,46 @@ void Menu::displayManagerMenu()
                 system("CLS");
                 if (is == 0)
                     return displayManagerMenu();
+                break;
             }
+            case 2:{
+                foodManager.Display(foodManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
+                break;
+                }
+            case 3:
+            {
+                electricalproductManager.Display(electricalproductManager.lists);
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
+                break;
+            }
+            case 4:
+            {
+                displayManagerMenu();
+                break; }
+            default:{
+                std::cout << RED << "Invalid selection!" << endl;
+                std::cout << RESET;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
+            }}
             break;
         }
         case 4:
@@ -1581,6 +1629,13 @@ void Menu::displayManagerMenu()
             {
                 discountManager.Display(discountManager.lists);
             }
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
         }
         case 5:
         {
@@ -1655,6 +1710,13 @@ void Menu::displayManagerMenu()
                     char *fullName;
                     getInput(fullName, std::cin);
                     employee.SetFullName(fullName);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 2:
@@ -1663,6 +1725,13 @@ void Menu::displayManagerMenu()
                     char *gender;
                     getInput(gender, std::cin);
                     employee.SetGender(gender);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 3:
@@ -1671,6 +1740,13 @@ void Menu::displayManagerMenu()
                     std::cout << "Enter your new age : ";
                     std::cin >> age;
                     employee.SetAge(age);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 4:
@@ -1679,6 +1755,13 @@ void Menu::displayManagerMenu()
                     std::cout << "Enter your new DOB : ";
                     std::cin >> date;
                     employee.SetDayOfBirth(date);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 }
                 case 5:
                 {
@@ -1686,6 +1769,13 @@ void Menu::displayManagerMenu()
                     char *address;
                     getInput(address, std::cin);
                     employee.SetAddress(address);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 6:
@@ -1694,6 +1784,13 @@ void Menu::displayManagerMenu()
                     char *phonenumber;
                     getInput(phonenumber, std::cin);
                     employee.SetPhoneNumber(phonenumber);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 7:
@@ -1702,11 +1799,18 @@ void Menu::displayManagerMenu()
                     char *email;
                     getInput(email, std::cin);
                     employee.SetEmail(email);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 8:
                 {
-                    return;
+                    return run() ;
                     break;
                 }
 
@@ -1773,6 +1877,13 @@ void Menu::displayManagerMenu()
                     char *fullName;
                     getInput(fullName, std::cin);
                     cus.SetFullName(fullName);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 2:
@@ -1781,6 +1892,13 @@ void Menu::displayManagerMenu()
                     char *gender;
                     getInput(gender, std::cin);
                     cus.SetGender(gender);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 3:
@@ -1789,6 +1907,13 @@ void Menu::displayManagerMenu()
                     std::cout << "Enter your new age : ";
                     std::cin >> age;
                     cus.SetAge(age);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 4:
@@ -1797,6 +1922,13 @@ void Menu::displayManagerMenu()
                     std::cout << "Enter your new DOB : ";
                     std::cin >> date;
                     cus.SetDayOfBirth(date);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 }
                 case 5:
                 {
@@ -1804,6 +1936,13 @@ void Menu::displayManagerMenu()
                     char *address;
                     getInput(address, std::cin);
                     cus.SetAddress(address);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 6:
@@ -1812,6 +1951,13 @@ void Menu::displayManagerMenu()
                     char *phonenumber;
                     getInput(phonenumber, std::cin);
                     cus.SetPhoneNumber(phonenumber);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 7:
@@ -1820,11 +1966,18 @@ void Menu::displayManagerMenu()
                     char *email;
                     getInput(email, std::cin);
                     cus.SetEmail(email);
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 case 8:
                 {
-                    return;
+                    return run();
                     break;
                 }
 
@@ -1832,6 +1985,13 @@ void Menu::displayManagerMenu()
                 {
                     std::cout << RED << "Invalid selection!" << endl;
                     std::cout << RESET;
+                    std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                     break;
                 }
                 }
@@ -1876,6 +2036,13 @@ void Menu::displayManagerMenu()
                 }
                 Houseware &houseware = housewareManager.lists.at(index);
                 houseware.EditProduct(); 
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 2:
@@ -1895,6 +2062,13 @@ void Menu::displayManagerMenu()
                 }
                 Food &food = foodManager.lists.at(index);
                 food.EditProduct(); 
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 3:
@@ -1914,6 +2088,13 @@ void Menu::displayManagerMenu()
                 }
                 ElectricalProduct &electricalproduct = electricalproductManager.lists.at(index);
                 electricalproduct.EditProduct(); 
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 4:
@@ -1925,6 +2106,13 @@ void Menu::displayManagerMenu()
             {
                 std::cout << RED << "Invalid selection!" << endl;
                 std::cout << RESET;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break; }
             }
         }
@@ -1946,11 +2134,25 @@ void Menu::displayManagerMenu()
             }
             Discount &discount = discountManager.lists.at(index);
             std::cin >> discount;
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         default:
             std::cout << RED << "Invalid selection!" << endl;
             std::cout << RESET;
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         break;
@@ -1993,6 +2195,13 @@ void Menu::displayManagerMenu()
             }
 
             delete[] employees;
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         case 2:
@@ -2011,6 +2220,13 @@ void Menu::displayManagerMenu()
             }
 
             delete[] customers;
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         case 3:
@@ -2044,6 +2260,13 @@ void Menu::displayManagerMenu()
                     housewareManager.AddToLists(houseware[i]);
                 }
                 delete[] houseware;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 2:
@@ -2059,6 +2282,13 @@ void Menu::displayManagerMenu()
                     foodManager.AddToLists(food[i]);
                 }
                 delete[] food;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 3:
@@ -2074,6 +2304,13 @@ void Menu::displayManagerMenu()
                     electricalproductManager.AddToLists(electricalproducts[i]);
                 }
                 delete[] electricalproducts;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 4:
@@ -2084,6 +2321,13 @@ void Menu::displayManagerMenu()
             default:
                 std::cout << RED << "Invalid selection!" << endl;
                 std::cout << RESET;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             break;
@@ -2101,11 +2345,25 @@ void Menu::displayManagerMenu()
                 discountManager.AddToLists(discount[i]);
             }
             delete[] discount;
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         default:
             std::cout << RED << "Invalid selection!" << endl;
             std::cout << RESET;
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         break;
@@ -2141,6 +2399,13 @@ void Menu::displayManagerMenu()
                     break;
                 }
             }
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         case 2:
@@ -2156,6 +2421,13 @@ void Menu::displayManagerMenu()
                     break;
                 }
             }
+            std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
         case 3:
@@ -2190,6 +2462,13 @@ void Menu::displayManagerMenu()
                         break;
                     }
                 }
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 2:
@@ -2206,6 +2485,13 @@ void Menu::displayManagerMenu()
                         break;
                     }
                 }
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 3:
@@ -2222,6 +2508,13 @@ void Menu::displayManagerMenu()
                         break;
                     }
                 }
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 4:
@@ -2238,6 +2531,13 @@ void Menu::displayManagerMenu()
                         break;
                     }
                 }
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             case 5:
@@ -2248,11 +2548,25 @@ void Menu::displayManagerMenu()
             default:
                 std::cout << RED << "Invalid selection!" << endl;
                 std::cout << RESET;
+                std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
                 break;
             }
             break;
         }
         default:
+        std::cout << YELLOW << "Enter 0 to return " << endl;
+                std::cout << RESET;
+                int is;
+                cin >> is;
+                system("CLS");
+                if (is == 0)
+                    return displayManagerMenu();
             break;
         }
     }
@@ -2365,6 +2679,7 @@ void Menu::displayManagerMenu()
 void Menu::run()
 {
     createDiscountPointvsTime() ; 
+    system("CLS") ;
     bool exit = false;
     int userType;
 
