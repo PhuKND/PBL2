@@ -34,4 +34,3 @@ Nếu bạn muốn đóng góp vào dự án, chúng tôi rất hoan nghênh. H�
 Cảm Ơn
 Chúng tôi xin chân thành cảm ơn bạn đã sử dụng Siêu Thị Quản Lý. Hy vọng rằng ứng dụng này sẽ giúp ích cho công việc quản lý của bạn.
 
-Lưu ý: Thay đổi nội dung tùy thuộc vào dự án của bạn và thêm các mục như Bản Quyền, Giấy Phép, và mọi thông tin liên quan khác.
