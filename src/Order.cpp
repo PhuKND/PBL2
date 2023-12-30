@@ -210,11 +210,11 @@ int Order::CalculateTotalAmountOut()
 }
 void Order::Display_List(std::ostream &o)
 {
-    o << std::setw(8) << GetOrderID() << "|"
-      << std::setw(13) << "$" << GetTotalAmount() << "|"
-      << std::setw(15) << GetOrderTime() << "|"
-      << std::setw(12) << getQuanityProduct() << "|" 
-      << std::setw(12) << HoanThanh << "|"
+    o << std::left <<  std::setw(8) << GetOrderID() << "|"
+      <<  "$" << std::left << std::setw(13) <<GetTotalAmount() << "|"
+      <<std::left <<  std::setw(15) << GetOrderTime() << "|"
+      <<std::left <<  std::setw(12) << getQuanityProduct() << "|" 
+      <<std::left <<  std::setw(12) << HoanThanh << "|"
       << std::endl;
 }
 void Order::ReadDataFromFile(std::istream &file)

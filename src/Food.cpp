@@ -151,14 +151,13 @@ std::ostream &operator<<(std::ostream &os, const Food &obj)
 void Food::Display_01(std::ostream &cout)
 {
     Product::Display_01(cout);
-    cout << std::left << std::setw(15) << static_cast<int>(foodType) << " | ";
-    cout << std::left << std::setw(15) << calories << " | ";
-    cout << std::left << std::setw(15) << protein << " | ";
-    cout << std::left << std::setw(15) << carbohydrates << " | ";
-    cout << std::left << std::setw(15) << fat << " | ";
-    cout << std::left << std::setw(15) << vitamins << " | ";
-    cout << std::left << std::setw(15) << netWeight << " | ";
-    cout << std::left << std::setw(15) << (isExpired ? "Expired" : "Not Expired") << " | ";
+    cout << std::left << std::setw(7) << static_cast<int>(foodType) << " | ";
+    cout << std::left << std::setw(7) << calories << "| ";
+    cout << std::left << std::setw(12) << carbohydrates << "| ";
+    cout << std::left << std::setw(2) << fat << "| ";
+    cout << std::left << std::setw(8) << vitamins << "| ";
+    cout << std::left << std::setw(10) << netWeight <<   "  | ";
+    cout << std::left << std::setw(14) << (isExpired ? "Expired" : "Not Expired") << " | ";
     cout << "\n";
 }
 

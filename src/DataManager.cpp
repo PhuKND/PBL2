@@ -44,36 +44,37 @@ void DataManager<T>::ShowLists_file(const Vector_Class<T>& data, const char* fil
 		}
 		else if (typeid(T) == typeid(Food) || typeid(T) == typeid(ElectricalProduct) || typeid(T) == typeid(Houseware))
 		{
-			cout << "STT" << std::right << std::setw(3) << "|";
-			cout << "Product ID" << std::right << std::setw(16) << "|";
-			cout << "Import ID" << std::right << std::setw(14) << "|";
-			cout << "Product Name" << std::right << std::setw(4) << "|";
-			cout << "Price" << std::right << std::setw(11) << "|";
-			cout << "Quantity Sold" << std::right << std::setw(21) << "|";
-			cout << "Quanity in Stock" << std::right << std::setw(6) << "|";
-			cout << "Manufacturer" << std::right << std::setw(28) << "|";
-			cout << "Production Date" << std::right << std::setw(28) << "|";
+			file << "STT" << std::right << std::setw(3) << "|";
+			file << "Product ID" << std::right << std::setw(16) << "|";
+			file << "Import ID" << std::right << std::setw(14) << "|";
+			file << "Product Name" << std::right << std::setw(4) << "|";
+			file << "Price" << std::right << std::setw(11) << "|";
+			file << "Quantity Sold" << std::right << std::setw(21) << "|";
+			file << "Quanity in Stock" << std::right << std::setw(6) << "|";
+			file << "Manufacturer" << std::right << std::setw(28) << "|";
+			file << "Production Date" << std::right << std::setw(28) << "|";
 			if (typeid(T) == typeid(Food))
 			{
-				cout << "Food Type" << std::right << std::setw(4) << "|";
-				cout << "Calories" << std::right << std::setw(11) << "|";
-				cout << "Carbohydrates" << std::right << std::setw(21) << "|";
-				cout << "Fat" << std::right << std::setw(6) << "|";
-				cout << "Vitamins" << std::right << std::setw(28) << "|";
-				cout << "Net Weight" << std::right << std::setw(28) << "|";
-				cout << "Is Expired" << std::right << std::setw(28) << "|";
+				file << "Food Type" << std::right << std::setw(4) << "|";
+				file << "Calories" << std::right << std::setw(11) << "|";
+				file << "Carbohydrates" << std::right << std::setw(21) << "|";
+				file << "Fat" << std::right << std::setw(6) << "|";
+				file << "Vitamins" << std::right << std::setw(28) << "|";
+				file << "Net Weight" << std::right << std::setw(28) << "|";
+				file << "Is Expired" << std::right << std::setw(28) << "|";
 			}
 			else if (typeid(T) == typeid(ElectricalProduct))
 			{
-				cout << "Resolution" << std::right << std::setw(28) << "|";
-				cout << "Capacity" << std::right << std::setw(18) << "|";
-				cout << "Screen Size" << std::right << std::setw(18) << "|";
-				cout << "Wattage" << std::right << std::setw(18) << "|";
-				cout << "Operating System" << std::right << std::setw(18) << "|";
+				file << "Resolution X" << std::right << std::setw(28) << "|";
+				file << "Resolution Y" << std::right << std::setw(28) << "|";
+				file << "Capacity" << std::right << std::setw(18) << "|";
+				file << "Screen Size" << std::right << std::setw(18) << "|";
+				file << "Wattage" << std::right << std::setw(18) << "|";
+				file << "Operating System" << std::right << std::setw(18) << "|";
 			}
 			else if (typeid(T) == typeid(Houseware))
 			{
-				cout << "Matterial" << std::right << std::setw(19) << "|";
+				file << "Matterial" << std::right << std::setw(19) << "|";
 			}
 		}
 		file << std::endl;
@@ -131,14 +132,13 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
 	else if (typeid(T) == typeid(Food) || typeid(T) == typeid(ElectricalProduct) || typeid(T) == typeid(Houseware))
 	{
 		cout << "STT" << std::right << std::setw(3) << "|";
-		cout << "Product ID" << std::right << std::setw(0) << "|";
+		cout << "Product ID" << std::right << std::setw(2) << "|";
 		cout << "Import ID" << std::right << std::setw(0) << "|";
-		cout << "Product Name" << std::right << std::setw(6) << "|";
-		cout << "Price" << std::right << std::setw(0) << "|";
-		cout << "Quantity Sold" << std::right << std::setw(0) << "|";
+		cout << "Product Name" << std::right << std::setw(16) << "|";
+		cout << "Price" << std::right << std::setw(2) << "|";
 		cout << "Quanity in Stock" << std::right << std::setw(0) << "|";
-		cout << "Manufacturer" << std::right << std::setw(5) << "|";
-		cout << "Production Date" << std::right << std::setw(0) << "|";
+		cout << "Manufacturer" << std::right << std::setw(12) << "|";
+		cout << "Production Date" << std::right << std::setw(3) << "|";
 		if (typeid(T) == typeid(Food))
 		{
 			cout << "Food Type" << std::right << std::setw(1) << "|";
@@ -147,11 +147,12 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
 			cout << "Fat" << std::right << std::setw(1) << "|";
 			cout << "Vitamins" << std::right << std::setw(1) << "|";
 			cout << "Net Weight" << std::right << std::setw(1) << "|";
-			cout << "Is Expired" << std::right << std::setw(1) << "|";
+			cout << "Is Expired" << std::right << std::setw(5) << "|";
 		}
 		else if (typeid(T) == typeid(ElectricalProduct))
 		{
-			cout << "Resolution" << std::right << std::setw(1) << "|";
+			cout << "Resolution X" << std::right << std::setw(1) << "|";
+			cout << "Resolution Y" << std::right << std::setw(1) << "|";
 			cout << "Capacity" << std::right << std::setw(1) << "|";
 			cout << "Screen Size" << std::right << std::setw(1) << "|";
 			cout << "Wattage" << std::right << std::setw(1) << "|";
@@ -159,7 +160,7 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
 		}
 		else if (typeid(T) == typeid(Houseware))
 		{
-			cout << "Material" << std::right << std::setw(1) << "|";
+			cout << "Material" << std::right << std::setw(7) << "|";
 		}
 	}
 	if (typeid(T) == typeid(Discount))
@@ -175,7 +176,7 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
         cout << "\n";
 	}
 	cout << std::endl;
-	for (int i = 0; i < 200; ++i)
+	for (int i = 0; i < 190; ++i)
 	{
 		std::cout << '-';
 	}

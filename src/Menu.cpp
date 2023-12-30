@@ -1164,7 +1164,6 @@ void Menu::displayEmployeeMenu(Employee &employee)
     std::cout << GREEN << "|2|" << YELLOW << "Account Management\t\t      " << BLUE << "| |" << std::endl;
     std::cout << GREEN << "|3|" << YELLOW << "View Inventory\t\t      " << BLUE << "| |" << std::endl;
     std::cout << GREEN << "|4|" << YELLOW << "Manage Inventory\t \t      " << BLUE << "| |" << std::endl;
-    std::cout << GREEN << "|5|" << YELLOW << "Statistics\t\t\t      " << BLUE << "| |" << std::endl;
     std::cout << GREEN << "|6|" << YELLOW << "Exit\t\t\t              " << BLUE << "| |" << std::endl;
     std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
     std::cout << std::setfill(' ');

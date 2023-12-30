@@ -36,12 +36,12 @@ void ElectricalProduct::Display()
 void ElectricalProduct::Display_01(std::ostream& file)
 {
     Product::Display_01(file);
-    file << std::left << std::setw(3) << techSpec.resolutionX << " | ";
-    file << std::left << std::setw(3) << techSpec.resolutionY << " | ";
-    file << std::left << std::setw(3) << techSpec.capacity << " | ";
-    file << std::left << std::setw(3) << techSpec.screenSize << " | ";
-    file << std::left << std::setw(3) << techSpec.wattage << " | ";
-    file << std::left << std::setw(3) << techSpec.operatingSystem << " | ";
+    file << std::left << std::setw(10) << techSpec.resolutionX << " | ";
+    file << std::left << std::setw(10) << techSpec.resolutionY << " | ";
+    file << std::left << std::setw(6) << techSpec.capacity << " | ";
+    file << std::left << std::setw(7) << techSpec.screenSize << " | ";
+    file << std::left << std::setw(6) << techSpec.wattage << " | ";
+    file << std::left << std::setw(12) << techSpec.operatingSystem << " | ";
     file << "\n";
 }
 

@@ -191,9 +191,9 @@ void Product::Display_01(std::ostream& f ){
     f << std::left << std::setw(8) << GetImportPrice() << " | " ; 
     f << std::left << std::setw(25) << getTenSanPham() << " | ";
     f << std::left << std::setw(4) <<  getPrice()<< " | ";
-    f << std::left << std::setw(5) << getSoLuongTonKho() << " | ";
-    f << std::left << std::setw(10) << getNhaSanXuat() << " | ";
-    f << std::left << std::setw(0) <<std::right << std::setw(0)  << getNgaySanXuat() << " | ";
+    f << std::left << std::setw(14) << getSoLuongTonKho() << " | ";
+    f << std::left << std::setw(21) << getNhaSanXuat() << " | ";
+    f << std::left << std::setw(0) <<std::right << std::setw(0)  << "   " << getNgaySanXuat() << "   | ";
 }
 void Product::WriteDataToFile(std::ostream &file) const {
     file << productID << ","
