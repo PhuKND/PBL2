@@ -349,10 +349,8 @@ void Statistics::DisplayCustomerStatistics() const
     std::cout << "Total Amount Spent: $" << totalAmountSpent << std::endl;
     std::cout << "Average Quantity Per Order: " << avgQuantityPerOrder << std::endl;
     std::cout << "Average Amount Per Order: $" << avgAmountPerOrder << std::endl;
-    std::cout << "Favourite Product ID: " << favouriteProductID << std::endl;
     std::cout << "Total Savings From Discounts: $" << savedMoneyDiscount << std::endl;
 
-    std::cout << "Repeat Purchase Rate: " << repeatPurchaseRate << "%" << std::endl;
     std::cout << "Customer Lifetime Value: $" << customerLifetimeValue << std::endl;
     std::cout << "Average Discount Rate: " << avgDiscountRate << "%" << std::endl;
 }
@@ -369,7 +367,6 @@ void Statistics::DisplaySuperMarketStatistics() const
     std::cout << "Number of customers: " << GetNumberOfCustomers() << std::endl;
     std::cout << "Total units sold: " << GetTotalUnitsSold() << std::endl;
     std::cout << "Number of sales invoices: " << GetNumberOfSalesInvoices() << std::endl;
-    std::cout << "Best-selling product: " << GetBestSellingProduct() << std::endl;
     std::cout << "Number of employees: " << GetNumberOfEmployees() << std::endl;
     std::cout << "Total payments to employees:  $" << GetTotalPaymentsToEmployees() << std::endl;
 }
