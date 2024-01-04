@@ -18,6 +18,7 @@ public:
          const Date& birthDate = Date(), char* =  const_cast<char*> (""), char* =  const_cast<char*> (""), char* =  const_cast<char*> (""));
     ~Person();
     char* GetFullName() const;
+     void calculateAge();
     void SetFullName(char* fullName) ;
     int GetAge() const;
     void SetAge(int age) ;

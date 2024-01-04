@@ -3,6 +3,7 @@
 
 Person::Person(int ID ,char* fullName, char* Gender, int age, const Date& DayOfBirth,char* address, char* phoneNumber, char* email)
     : ID(ID) ,fullName(fullName), Gender(Gender), age(age), DayOfBirth(DayOfBirth),  address(address), phoneNumber(phoneNumber), email(email) {
+        calculateAge();
 }
 
 Person::~Person() {
@@ -11,7 +12,13 @@ Person::~Person() {
 char* Person::GetFullName() const{
     return fullName;
 }
+void Person::calculateAge() {
+    Date currentDate;
+    int currentYear = currentDate.getYear();
+    int newAge = currentYear - DayOfBirth.getYear();
 
+    age = newAge;
+}
 void Person::SetFullName(char* fullName){
     this->fullName = fullName;
 }

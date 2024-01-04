@@ -227,6 +227,15 @@ Menu::Menu()
             }
         }
     }
+    for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
+    {
+        employeeManager.lists.at(i).calculateAge();
+    }
+    for (size_t i = 0; i < customerManager.lists.getSize(); i++)
+    {
+        customerManager.lists.at(i).calculateAge();
+    }
+    
 }
 
 Menu::~Menu()
@@ -413,7 +422,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         }
         case 8:
         {
-            return run();
+            return displayCustomerMenu(cus,order);
             break;
         }
 
