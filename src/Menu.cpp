@@ -2486,7 +2486,7 @@ void Menu::displayManagerMenu()
         std::cout << std::setfill(' ');
         std::cout << GREEN << "|1|" << YELLOW << "Customer\t\t\t      " << BLUE << "| |" << std::endl;
         std::cout << GREEN << "|2|" << YELLOW << "Employee\t\t\t      " << BLUE << "| |" << std::endl;
-        std::cout << GREEN << "|3|" << YELLOW << "Produc\t\t\t      " << BLUE << "| |" << std::endl;
+        std::cout << GREEN << "|3|" << YELLOW << "Product\t\t\t      " << BLUE << "| |" << std::endl;
         std::cout << GREEN << "|4|" << YELLOW << "Discount\t\t\t      " << BLUE << "| |" << std::endl;
         std::cout << BLUE << std::setfill('=') << std::setw(41) << "=" << std::endl;
         std::cout << std::setfill(' ');
