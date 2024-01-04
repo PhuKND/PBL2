@@ -662,7 +662,8 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 getInput(name, cin);
                 for (int i = 0; i < foodManager.lists.getSize(); i++)
                 {
-                    if (name == foodManager.lists.at(i).getTenSanPham())
+                    if (Menu::areEqual(name,foodManager
+                    .lists.at(i).getTenSanPham()))
                     {
                         std::cout << GREEN << "Product name : " << name << std::endl;
                         std::cout << RESET;
@@ -1046,7 +1047,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                     std::cout << CYAN << "Year  : ";
                     std::cout << RESET;
                     std::cin >> temp;
-                    end.setMonth(temp);
+                    end.setYear(temp);
                     break;
                 case 2:
                     int selectedMonth, selectedYear;

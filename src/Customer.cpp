@@ -152,6 +152,8 @@ void Customer::GetInformation()
     std::cout << "Day of birth: ";
     std::cin.ignore();
     std::cin >> DayOfBirth;
+    std::cout << "Gender : "  ; 
+    Menu::getInput(Gender,cin) ; 
     std::cout << "Address : ";
     std::cin.ignore();
     Menu::getInput(address, cin);
