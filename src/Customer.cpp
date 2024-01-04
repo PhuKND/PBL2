@@ -51,7 +51,7 @@ void Customer::Display()
     std::cout << "Full name : " << GetFullName() << std::endl;
     std::cout << "Age : " << GetAge() << std::endl;
     std::cout << "Gender :" << GetGender() << std::endl;
-    std::cout << "Day of birth: " << GetDayOfBirth() << std::endl;
+    std::cout <<  std::right << std::setw(0) << "Day of birth: " << GetDayOfBirth() << std::endl;
     std::cout << "Address : " << GetAddress() << std::endl;
     std::cout << "Phone number : " << GetPhoneNumber() << std::endl;
     std::cout << "Email: " << GetEmail() << std::endl;
@@ -180,24 +180,24 @@ int Customer::getOrd_Size()
 }
 void Customer::Show_Orders_History(std::ostream &o)
 {
-    o << "===========================================" << std::endl;
-    o << "                ORDERS HISTORY   " << std::endl;
-    o << "===========================================" << std::endl;
+    o << "===================================================================" << std::endl;
+    o << "                           ORDERS HISTORY   " << std::endl;
+    o << "===================================================================" << std::endl;
     o << "Customer : " << GetFullName() << endl;
     o << "ID: " << GetCustomerID() << endl;
     o << "===========================================" << std::endl;
     o << std::setw(8) << "Order ID"
       << "|"
-      << std::setw(13) << "Total Amount"
+      << std::setw(14) << "Total Amount"
       << "|"
-      << std::setw(15) << "Date"
+      << std::setw(12) << "Date"
       << "    |"
       << std::setw(12) << "Quanity"
       << "|"
       << std::setw(12) << "Is Complete"
       << "|"
       << std::endl
-      << "------------------------------------------" << endl;
+      << "-------------------------------------------------------------------" << endl;
 
     for (int i = 0; i < orderHistory.getSize(); i++)
     {
