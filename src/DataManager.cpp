@@ -167,15 +167,14 @@ void DataManager<T>::Display(const Vector_Class<T>& data)
     {
         cout << "STT" << std::right << std::setw(3) << "|";
         cout << "Discount ID" << std::right << std::setw(0) << "|";
-        cout << "Discount Type" << std::right << std::setw(20) << "|";
-        cout << "Coupon Code" << std::right << std::setw(4) << "|";
-        cout << "Percentage" << std::right << std::setw(20) << "|";
-        cout << "Available" << std::right << std::setw(15) << "|";
-        cout << "Holder ID" << std::right << std::setw(30) << "|";
+        cout << "Discount Type" << std::right << std::setw(10) << "|";
+        cout << "Coupon Code" << std::right << std::setw(2) << "|";
+        cout << "Percentage" << std::right << std::setw(0) << "|";
+        cout << "Available" << std::right << std::setw(0) << "|";
         cout << "\n";
 	}
 	cout << std::endl;
-	for (int i = 0; i < 190; ++i)
+	for (int i = 0; i < 160; ++i)
 	{
 		std::cout << '-';
 	}

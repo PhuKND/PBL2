@@ -19,4 +19,3 @@
 19,12/05/2023 00:00,50,50,CoffeeMugsSet,95,105,85,CoffeeComfort,30/07/2024,Ceramic
 20,12/05/2023 00:00,50,60,TeaCupsandSaucersSet,100,110,90,TeaTranquility,05/08/2024,Porcelain
 21,12/05/2023 00:00,50,100,WineGlassesSet,105,115,95,WineWonder,10/09/2024,Crystal
-22,12/05/2023 00:00,50,100,BeerGlassesSet,110,120,100,BeerBliss,15/10/2024,Glass

@@ -19,4 +19,4 @@
 18,Emily Thompson,F,30,06/06/1994,789 Pine St,1321321322,emily@example.com,Bookkeeper,60,01/06/2019 00:00,31/05/2024 00:00,0
 19,Brian Garcia,M,32,07/07/1992,123 Oak St,2132132132,brian@example.com,Accounting Clerk,100,01/07/2018 00:00,30/06/2023 00:00,1
 30,Nguyen An,Male,20,19/09/2004,ak Lka,0424242,fgiejg@gmail.com,e v,200,20/12/2018 00:00,31/12/2030 12:00,1
-30,Nguyen Ba Xuan An,ale,20,19/09/2004,ak Lak,81867444,guyenan@gmail.com,eveloper,300,19/09/2022 08:00,31/12/2030 00:00,1
+12,Nguyen Thi Tra My,Female,20,10/12/2004,,,,,200,12/12/2023 00:00,12/12/2030 00:00,1

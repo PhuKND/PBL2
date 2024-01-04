@@ -57,7 +57,7 @@ bool Menu::areEqual(const char *str1, const char *str2)
 }
 void Menu::getInput(char *&str, istream &cin, int maxChar)
 {
-    char temp[maxChar];
+    char temp[100];
     std::cin.ignore();
     char ch = ' ';
     int index = 0;
@@ -722,7 +722,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                     if (Menu::areEqual(name,housewareManager.lists.at(i).getTenSanPham()))
                     {
                         std::cout << GREEN << "Product name : " << name << std::endl;
-                        std::cout << GREEN << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << std::endl;
+                        std::cout << GREEN << "Quantity of product remaining : " << housewareManager.lists.at(i).getSoLuongTonKho() << std::endl;
                         std::cout << RESET;
                         std::cout << RESET;
                         cin >> sl;
@@ -2226,8 +2226,12 @@ void Menu::displayManagerMenu()
                     index = i;
                 }
             }
-            Discount &discount = discountManager.lists.at(index);
+            if(found) {
+                discountManager.lists.at(index).Display_01(std::cout) ;
+                Discount &discount = discountManager.lists.at(index);
             std::cin >> discount;
+            }
+            
             std::cout << YELLOW << "Enter 0 to return " << endl;
             std::cout << RESET;
             int is;

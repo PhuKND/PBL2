@@ -177,11 +177,11 @@ void Discount::ReadDataFromFile(std::istream &file)
     file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 void Discount::Display_01(std::ostream& os){
-    os << std::left << std::setw(15) << getDiscountID() << " | ";
+    os << std::left << std::setw(9) << getDiscountID() << " | ";
     os << std::left << std::setw(20) << DiscountTypeToString(getType()) << " | ";
-    os << std::left << std::setw(4) << getCouponCode() << " | ";
-    os << std::left << std::setw(20) << getPercentage() << " | ";
-    os << std::left << std::setw(15) << isAvailable() << " | ";
+    os << std::left << std::setw(10) << getCouponCode() << " | ";
+    os << std::left << std::setw(8) << getPercentage() << " | ";
+    os << std::left << std::setw(9) << isAvailable() << " | ";
     os << "\n";
 }
 
