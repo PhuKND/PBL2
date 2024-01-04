@@ -49,6 +49,7 @@ void Menu::createDiscountPointvsTime()
 }
 bool Menu::areEqual(const char *str1, const char *str2)
 {
+    while (*str1 != '\0' && *str2 != '\0')
     {
         if (*str1 != *str2)
         {
@@ -57,9 +58,9 @@ bool Menu::areEqual(const char *str1, const char *str2)
         str1++;
         str2++;
     }
+
     return (*str1 == '\0' && *str2 == '\0');
 }
-// Đọc có dấu cách và  stop khi xuống dòng
 void Menu::getInput(char *&str, istream &cin, int maxChar)
 {
     char temp[maxChar];
@@ -659,7 +660,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 int sl;
                 std::cout << CYAN << "Enter product name  : ";
                 std::cout << RESET;
-                getInput(name, cin);
+                getInput(name, std::cin);
                 for (int i = 0; i < foodManager.lists.getSize(); i++)
                 {
                     if (Menu::areEqual(name,foodManager
@@ -699,7 +700,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 }
                 for (int i = 0; i < electricalproductManager.lists.getSize(); i++)
                 {
-                    if (name == electricalproductManager.lists.at(i).getTenSanPham())
+                    if (Menu::areEqual(name,electricalproductManager.lists.at(i).getTenSanPham()))
                     {
                         cout << "Product name : " << name << endl;
                         cout << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << endl;
@@ -733,7 +734,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 }
                 for (int i = 0; i < housewareManager.lists.getSize(); i++)
                 {
-                    if (name == housewareManager.lists.at(i).getTenSanPham())
+                    if (Menu::areEqual(name,housewareManager.lists.at(i).getTenSanPham()))
                     {
                         std::cout << GREEN << "Product name : " << name << std::endl;
                         std::cout << GREEN << "Quantity of product remaining : " << electricalproductManager.lists.at(i).getSoLuongTonKho() << std::endl;
