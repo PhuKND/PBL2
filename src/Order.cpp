@@ -317,8 +317,6 @@ void Order::ApplyDiscount(Discount &discount)
         int newtotalAmount;
         newtotalAmount = totalAmount - discount.getPercentage() * totalAmount / 100;
         setTotalAfterDiscount(newtotalAmount) ; 
-        
-        discount.setQuantity(discount.getQuantity() - 1);
         std::cout << "Apply Discount Successfully" << std::endl;
     }
     else

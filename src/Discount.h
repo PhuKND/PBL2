@@ -15,24 +15,20 @@ class Discount
 {
 private:
     static int numberofDiscount;
-    int holderID ; 
     DiscountType type;
     int discountID;
     int pointThreshold;
     char *couponCode;
     int percentage;
-    int quantity;
     bool available;
 public:
-    Discount(int discountid,int holderID, char *couponCode, int percentage, int quanity, bool available);
+    Discount(int discountid,char *couponCode, int percentage, bool available);
     Discount(int percentage);
-    Discount(int discountid, int pointThreshold, int percentage, int quanity, bool available);
+    Discount(int discountid, int pointThreshold, int percentage, bool available);
     
     ~Discount();
     Discount();
-    int getHolderID() ;
      const char* DiscountTypeToString(DiscountType type) const ;
-    void setHolderID(int) ;
     int getPercentage() const;
     static int getNumberOfDiscount();
     static void setNumberOfDiscount(int value);
@@ -45,8 +41,7 @@ public:
     char *getCouponCode() ;
     void setCouponCode(char *newCouponCode);
     void setPercentage(int newPercentage);
-    int getQuantity() const;
-    void setQuantity(int newQuantity);
+  
     bool isAvailable() const;
     void setAvailable(bool newAvailable);
     friend std::istream &operator>>(std::istream &is, Discount &discount);

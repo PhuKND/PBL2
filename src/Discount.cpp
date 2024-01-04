@@ -1,27 +1,21 @@
 #include "Discount.h"
 #include "Menu.h"
 
-Discount::Discount(int discountid,int holderID,   char *couponCode, int percentage, int quantity, bool available)
-: discountID(numberofDiscount++),holderID(holderID) ,type(COUPON_CODE_BASED), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+Discount::Discount(int discountid, char *couponCode, int percentage,  bool available)
+: discountID(numberofDiscount++),type(COUPON_CODE_BASED), pointThreshold(0), couponCode(""), percentage(percentage),  available(available) {}
 Discount::Discount(int percentage)
-: discountID(numberofDiscount++), type(DATE_BASED), pointThreshold(0), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+: discountID(numberofDiscount++), type(DATE_BASED), pointThreshold(0), couponCode(""), percentage(percentage), available(available) {}
 
-Discount::Discount(int discountid, int pointThreshold, int percentage, int quantity, bool available)
-: discountID(numberofDiscount++), type(POINT_BASED),  pointThreshold(pointThreshold), couponCode(""), percentage(percentage), quantity(quantity), available(available) {}
+Discount::Discount(int discountid, int pointThreshold, int percentage,  bool available)
+: discountID(numberofDiscount++), type(POINT_BASED),  pointThreshold(pointThreshold), couponCode(""), percentage(percentage), available(available) {}
 
 Discount::~Discount()
 {
 }
-Discount::Discount() : Discount(0,-1, "", 0.0, 0, 1)
+Discount::Discount() : Discount(0, "", 0, 1)
 {
 }
-int Discount::getHolderID(){
-    return holderID; 
 
-}
-void Discount::setHolderID(int id) {
-    this -> holderID = id ;
-}
 int Discount::getPercentage() const
 {
 return percentage;
@@ -86,18 +80,6 @@ void Discount::setPercentage(int newPercentage)
 percentage = newPercentage;
 }
 
-// Getter and setter for quantity
-int Discount::getQuantity() const
-{
-return quantity;
-}
-
-void Discount::setQuantity(int newQuantity)
-{
-quantity = newQuantity;
-}
-
-// Getter and setter for available
 bool Discount::isAvailable() const
 {
 return available;
@@ -160,8 +142,6 @@ std::istream &operator>>(std::istream &is, Discount &discount)
 
     std::cout << "Enter percentage: ";
     is >> discount.percentage;
-    std::cout << "Enter quantity: ";
-    is >> discount.quantity;
     std::cout << "Is available: ";
     is >> discount.available;
 
@@ -182,7 +162,7 @@ const char* Discount::DiscountTypeToString(DiscountType type) const {
 void Discount::WriteDataToFile(std::ostream &file) const
 {
 file << discountID << "," << percentage <<"," << available << "," 
-        << quantity << "," << holderID << "," << couponCode << std::endl ;
+     << couponCode << std::endl ;
 }
 void Discount::ReadDataFromFile(std::istream &file)
 {
@@ -193,8 +173,6 @@ void Discount::ReadDataFromFile(std::istream &file)
     type = static_cast<DiscountType>(2); 
     file >> percentage >> comma;
     file >> available >> comma;
-    file >> quantity >> comma;
-    file >> holderID >> comma;
     Menu::readAttributeTillDelimiter(couponCode, file);
     file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
@@ -203,9 +181,7 @@ void Discount::Display_01(std::ostream& os){
     os << std::left << std::setw(20) << DiscountTypeToString(getType()) << " | ";
     os << std::left << std::setw(4) << getCouponCode() << " | ";
     os << std::left << std::setw(20) << getPercentage() << " | ";
-    os << std::left << std::setw(25) << getQuantity() << " | ";
     os << std::left << std::setw(15) << isAvailable() << " | ";
-    os << std::left << std::setw(30) << getHolderID()<< " | ";
     os << "\n";
 }
 

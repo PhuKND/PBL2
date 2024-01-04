@@ -13,8 +13,6 @@ void Menu::createDiscountPointvsTime()
     time.updateRealTime();
     Discount discount(10);
     discount.setAvailable(1);
-    discount.setHolderID(-1);
-    discount.setQuantity(99);
     if (time >= startTime && time <= endTime)
     {
         for (size_t i = 0; i < customerManager.lists.getSize(); i++)
@@ -31,10 +29,6 @@ void Menu::createDiscountPointvsTime()
     discount1000.setType(POINT_BASED);
     discount100.setAvailable(1);
     discount1000.setAvailable(1);
-    discount100.setQuantity(999);
-    discount100.setQuantity(999);
-    discount1000.setHolderID(-1);
-    discount100.setHolderID(-1);
     discountManager.AddToLists(discount100);
     discountManager.AddToLists(discount1000);
     for (size_t i = 0; i < customerManager.lists.getSize(); i++)
@@ -218,16 +212,7 @@ Menu::Menu()
         }
     }
     discountManager.GetData(discountManager.lists, "data/input_output/discount.txt");
-    for (size_t i = 0; i < discountManager.lists.getSize(); i++)
-    {
-        for (size_t j = 0; j < customerManager.lists.getSize(); j++)
-        {
-            if (discountManager.lists.at(i).getHolderID() == customerManager.lists.at(j).GetCustomerID())
-            {
-                customerManager.lists.at(j).AddDiscount(discountManager.lists.at(i));
-            }
-        }
-    }
+    
     for (size_t i = 0; i < employeeManager.lists.getSize(); i++)
     {
         employeeManager.lists.at(i).calculateAge();
