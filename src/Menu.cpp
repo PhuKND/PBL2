@@ -55,18 +55,20 @@ bool Menu::areEqual(const char *str1, const char *str2)
 
     return (*str1 == '\0' && *str2 == '\0');
 }
-void Menu::getInput(char *&str, istream &cin, int maxChar)
+void Menu::getInput(char *&str, std::istream &cin, int maxChar)
 {
-    char temp[100];
-    std::cin.ignore();
+    char temp[maxChar];
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     char ch = ' ';
     int index = 0;
     while (ch != '\n' && index < maxChar - 1)
     {
-        ch = std::cin.get();
+        ch = cin.get();
         temp[index++] = ch;
     }
     temp[index - 1] = '\0';
+
     str = new char[index];
     for (int i = 0; i < index; ++i)
     {
@@ -766,7 +768,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 {
                     if (proid == foodManager.lists.at(i).getMaSanPham())
                     {
-                        cout << "Product name : " << foodManager.lists.at(i).getMaSanPham() << endl;
+                        cout << "Product name : " << foodManager.lists.at(i).getTenSanPham() << endl;
                         cout << "Quantity of product remaining : " << foodManager.lists.at(i).getSoLuongTonKho() << endl;
                         std::cout << CYAN << "Enter quanity =  ";
                         std::cout << RESET;
