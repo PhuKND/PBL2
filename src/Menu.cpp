@@ -624,14 +624,14 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
         }
         case 3:
         {
-            std::cout << BLUE << std::setfill('=') << std::setw(54) << "=" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(55) << "=" << std::endl;
             std::cout << std::setfill(' ');
             std::cout << BLUE << "| |" << BRIGHT_MAGENTA << "Enter Product name or Product ID  to get to cash:" << BLUE << "| |" << std::endl;
-            std::cout << BLUE << setfill('=') << setw(54) << "=" << std::endl;
+            std::cout << BLUE << setfill('=') << setw(55) << "=" << std::endl;
             std::cout << std::setfill(' ');
-            std::cout << GREEN << "|1|" << YELLOW << "Product name\t\t\t\t           " << BLUE << "| |" << std::endl;
-            std::cout << GREEN << "|2|" << YELLOW << "Product id\t\t\t\t           " << BLUE << "| |" << std::endl;
-            std::cout << BLUE << std::setfill('=') << std::setw(54) << "=" << std::endl;
+            std::cout << GREEN << "|1|" << YELLOW << "Product name\t\t\t\t            " << BLUE << "| |" << std::endl;
+            std::cout << GREEN << "|2|" << YELLOW << "Product id\t\t\t\t            " << BLUE << "| |" << std::endl;
+            std::cout << BLUE << std::setfill('=') << std::setw(55) << "=" << std::endl;
             std::cout << std::setfill(' ');
             std::cout << RESET;
             int selection;
