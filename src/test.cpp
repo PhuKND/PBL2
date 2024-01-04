@@ -26,8 +26,7 @@ int main()
 //    std::cout << "KHONG DUNG GIO " ; 
 // }
 
-    Menu menu ;
-    menu.run();
+    Menu menu ;    menu.run();
 
     // Time t(10,02,2023,2,3) ;
     // cout << t;

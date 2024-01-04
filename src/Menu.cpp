@@ -567,7 +567,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 getInput(name, cin);
                 for (int i = 0; i < foodManager.lists.getSize(); i++)
                 {
-                    if (name == foodManager.lists.at(i).getTenSanPham())
+                    if (Menu::areEqual(name,foodManager.lists.at(i).getTenSanPham()))
                     {
                         foodManager.lists.at(i).Display();
                         productFound = true;
@@ -576,7 +576,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 }
                 for (int i = 0; i < electricalproductManager.lists.getSize(); i++)
                 {
-                    if (name == electricalproductManager.lists.at(i).getTenSanPham())
+                    if (Menu::areEqual(name,electricalproductManager.lists.at(i).getTenSanPham()))
                     {
                         electricalproductManager.lists.at(i).Display();
                         productFound = true;
@@ -585,7 +585,7 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 }
                 for (int i = 0; i < housewareManager.lists.getSize(); i++)
                 {
-                    if (name == housewareManager.lists.at(i).getTenSanPham())
+                    if (Menu::areEqual(name,housewareManager.lists.at(i).getTenSanPham()))
                     {
                         housewareManager.lists.at(i).Display();
                         productFound = true;

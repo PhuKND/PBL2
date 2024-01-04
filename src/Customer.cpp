@@ -117,6 +117,7 @@ void Customer::BuyProduct(Order &order, Food &obj, int sl)
     obj.setSoLuongTrongGio(sl);
     order.Order_Food(obj);
     cout << "Buy " << obj.getTenSanPham() << " Successfully" << endl;
+    Point += 1 ;
 }
 void Customer::BuyProduct(Order &order, ElectricalProduct &obj, int sl)
 {
@@ -125,6 +126,7 @@ void Customer::BuyProduct(Order &order, ElectricalProduct &obj, int sl)
     obj.setSoLuongTrongGio(sl);
     order.Order_ElectricalProduct(obj);
     cout << "Buy " << obj.getTenSanPham() << " Successfully" << endl;
+    Point += 1 ;
 }
 
 void Customer::BuyProduct(Order &order, Houseware &obj, int sl)
@@ -134,6 +136,7 @@ void Customer::BuyProduct(Order &order, Houseware &obj, int sl)
     obj.setSoLuongTrongGio(sl);
     order.Order_Houseware(obj);
     cout << "Buy " << obj.getTenSanPham() << " Successfully" << endl;
+    Point += 1 ;
 }
 void Customer::add_to_orders(const Order &ord)
 {
