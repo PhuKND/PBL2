@@ -352,7 +352,7 @@ void Statistics::DisplayCustomerStatistics() const
     std::cout << "Total Savings From Discounts: $" << savedMoneyDiscount << std::endl;
 
     std::cout << "Customer Lifetime Value: $" << customerLifetimeValue << std::endl;
-    std::cout << "Average Discount Rate: " << avgDiscountRate << "%" << std::endl;
+    std::cout << "Using Discount Rate: " << avgDiscountRate << "%" << std::endl;
 }
 void Statistics::DisplaySuperMarketStatistics() const
 {

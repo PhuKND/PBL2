@@ -186,7 +186,7 @@ void Customer::Show_Orders_History(std::ostream &o)
       << std::setw(13) << "Total Amount"
       << "|"
       << std::setw(15) << "Date"
-      << "|"
+      << "    |"
       << std::setw(12) << "Quanity"
       << "|"
       << std::setw(12) << "Is Complete"
@@ -196,6 +196,7 @@ void Customer::Show_Orders_History(std::ostream &o)
 
     for (int i = 0; i < orderHistory.getSize(); i++)
     {
+        if(orderHistory.at(i).HoanThanh)
         orderHistory.at(i).Display_List(o);
     }
 }

@@ -347,7 +347,22 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
                 return displayCustomerMenu(cus, order);
             break;
         }
-        // ... (other cases)
+        case 4 : 
+        {
+            std::cout << CYAN << "Enter your new DOB";
+            std::cout << RESET;
+            Date dob ;
+            std::cin >> dob ;
+            cus.SetDayOfBirth(dob);
+             std::cout << YELLOW << "Enter 0 to return " << endl;
+            std::cout << RESET;
+            int is;
+            cin >> is;
+            system("CLS");
+            if (is == 0)
+                return displayCustomerMenu(cus, order);
+            break;
+        }
         case 5:
         {
             std::cout << CYAN << "Enter your new address";
@@ -1146,10 +1161,13 @@ void Menu::displayCustomerMenu(Customer &cus, Order &order)
             return displayCustomerMenu(cus, order);
         break;
     }
+    case 8 : {
+        return run() ;
+        break ;
+    }
     default:
         std::cout << RED << "Invalid value. Please try again" << endl;
         std::cout << RESET;
-
         break;
     }
 }
